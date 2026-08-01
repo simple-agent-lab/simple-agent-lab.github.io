@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="google-site-verification"
+      content="D94IoHgseJNY5YrF_3tcZM9igQlPpZqWRlPSXJP3W_g"
+    />
+
+    <title>Simple Agent Lab | AI4AI &amp; Self-Improving Systems</title>
+    <meta
+      name="description"
+      content="Simple Agent Lab is an open AI research collective exploring simple yet effective methods for AI4AI, self-improving systems, and recursive self-improvement."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://simpleagentlab.com/" />
+
+    <meta property="og:title" content="Simple Agent Lab | AI4AI &amp; Self-Improving Systems" />
+    <meta
+      property="og:description"
+      content="Simple yet effective methods for AI4AI, self-improving systems, and recursive improvement."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://simpleagentlab.com/" />
+    <meta property="og:site_name" content="Simple Agent Lab" />
+    <meta property="og:image" content="https://simpleagentlab.com/assets/og.png" />
+    <meta property="og:image:alt" content="Simple Agent Lab — Simple yet effective methods for AI4AI" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Simple Agent Lab | AI4AI &amp; Self-Improving Systems" />
+    <meta
+      name="twitter:description"
+      content="A future built by AI, understandable by humans."
+    />
+    <meta name="twitter:image" content="https://simpleagentlab.com/assets/og.png" />
+    <meta name="twitter:image:alt" content="Simple Agent Lab — Simple yet effective methods for AI4AI" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://simpleagentlab.com/#website",
+            "url": "https://simpleagentlab.com/",
+            "name": "Simple Agent Lab",
+            "description": "Simple yet effective methods for AI4AI.",
+            "publisher": {
+              "@id": "https://simpleagentlab.com/#organization"
+            }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://simpleagentlab.com/#organization",
+            "url": "https://simpleagentlab.com/",
+            "name": "Simple Agent Lab",
+            "description": "An open AI research collective exploring AI4AI, self-improving systems, and recursive self-improvement.",
+            "logo": "https://simpleagentlab.com/assets/logo.png",
+            "sameAs": [
+              "https://github.com/simple-agent-lab"
+            ]
+          }
+        ]
+      }
+    </script>
+
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <script>
+      try {
+        var root = document.documentElement;
+        var savedLanguage = localStorage.getItem("simple-agent-lab-language-choice");
+        var browserLanguages = navigator.languages && navigator.languages.length
+          ? navigator.languages
+          : [navigator.language || "en"];
+        var browserLanguage = browserLanguages.some(function (language) {
+          return language.toLowerCase().startsWith("zh");
+        }) ? "zh" : "en";
+        var language = savedLanguage === "en" || savedLanguage === "zh"
+          ? savedLanguage
+          : browserLanguage;
+        root.dataset.lang = language;
+        root.lang = language === "zh" ? "zh-CN" : "en";
+
+        var savedTheme = localStorage.getItem("simple-agent-lab-theme");
+        var theme = savedTheme === "light" || savedTheme === "dark"
+          ? savedTheme
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        root.dataset.theme = theme;
+        root.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]').setAttribute(
+          "content",
+          theme === "dark" ? "#111513" : "#ffffff"
+        );
+      } catch (error) {}
+    </script>
+    <script src="./assets/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      <span class="lang-en" lang="en">Skip to content</span>
+      <span class="lang-zh" lang="zh-CN">跳至正文</span>
+    </a>
+
+    <header class="site-header">
+      <a class="small-brand" href="#top" aria-label="Simple Agent Lab home">
+        <img src="./assets/logo.svg" width="26" height="26" alt="" />
+        <span>Simple Agent Lab</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#work">
+          <span class="lang-en" lang="en">Work</span>
+          <span class="lang-zh" lang="zh-CN">研究工作</span>
+        </a>
+        <a href="#about">
+          <span class="lang-en" lang="en">About</span>
+          <span class="lang-zh" lang="zh-CN">关于我们</span>
+        </a>
+        <a href="https://github.com/simple-agent-lab" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark theme">
+          <span class="theme-action-en" lang="en">Dark</span>
+          <span class="theme-action-zh" lang="zh-CN">深色</span>
+        </button>
+        <button class="language-toggle" type="button" aria-label="切换为中文">中文</button>
+      </nav>
+    </header>
+
+    <div class="masthead" id="top">
+      <img class="masthead-mark" src="./assets/logo.svg" width="78" height="78" alt="Simple Agent Lab loop mark" />
+      <h1>Simple Agent Lab</h1>
+      <p>
+        <span class="lang-en" lang="en">Simple yet effective methods for AI4AI.</span>
+        <span class="lang-zh" lang="zh-CN">探索 AI4AI 中 simple yet effective 的方法。</span>
+      </p>
+    </div>
+
+    <main id="main">
+      <article class="manifesto">
+        <p class="opening">
+          <span class="lang-en" lang="en">Simple Agent Lab is an open AI research collective. We’re building a future where AI can help build AI, while the methods behind it remain understandable to humans.</span>
+          <span class="lang-zh" lang="zh-CN">Simple Agent Lab 是一个开放的 AI 研究共同体。我们希望构建一个由 AI 帮助创造、又能被人类理解的未来。</span>
+        </p>
+
+        <p>
+          <span class="lang-en" lang="en">AI will increasingly write code, generate data, run experiments, evaluate results, and improve models and systems. Improved AI can then return to build the next generation—forming a recursive loop of improvement.</span>
+          <span class="lang-zh" lang="zh-CN">AI 将越来越多地编写代码、生成数据、运行实验、评估结果，并改进模型与系统。改进后的 AI 可以继续参与下一轮构建，形成递归的改进闭环。</span>
+        </p>
+
+        <p>
+          <span class="lang-en" lang="en">But a future built by AI should not become too complex for humans to understand. We want every improvement to remain simple, transparent, and verifiable—so people can understand how it happened and decide where it goes next.</span>
+          <span class="lang-zh" lang="zh-CN">但由 AI 构建的未来，不应复杂到无法被人类理解。我们希望每一次改进都保持简单、透明、可验证，让人们能够理解它如何发生，并决定它走向何方。</span>
+        </p>
+
+        <h2>
+          <span class="lang-en" lang="en">From AI4AI to recursive improvement</span>
+          <span class="lang-zh" lang="zh-CN">从 AI4AI 走向递归改进</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">We research <strong>AI4AI</strong>, build <strong>Self-Improving Systems</strong>, and explore the path toward <strong>Recursive Self-Improvement (RSI)</strong>.</span>
+          <span class="lang-zh" lang="zh-CN">我们研究 <strong>AI4AI</strong>，构建 <strong>Self-Improving Systems</strong>，并探索通往 <strong>Recursive Self-Improvement（RSI）</strong> 的路径。</span>
+        </p>
+        <h2>
+          <span class="lang-en" lang="en">Simple yet effective</span>
+          <span class="lang-zh" lang="zh-CN">Simple yet effective</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">Simple does not mean unsophisticated. Simplicity is what allows humans to continue understanding and participating in a future built by AI. We want people to see how a method works, verify why an improvement happened, and help decide what comes next.</span>
+          <span class="lang-zh" lang="zh-CN">简单不代表简陋，简单是让人类始终能够理解并参与 AI 构建未来的前提。我们希望人们能够看懂方法如何工作，验证改进为何发生，并参与决定下一步。</span>
+        </p>
+
+        <h2>
+          <span class="lang-en" lang="en">Research is better when shared</span>
+          <span class="lang-zh" lang="zh-CN">研究因分享而进步</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">We share code, experiments, evaluations, and failures so others can inspect, reproduce, and build on what we learn. Our members have studied or worked at ByteDance, UC Berkeley, Tsinghua University, Shanghai Jiao Tong University, and Tongji University. All members participate in a personal capacity.</span>
+          <span class="lang-zh" lang="zh-CN">我们分享代码、实验、评测与失败，让更多人能够检查、复现并继续推进这些探索。我们的成员曾在 ByteDance、UC Berkeley、清华大学、上海交通大学和同济大学学习或工作。所有成员均以个人身份参与。</span>
+        </p>
+        <section id="work" class="work-section">
+          <h2>
+            <span class="lang-en" lang="en">Selected work</span>
+            <span class="lang-zh" lang="zh-CN">代表工作</span>
+          </h2>
+          <div class="work-list">
+            <div class="work-item">
+              <a
+                class="work-summary"
+                href="https://arxiv.org/abs/2606.31551"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="AutoTrainess paper"
+              >
+                <strong>AutoTrainess</strong>
+                <small>
+                  <span class="lang-en" lang="en">Teaching language models to improve language models autonomously through a training-specialized Agent–Computer Interface.</span>
+                  <span class="lang-zh" lang="zh-CN">通过面向训练的专用 Agent–Computer Interface，让语言模型自主改进语言模型。</span>
+                </small>
+              </a>
+              <span class="work-actions">
+                <a href="https://arxiv.org/abs/2606.31551" target="_blank" rel="noreferrer">
+                  <span class="lang-en" lang="en">Paper</span>
+                  <span class="lang-zh" lang="zh-CN">论文</span>
+                  <b aria-hidden="true">↗</b>
+                </a>
+                <a href="https://github.com/simple-agent-lab/AutoTrainess" target="_blank" rel="noreferrer">
+                  <span>Code</span>
+                  <b aria-hidden="true">↗</b>
+                </a>
+              </span>
+            </div>
+            <a href="https://github.com/simple-agent-lab/simple-long-horizon-agent" target="_blank" rel="noreferrer">
+              <span>
+                <strong>Simple Long Horizon Agent</strong>
+                <small>
+                  <span class="lang-en" lang="en">A minimal, understandable agent loop for real long-horizon work.</span>
+                  <span class="lang-zh" lang="zh-CN">一个保持简单、可理解，同时面向真实长程任务的 Agent Loop。</span>
+                </small>
+              </span>
+              <b aria-hidden="true">↗</b>
+            </a>
+          </div>
+        </section>
+
+        <section id="about" class="closing">
+          <p><strong>AI4AI</strong> <span class="lang-en" lang="en">is our direction.</span><span class="lang-zh" lang="zh-CN">是我们的方向。</span></p>
+          <p><strong>Recursive Improvement</strong> <span class="lang-en" lang="en">is our path.</span><span class="lang-zh" lang="zh-CN">是我们的路径。</span></p>
+          <p><strong>Simple</strong> <span class="lang-en" lang="en">is our principle.</span><span class="lang-zh" lang="zh-CN">是我们的原则。</span></p>
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <span>Simple Agent Lab</span>
+      <a href="./disclaimer.html">
+        <span class="lang-en" lang="en">Disclaimer</span>
+        <span class="lang-zh" lang="zh-CN">免责声明</span>
+      </a>
+      <span>© 2026</span>
+    </footer>
+  </body>
+</html>

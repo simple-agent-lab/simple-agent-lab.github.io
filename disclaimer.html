@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Institutional Affiliation Disclaimer | Simple Agent Lab</title>
+    <meta
+      name="description"
+      content="Institutional affiliation disclaimer for Simple Agent Lab."
+    />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="https://simpleagentlab.com/disclaimer.html" />
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <script>
+      try {
+        var root = document.documentElement;
+        var savedLanguage = localStorage.getItem("simple-agent-lab-language-choice");
+        var browserLanguages = navigator.languages && navigator.languages.length
+          ? navigator.languages
+          : [navigator.language || "en"];
+        var browserLanguage = browserLanguages.some(function (language) {
+          return language.toLowerCase().startsWith("zh");
+        }) ? "zh" : "en";
+        var language = savedLanguage === "en" || savedLanguage === "zh"
+          ? savedLanguage
+          : browserLanguage;
+        root.dataset.lang = language;
+        root.lang = language === "zh" ? "zh-CN" : "en";
+
+        var savedTheme = localStorage.getItem("simple-agent-lab-theme");
+        var theme = savedTheme === "light" || savedTheme === "dark"
+          ? savedTheme
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        root.dataset.theme = theme;
+        root.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]').setAttribute(
+          "content",
+          theme === "dark" ? "#111513" : "#ffffff"
+        );
+      } catch (error) {}
+    </script>
+    <script src="./assets/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      <span class="lang-en" lang="en">Skip to content</span>
+      <span class="lang-zh" lang="zh-CN">跳至正文</span>
+    </a>
+
+    <header class="site-header">
+      <a class="small-brand" href="./" aria-label="Simple Agent Lab home">
+        <img src="./assets/logo.svg" width="26" height="26" alt="" />
+        <span>Simple Agent Lab</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="./">
+          <span class="lang-en" lang="en">Home</span>
+          <span class="lang-zh" lang="zh-CN">首页</span>
+        </a>
+        <a href="https://github.com/simple-agent-lab" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark theme">
+          <span class="theme-action-en" lang="en">Dark</span>
+          <span class="theme-action-zh" lang="zh-CN">深色</span>
+        </button>
+        <button class="language-toggle" type="button" aria-label="切换为中文">中文</button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <article class="legal-page">
+        <p class="eyebrow">
+          <span class="lang-en" lang="en">Governance</span>
+          <span class="lang-zh" lang="zh-CN">治理说明</span>
+        </p>
+        <h1>
+          <span class="lang-en" lang="en">Institutional affiliation disclaimer</span>
+          <span class="lang-zh" lang="zh-CN">机构归属声明</span>
+        </h1>
+
+        <p>
+          <span class="lang-en" lang="en">Simple Agent Lab is an independent research collective. Members participate in a personal capacity.</span>
+          <span class="lang-zh" lang="zh-CN">Simple Agent Lab 是一个独立研究共同体。所有成员均以个人身份参与。</span>
+        </p>
+
+        <h2>
+          <span class="lang-en" lang="en">Affiliations</span>
+          <span class="lang-zh" lang="zh-CN">机构归属</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">References to companies, universities, or other institutions are provided solely to describe members’ personal backgrounds. They do not imply endorsement, sponsorship, authorization, partnership, or responsibility by those institutions for Simple Agent Lab or its work.</span>
+          <span class="lang-zh" lang="zh-CN">相关机构仅用于说明个人背景，不代表这些机构对 Simple Agent Lab 或其工作的认可、赞助、授权、合作关系或责任。</span>
+        </p>
+
+        <h2>
+          <span class="lang-en" lang="en">Contributions</span>
+          <span class="lang-zh" lang="zh-CN">研究与贡献</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">Members and contributors are responsible for ensuring that their participation and contributions comply with any obligations that apply to them and that they have the right to share the code, data, writing, or other materials they contribute.</span>
+          <span class="lang-zh" lang="zh-CN">成员与贡献者应自行确保其参与和贡献符合对其适用的义务，并确认其有权分享所贡献的代码、数据、文字或其他材料。</span>
+        </p>
+
+        <a class="back-link" href="./">
+          <span aria-hidden="true">← </span>
+          <span class="lang-en" lang="en">Back to Simple Agent Lab</span>
+          <span class="lang-zh" lang="zh-CN">返回 Simple Agent Lab</span>
+        </a>
+      </article>
+    </main>
+
+    <footer>
+      <span>Simple Agent Lab</span>
+      <span>© 2026</span>
+    </footer>
+  </body>
+</html>
