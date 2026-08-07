@@ -154,13 +154,21 @@ main { width: 100%; padding: 0 20px; }
 .work-summary { display: flex; flex-direction: column; gap: 3px; }
 .work-list strong { font: 700 15px/1.35 var(--sans); }
 .work-list small { color: var(--soft); font-size: 14px; line-height: 1.45; }
-.work-list small span { display: inline; }
 .work-list b { color: var(--soft); font: 400 20px/1 var(--sans); }
 .work-summary {
   flex: 1;
   color: inherit;
   text-decoration: none;
 }
+.work-tag {
+  align-self: flex-start;
+  margin-bottom: 3px;
+  color: var(--blue);
+  font: 700 11px/1 var(--sans);
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+.work-summary:hover .work-tag { text-decoration: none; }
 .work-summary:hover strong { text-decoration: underline; }
 .work-actions {
   display: flex;
