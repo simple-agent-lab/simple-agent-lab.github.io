@@ -185,6 +185,13 @@ main { width: 100%; padding: 0 20px; }
 }
 .work-actions a:hover { color: var(--fg); text-decoration: underline; }
 .work-actions b { font-size: 14px; }
+.work-action-soon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--faint);
+  font: 600 13px/1 var(--sans);
+  cursor: default;
+}
 
 .closing {
   margin: 3.8rem 0 0;
