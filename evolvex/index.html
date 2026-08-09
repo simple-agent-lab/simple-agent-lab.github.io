@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <title>EvolveX | Self-Evolving Agent Framework by Simple Agent Lab</title>
+    <meta
+      name="description"
+      content="EvolveX is an open-source framework for self-evolving agents by Simple Agent Lab. Build agents that improve and keep the evidence—simple, transparent, verifiable."
+    />
+    <meta
+      name="keywords"
+      content="EvolveX, EvolveX framework, EvolveX agent, EvolveX GitHub, self-evolving agents, agent evolution framework, self-improving agents, agent self-improvement, Simple Agent Lab, AI4AI, 智能体进化框架, 自进化智能体"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://simpleagentlab.com/evolvex/" />
+
+    <meta property="og:title" content="EvolveX | Self-Evolving Agent Framework" />
+    <meta
+      property="og:description"
+      content="Build agents that improve and keep the evidence. EvolveX is a simple, open-source framework for agent evolution by Simple Agent Lab."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://simpleagentlab.com/evolvex/" />
+    <meta property="og:site_name" content="Simple Agent Lab" />
+    <meta property="og:image" content="https://simpleagentlab.com/assets/og.png" />
+    <meta property="og:image:alt" content="EvolveX by Simple Agent Lab — Build agents that improve and keep the evidence" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="EvolveX | Self-Evolving Agent Framework" />
+    <meta
+      name="twitter:description"
+      content="Build agents that improve and keep the evidence. A simple, open-source framework for agent evolution."
+    />
+    <meta name="twitter:image" content="https://simpleagentlab.com/assets/og.png" />
+    <meta name="twitter:image:alt" content="EvolveX by Simple Agent Lab — Build agents that improve and keep the evidence" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://simpleagentlab.com/evolvex/#software",
+            "name": "EvolveX",
+            "url": "https://simpleagentlab.com/evolvex/",
+            "codeRepository": "https://github.com/simple-agent-lab/EvolveX",
+            "description": "EvolveX is an open-source framework for self-evolving agents: build agents that improve and keep the evidence.",
+            "programmingLanguage": "Python",
+            "license": "https://www.apache.org/licenses/LICENSE-2.0",
+            "keywords": [
+              "EvolveX",
+              "Self-evolving agents",
+              "Agent evolution",
+              "Self-improving agents",
+              "AI4AI"
+            ],
+            "author": {
+              "@type": "Organization",
+              "@id": "https://simpleagentlab.com/#organization",
+              "name": "Simple Agent Lab",
+              "url": "https://simpleagentlab.com/"
+            },
+            "sameAs": [
+              "https://github.com/simple-agent-lab/EvolveX",
+              "https://simple-agent-lab.github.io/EvolveX/"
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Simple Agent Lab",
+                "item": "https://simpleagentlab.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "EvolveX",
+                "item": "https://simpleagentlab.com/evolvex/"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+
+    <link rel="icon" href="../assets/favicon.svg?v=4" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+    <script>
+      try {
+        var root = document.documentElement;
+        var savedLanguage = localStorage.getItem("simple-agent-lab-language-choice");
+        var browserLanguages = navigator.languages && navigator.languages.length
+          ? navigator.languages
+          : [navigator.language || "en"];
+        var browserLanguage = browserLanguages.some(function (language) {
+          return language.toLowerCase().startsWith("zh");
+        }) ? "zh" : "en";
+        var language = savedLanguage === "en" || savedLanguage === "zh"
+          ? savedLanguage
+          : browserLanguage;
+        root.dataset.lang = language;
+        root.lang = language === "zh" ? "zh-CN" : "en";
+
+        var savedTheme = localStorage.getItem("simple-agent-lab-theme");
+        var theme = savedTheme === "light" || savedTheme === "dark"
+          ? savedTheme
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        root.dataset.theme = theme;
+        root.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]').setAttribute(
+          "content",
+          theme === "dark" ? "#111513" : "#ffffff"
+        );
+      } catch (error) {}
+    </script>
+    <script src="../assets/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      <span class="lang-en" lang="en">Skip to content</span>
+      <span class="lang-zh" lang="zh-CN">跳至正文</span>
+    </a>
+
+    <header class="site-header">
+      <a class="small-brand" href="../" aria-label="Simple Agent Lab home">
+        <img src="../assets/logo.svg" width="26" height="26" alt="" />
+        <span>Simple Agent Lab</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="../">
+          <span class="lang-en" lang="en">Home</span>
+          <span class="lang-zh" lang="zh-CN">首页</span>
+        </a>
+        <a href="https://github.com/simple-agent-lab" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark theme">
+          <span class="theme-action-en" lang="en">Dark</span>
+          <span class="theme-action-zh" lang="zh-CN">深色</span>
+        </button>
+        <button class="language-toggle" type="button" aria-label="切换为中文">中文</button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <article class="legal-page">
+        <p class="eyebrow">
+          <span class="lang-en" lang="en">Framework</span>
+          <span class="lang-zh" lang="zh-CN">开源框架</span>
+        </p>
+        <h1>EvolveX</h1>
+
+        <p>
+          <span class="lang-en" lang="en"><strong>EvolveX</strong> is an open-source framework for self-evolving agents, built by Simple Agent Lab. It helps you build agents that improve and keep the evidence—so every improvement stays simple, transparent, and verifiable.</span>
+          <span class="lang-zh" lang="zh-CN"><strong>EvolveX</strong> 是 Simple Agent Lab 开发的自进化智能体开源框架。它让智能体持续改进，并保留改进的证据——让每一次改进都保持简单、透明、可验证。</span>
+        </p>
+
+        <h2>
+          <span class="lang-en" lang="en">What EvolveX does</span>
+          <span class="lang-zh" lang="zh-CN">EvolveX 做什么</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">Most agent systems improve as a black box: something changed, metrics moved, and no one can say why. EvolveX treats agent evolution as an auditable process. Agents propose improvements, run them, evaluate the results, and record the evidence behind every change—so humans can inspect how an agent got better and decide where it goes next.</span>
+          <span class="lang-zh" lang="zh-CN">多数智能体系统的改进像一个黑盒：东西变了、指标动了，却没人说得清为什么。EvolveX 把智能体进化视为一个可审计的过程：智能体提出改进、执行改进、评估结果，并记录每次变化背后的证据——让人们能够检查智能体如何变好，并决定它的下一步。</span>
+        </p>
+
+        <h2>
+          <span class="lang-en" lang="en">Why we built it</span>
+          <span class="lang-zh" lang="zh-CN">为什么构建它</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">EvolveX is part of our research on AI4AI and recursive self-improvement: a future where AI helps build AI, while the methods behind it remain understandable to humans. EvolveX is our simple-yet-effective answer for the agent layer of that loop.</span>
+          <span class="lang-zh" lang="zh-CN">EvolveX 是我们在 AI4AI 与递归自我改进方向研究的一部分：让 AI 帮助创造 AI，同时让背后的方法始终能被人类理解。EvolveX 是我们在智能体这一层给出的 simple yet effective 的答案。</span>
+        </p>
+
+        <h2>
+          <span class="lang-en" lang="en">Get started</span>
+          <span class="lang-zh" lang="zh-CN">开始使用</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">EvolveX is written in Python and released under the Apache 2.0 license. Browse the <a href="https://github.com/simple-agent-lab/EvolveX" target="_blank" rel="noreferrer">source code on GitHub</a> or read the <a href="https://simple-agent-lab.github.io/EvolveX/" target="_blank" rel="noreferrer">EvolveX documentation</a> to get started.</span>
+          <span class="lang-zh" lang="zh-CN">EvolveX 使用 Python 编写，以 Apache 2.0 协议开源。你可以在 <a href="https://github.com/simple-agent-lab/EvolveX" target="_blank" rel="noreferrer">GitHub 上浏览源码</a>，或阅读 <a href="https://simple-agent-lab.github.io/EvolveX/" target="_blank" rel="noreferrer">EvolveX 文档</a>开始使用。</span>
+        </p>
+
+        <a class="back-link" href="../">
+          <span aria-hidden="true">← </span>
+          <span class="lang-en" lang="en">Back to Simple Agent Lab</span>
+          <span class="lang-zh" lang="zh-CN">返回 Simple Agent Lab</span>
+        </a>
+      </article>
+    </main>
+
+    <footer>
+      <span>Simple Agent Lab</span>
+      <a href="../disclaimer.html">
+        <span class="lang-en" lang="en">Disclaimer</span>
+        <span class="lang-zh" lang="zh-CN">免责声明</span>
+      </a>
+      <span>© 2026</span>
+    </footer>
+  </body>
+</html>
