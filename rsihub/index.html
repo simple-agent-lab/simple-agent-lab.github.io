@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <title>RSIHub | Self-Evolving Agent Framework by Simple Agent Lab</title>
+    <meta
+      name="description"
+      content="RSIHub is an open-source framework for self-evolving agents by Simple Agent Lab: evaluator-driven evolution, reproducible candidate lineage, and controlled self-modification. Build agents that improve and keep the evidence."
+    />
+    <meta
+      name="keywords"
+      content="RSIHub, RSIHub framework, RSIHub agent, RSIHub GitHub, self-evolving agents, agent evolution framework, self-improving agents, agent self-improvement, evaluator-driven evolution, Simple Agent Lab, AI4AI, 智能体进化框架, 自进化智能体"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://simpleagentlab.com/rsihub/" />
+
+    <meta property="og:title" content="RSIHub | Self-Evolving Agent Framework" />
+    <meta
+      property="og:description"
+      content="Build agents that improve and keep the evidence. RSIHub is a simple, open-source framework for evaluator-driven agent evolution by Simple Agent Lab."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://simpleagentlab.com/rsihub/" />
+    <meta property="og:site_name" content="Simple Agent Lab" />
+    <meta property="og:image" content="https://simpleagentlab.com/assets/og.png" />
+    <meta property="og:image:alt" content="RSIHub by Simple Agent Lab — Build agents that improve and keep the evidence" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RSIHub | Self-Evolving Agent Framework" />
+    <meta
+      name="twitter:description"
+      content="Build agents that improve and keep the evidence. A simple, open-source framework for agent evolution."
+    />
+    <meta name="twitter:image" content="https://simpleagentlab.com/assets/og.png" />
+    <meta name="twitter:image:alt" content="RSIHub by Simple Agent Lab — Build agents that improve and keep the evidence" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://simpleagentlab.com/rsihub/#software",
+            "name": "RSIHub",
+            "url": "https://simpleagentlab.com/rsihub/",
+            "codeRepository": "https://github.com/simple-agent-lab/RSIHub",
+            "description": "RSIHub is an open-source framework for self-evolving agents: evaluator-driven evolution, reproducible candidate lineage, and controlled self-modification.",
+            "programmingLanguage": "Python",
+            "license": "https://www.apache.org/licenses/LICENSE-2.0",
+            "keywords": [
+              "RSIHub",
+              "Self-evolving agents",
+              "Agent evolution",
+              "Self-improving agents",
+              "Evaluator-driven evolution",
+              "AI4AI"
+            ],
+            "author": {
+              "@type": "Organization",
+              "@id": "https://simpleagentlab.com/#organization",
+              "name": "Simple Agent Lab",
+              "url": "https://simpleagentlab.com/"
+            },
+            "sameAs": [
+              "https://github.com/simple-agent-lab/RSIHub",
+              "https://simpleagentlab.com/RSIHub/"
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Simple Agent Lab",
+                "item": "https://simpleagentlab.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "RSIHub",
+                "item": "https://simpleagentlab.com/rsihub/"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+
+    <link rel="icon" href="../assets/favicon.svg?v=4" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+    <script>
+      try {
+        var root = document.documentElement;
+        var savedLanguage = localStorage.getItem("simple-agent-lab-language-choice");
+        var browserLanguages = navigator.languages && navigator.languages.length
+          ? navigator.languages
+          : [navigator.language || "en"];
+        var browserLanguage = browserLanguages.some(function (language) {
+          return language.toLowerCase().startsWith("zh");
+        }) ? "zh" : "en";
+        var language = savedLanguage === "en" || savedLanguage === "zh"
+          ? savedLanguage
+          : browserLanguage;
+        root.dataset.lang = language;
+        root.lang = language === "zh" ? "zh-CN" : "en";
+
+        var savedTheme = localStorage.getItem("simple-agent-lab-theme");
+        var theme = savedTheme === "light" || savedTheme === "dark"
+          ? savedTheme
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        root.dataset.theme = theme;
+        root.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]').setAttribute(
+          "content",
+          theme === "dark" ? "#111513" : "#ffffff"
+        );
+      } catch (error) {}
+    </script>
+    <script src="../assets/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      <span class="lang-en" lang="en">Skip to content</span>
+      <span class="lang-zh" lang="zh-CN">跳至正文</span>
+    </a>
+
+    <header class="site-header">
+      <a class="small-brand" href="../" aria-label="Simple Agent Lab home">
+        <img src="../assets/logo.svg" width="26" height="26" alt="" />
+        <span>Simple Agent Lab</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="../">
+          <span class="lang-en" lang="en">Home</span>
+          <span class="lang-zh" lang="zh-CN">首页</span>
+        </a>
+        <a href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark theme">
+          <span class="theme-action-en" lang="en">Dark</span>
+          <span class="theme-action-zh" lang="zh-CN">深色</span>
+        </button>
+        <button class="language-toggle" type="button" aria-label="切换为中文">中文</button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <article class="legal-page project-page">
+        <p class="eyebrow">
+          <span class="lang-en" lang="en">Framework</span>
+          <span class="lang-zh" lang="zh-CN">开源框架</span>
+        </p>
+        <h1>RSIHub</h1>
+        <p class="tagline">
+          <span class="lang-en" lang="en">Build agents that improve — and keep the evidence.</span>
+          <span class="lang-zh" lang="zh-CN">让智能体持续改进，并保留证据。</span>
+        </p>
+        <p class="subtitle">
+          <span class="lang-en" lang="en">A file-based framework for evaluator-driven evolution, reproducible candidate lineage, and controlled self-modification.</span>
+          <span class="lang-zh" lang="zh-CN">一个基于文件的框架，支持评估器驱动的进化、可复现的候选谱系，以及受控的自我修改。</span>
+        </p>
+        <div class="page-actions">
+          <a href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">
+            <span>GitHub</span>
+            <b aria-hidden="true">↗</b>
+          </a>
+          <a href="https://simpleagentlab.com/RSIHub/" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Documentation</span>
+            <span class="lang-zh" lang="zh-CN">文档</span>
+            <b aria-hidden="true">↗</b>
+          </a>
+          <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/QUICKSTART.md" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Quick start</span>
+            <span class="lang-zh" lang="zh-CN">快速开始</span>
+            <b aria-hidden="true">↗</b>
+          </a>
+        </div>
+
+        <figure>
+          <img
+            src="./assets/evolve-lineage.svg"
+            alt="A baseline branches into evaluated candidates. The selected lineage rises through successive generations to a verified improvement, while unselected candidates remain visible as evidence."
+          />
+          <figcaption>
+            <span class="lang-en" lang="en">The selected lineage rises through generations to a verified improvement; unselected candidates remain visible as evidence.</span>
+            <span class="lang-zh" lang="zh-CN">被选中的谱系沿世代上升，抵达经验证的改进；未被选中的候选作为证据保留可见。</span>
+          </figcaption>
+        </figure>
+
+        <h2>
+          <span class="lang-en" lang="en">What RSIHub does</span>
+          <span class="lang-zh" lang="zh-CN">RSIHub 做什么</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">RSIHub gives an agent a controlled way to improve itself. It runs candidates against a fixed evaluator, keeps the evidence for every generation, and carries verified improvements forward without letting candidate code rewrite the rules that score it.</span>
+          <span class="lang-zh" lang="zh-CN">RSIHub 为智能体提供一种受控的自我改进方式：候选在固定的评估器上运行，每一代都保留证据，经验证的改进被传递下去——同时不允许候选代码改写为其打分的规则。</span>
+        </p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <span class="lang-en" lang="en">For agent builders</span>
+                  <span class="lang-zh" lang="zh-CN">面向智能体开发者</span>
+                </th>
+                <th>
+                  <span class="lang-en" lang="en">For researchers</span>
+                  <span class="lang-zh" lang="zh-CN">面向研究者</span>
+                </th>
+                <th>
+                  <span class="lang-en" lang="en">Evidence built in</span>
+                  <span class="lang-zh" lang="zh-CN">内建证据</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="lang-en" lang="en">Improve prompts, skills, harnesses, and agent code in a reusable experiment workspace.</span>
+                  <span class="lang-zh" lang="zh-CN">在可复用的实验工作区中改进提示词、技能、harness 与智能体代码。</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">Compare evolution strategies under fixed evaluation and mutation boundaries.</span>
+                  <span class="lang-zh" lang="zh-CN">在固定的评估与变异边界下比较不同进化策略。</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">Connect every candidate to scores, artifacts, archive records, and Git lineage.</span>
+                  <span class="lang-zh" lang="zh-CN">将每个候选与得分、产物、归档记录和 Git 谱系关联起来。</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>
+          <span class="lang-en" lang="en">How RSIHub works</span>
+          <span class="lang-zh" lang="zh-CN">RSIHub 如何工作</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">Every recipe composes the same loop:</span>
+          <span class="lang-zh" lang="zh-CN">每个 recipe 都由同一个循环组成：</span>
+        </p>
+        <p class="loop-line">select → evaluate → analyze → mutate → gate → record</p>
+        <figure class="framed">
+          <img
+            src="./assets/architecture.svg"
+            alt="RSIHub architecture: five built-in strategies and custom recipes compose a loop of select, rollout and evaluation, analyze, mutate, gate, and record. The target and selected operators occupy a declared mutable surface. The evaluator, runtime, surface check, and stamped evidence remain protected from candidate changes."
+          />
+        </figure>
+        <p>
+          <span class="lang-en" lang="en">A recipe decides how parents are selected, how traces are analyzed, what may be edited, and which evaluations admit a new generation. The framework owns the mechanism that makes those decisions inspectable: clean candidate snapshots, protected scoring, surface enforcement, Git tags, and stamped archive records.</span>
+          <span class="lang-zh" lang="zh-CN">Recipe 决定如何选择父代、如何分析轨迹、哪些内容可以被编辑、以及哪些评估可以准入新的一代。框架则负责让这些决策可检查：干净的候选快照、受保护的打分、变异面约束、Git 标签与盖章的归档记录。</span>
+        </p>
+
+        <h2>
+          <span class="lang-en" lang="en">What can evolve</span>
+          <span class="lang-zh" lang="zh-CN">什么可以进化</span>
+        </h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <span class="lang-en" lang="en">Surface</span>
+                  <span class="lang-zh" lang="zh-CN">可进化面</span>
+                </th>
+                <th>
+                  <span class="lang-en" lang="en">Examples</span>
+                  <span class="lang-zh" lang="zh-CN">示例</span>
+                </th>
+                <th>
+                  <span class="lang-en" lang="en">Best fit</span>
+                  <span class="lang-zh" lang="zh-CN">适用场景</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="lang-en" lang="en">prompts and skills</span>
+                  <span class="lang-zh" lang="zh-CN">提示词与技能</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">system prompts, task skills, reusable instructions</span>
+                  <span class="lang-zh" lang="zh-CN">系统提示词、任务技能、可复用指令</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">policy and behavior improvement</span>
+                  <span class="lang-zh" lang="zh-CN">策略与行为改进</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="lang-en" lang="en">harnesses and target code</span>
+                  <span class="lang-zh" lang="zh-CN">harness 与目标代码</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">tools, orchestration, agent implementation</span>
+                  <span class="lang-zh" lang="zh-CN">工具、编排、智能体实现</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">agent engineering</span>
+                  <span class="lang-zh" lang="zh-CN">智能体工程</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="lang-en" lang="en">selected evolution operators</span>
+                  <span class="lang-zh" lang="zh-CN">被选定的进化操作符</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">analysis or mutation policy chosen by a recipe</span>
+                  <span class="lang-zh" lang="zh-CN">recipe 选定的分析或变异策略</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">controlled co-evolution</span>
+                  <span class="lang-zh" lang="zh-CN">受控的共同进化</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <span class="lang-en" lang="en">Each recipe declares its mutable paths. Evaluators, archive stamps, and the vendored framework mechanism stay outside that surface.</span>
+          <span class="lang-zh" lang="zh-CN">每个 recipe 声明自己的可变路径。评估器、归档盖章与内置的框架机制始终位于可变面之外。</span>
+        </p>
+
+        <h2>Recipes</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <span class="lang-en" lang="en">Choose this when you want to…</span>
+                  <span class="lang-zh" lang="zh-CN">当你想要…</span>
+                </th>
+                <th>Recipe</th>
+                <th>
+                  <span class="lang-en" lang="en">Mutable surface</span>
+                  <span class="lang-zh" lang="zh-CN">可变面</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span class="lang-en" lang="en">improve one candidate from its current best parent</span>
+                  <span class="lang-zh" lang="zh-CN">从当前最优父代持续改进单个候选</span>
+                </td>
+                <td><code>hill_climb</code></td>
+                <td>target</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="lang-en" lang="en">evolve prompts and reusable agent skills</span>
+                  <span class="lang-zh" lang="zh-CN">进化提示词与可复用的智能体技能</span>
+                </td>
+                <td><code>aevolve</code></td>
+                <td>prompt and target skills</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="lang-en" lang="en">engineer the agent harness against evaluator feedback</span>
+                  <span class="lang-zh" lang="zh-CN">依据评估器反馈改进 agent harness</span>
+                </td>
+                <td><code>ahe</code></td>
+                <td>target</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="lang-en" lang="en">balance multiple objectives with minibatch validation</span>
+                  <span class="lang-zh" lang="zh-CN">通过 minibatch 验证平衡多个目标</span>
+                </td>
+                <td><code>gepa</code></td>
+                <td>prompt and task skill</td>
+              </tr>
+              <tr>
+                <td>
+                  <span class="lang-en" lang="en">co-evolve the target and selected evolution policy</span>
+                  <span class="lang-zh" lang="zh-CN">让目标与选定的进化策略共同进化</span>
+                </td>
+                <td><code>hyperagents</code></td>
+                <td>target and selected operators</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <span class="lang-en" lang="en">See <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">the recipe guide</a> for each strategy’s workflow and configuration.</span>
+          <span class="lang-zh" lang="zh-CN">每个策略的工作流与配置见 <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">recipe 指南</a>。</span>
+        </p>
+
+        <h2>
+          <span class="lang-en" lang="en">Skill evolution showcase</span>
+          <span class="lang-zh" lang="zh-CN">技能进化 Showcase</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">RSIHub can improve a Skill as a complete package: instructions, references, and validation scripts evolve together while a frozen evaluator keeps the comparison honest. In this local Paper2Poster run, the same Codex model and paper prompt produced both LoRA posters below.</span>
+          <span class="lang-zh" lang="zh-CN">RSIHub 可以把一个 Skill 作为完整的包来改进：指令、参考资料与验证脚本共同进化，同时由冻结的评估器保证比较的公平。在这次本地 Paper2Poster 运行中，同一个 Codex 模型和同一条论文提示词生成了下面两张 LoRA 海报。</span>
+        </p>
+        <div class="showcase-grid">
+          <figure>
+            <img
+              src="./assets/paper-poster-lora-gen0.png"
+              width="1600"
+              height="1000"
+              loading="lazy"
+              alt="Generation zero LoRA research poster with a generic dashboard-style layout"
+            />
+            <figcaption>
+              <strong>
+                <span class="lang-en" lang="en">Gen 0 · minimal 12-line Skill</span>
+                <span class="lang-zh" lang="zh-CN">Gen 0 · 12 行的最小 Skill</span>
+              </strong>
+              <span class="lang-en" lang="en">Deterministic geometry gate failed: 14 text elements overflowed the SVG viewBox.</span>
+              <span class="lang-zh" lang="zh-CN">未通过确定性几何门控：14 个文本元素溢出了 SVG viewBox。</span>
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="./assets/paper-poster-lora-gen2.png"
+              width="1600"
+              height="2000"
+              loading="lazy"
+              alt="Generation two LoRA research poster with a paper-specific editorial layout and low-rank matrix visualization"
+            />
+            <figcaption>
+              <strong>
+                <span class="lang-en" lang="en">Gen 2 · evolved editorial Skill</span>
+                <span class="lang-zh" lang="zh-CN">Gen 2 · 进化后的编辑版 Skill</span>
+              </strong>
+              <span class="lang-en" lang="en">Passed deterministic renderability and geometry gates; paper fidelity remained advisory reviewer feedback.</span>
+              <span class="lang-zh" lang="zh-CN">通过了确定性可渲染与几何门控；论文忠实度作为建议性评审反馈保留。</span>
+            </figcaption>
+          </figure>
+        </div>
+        <p>
+          <span class="lang-en" lang="en">Across the four-paper showcase, the deterministic completion pass rate moved from <strong>1/4</strong> at Gen 0 to <strong>4/4</strong> at Gen 2. The trials ran concurrently through Harbor’s local environment without Docker and retained ATIF trajectories plus evaluator-owned visual feedback. This is a representative evolution run rather than a broad benchmark.</span>
+          <span class="lang-zh" lang="zh-CN">在四篇论文的 showcase 中，确定性完成通过率从 Gen 0 的 <strong>1/4</strong> 提升到 Gen 2 的 <strong>4/4</strong>。这些试验通过 Harbor 的本地环境并发运行（无需 Docker），并保留了 ATIF 轨迹与评估器持有的视觉反馈。这是一次代表性的进化运行，而非广泛的基准测试。</span>
+        </p>
+
+        <h2>
+          <span class="lang-en" lang="en">Benchmark results</span>
+          <span class="lang-zh" lang="zh-CN">基准测试结果</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">Scores are shown as <strong>seed → best</strong>, with the absolute change underneath. All runs use a GPT-5.4-high target model and a GPT-5.4-xhigh Codex meta-agent.</span>
+          <span class="lang-zh" lang="zh-CN">分数以 <strong>seed → best</strong> 呈现，括号中为绝对变化。所有运行使用 GPT-5.4-high 目标模型与 GPT-5.4-xhigh Codex meta-agent。</span>
+        </p>
+        <figure class="framed">
+          <img
+            src="./assets/benchmark-results.svg"
+            loading="lazy"
+            alt="Terminal Bench 2 and Tau cubed Banking results for AHE, Hyperagents, A Evolve, and GEPA with MiniSWE and Codex target agents. Each stacked bar labels the seed score inside the dark section and the best score plus improvement above the light section."
+          />
+        </figure>
+
+        <h3>Terminal Bench 2</h3>
+        <p>
+          <span class="lang-en" lang="en">Split: <strong>50 train / 19 gate / 20 sealed</strong>.</span>
+          <span class="lang-zh" lang="zh-CN">数据划分：<strong>50 train / 19 gate / 20 sealed</strong>。</span>
+        </p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <span class="lang-en" lang="en">Target agent</span>
+                  <span class="lang-zh" lang="zh-CN">目标智能体</span>
+                </th>
+                <th>
+                  <span class="lang-en" lang="en">Method</span>
+                  <span class="lang-zh" lang="zh-CN">方法</span>
+                </th>
+                <th>Train</th>
+                <th>Gate</th>
+                <th>Sealed</th>
+                <th>Overall</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="4">MiniSWE Agent</td>
+                <td>AHE</td>
+                <td>58.0% → 74.0%<br /><strong>(+16.0%)</strong></td>
+                <td>57.9% → 68.4%<br /><strong>(+10.5%)</strong></td>
+                <td>70.0% → 70.0%<br /><strong>(+0.0%)</strong></td>
+                <td>60.7% → 71.9%<br /><strong>(+11.2%)</strong></td>
+              </tr>
+              <tr>
+                <td>Hyperagents</td>
+                <td>58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
+                <td>57.9% → 73.7%<br /><strong>(+15.8%)</strong></td>
+                <td>70.0% → 70.0%<br /><strong>(+0.0%)</strong></td>
+                <td>60.7% → 69.7%<br /><strong>(+9.0%)</strong></td>
+              </tr>
+              <tr>
+                <td>A Evolve</td>
+                <td>58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
+                <td>57.9% → 78.9%<br /><strong>(+21.0%)</strong></td>
+                <td>70.0% → 65.0%<br /><strong>(−5.0%)</strong></td>
+                <td>60.7% → 69.7%<br /><strong>(+9.0%)</strong></td>
+              </tr>
+              <tr>
+                <td>GEPA</td>
+                <td>58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
+                <td>57.9% → 68.4%<br /><strong>(+10.5%)</strong></td>
+                <td>70.0% → 75.0%<br /><strong>(+5.0%)</strong></td>
+                <td>60.7% → 69.7%<br /><strong>(+9.0%)</strong></td>
+              </tr>
+              <tr>
+                <td rowspan="4">Codex</td>
+                <td>AHE</td>
+                <td>58.0% → 74.0%<br /><strong>(+16.0%)</strong></td>
+                <td>52.6% → 47.4%<br /><strong>(−5.2%)</strong></td>
+                <td>65.0% → 70.0%<br /><strong>(+5.0%)</strong></td>
+                <td>58.4% → 67.4%<br /><strong>(+9.0%)</strong></td>
+              </tr>
+              <tr>
+                <td>Hyperagents</td>
+                <td>58.0% → 72.0%<br /><strong>(+14.0%)</strong></td>
+                <td>52.6% → 57.9%<br /><strong>(+5.3%)</strong></td>
+                <td>65.0% → 75.0%<br /><strong>(+10.0%)</strong></td>
+                <td>58.4% → 69.7%<br /><strong>(+11.3%)</strong></td>
+              </tr>
+              <tr>
+                <td>A Evolve</td>
+                <td>58.0% → 58.0%<br /><strong>(+0.0%)</strong></td>
+                <td>52.6% → 52.6%<br /><strong>(+0.0%)</strong></td>
+                <td>65.0% → 65.0%<br /><strong>(+0.0%)</strong></td>
+                <td>58.4% → 58.4%<br /><strong>(+0.0%)</strong></td>
+              </tr>
+              <tr>
+                <td>GEPA</td>
+                <td>58.0% → 58.0%<br /><strong>(+0.0%)</strong></td>
+                <td>52.6% → 52.6%<br /><strong>(+0.0%)</strong></td>
+                <td>65.0% → 65.0%<br /><strong>(+0.0%)</strong></td>
+                <td>58.4% → 58.4%<br /><strong>(+0.0%)</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Tau³ Banking</h3>
+        <p>
+          <span class="lang-en" lang="en">Split: <strong>50 train / 20 gate / 27 sealed</strong>.</span>
+          <span class="lang-zh" lang="zh-CN">数据划分：<strong>50 train / 20 gate / 27 sealed</strong>。</span>
+        </p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <span class="lang-en" lang="en">Target agent</span>
+                  <span class="lang-zh" lang="zh-CN">目标智能体</span>
+                </th>
+                <th>
+                  <span class="lang-en" lang="en">Method</span>
+                  <span class="lang-zh" lang="zh-CN">方法</span>
+                </th>
+                <th>Train</th>
+                <th>Gate</th>
+                <th>Sealed</th>
+                <th>Overall</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="4">MiniSWE Agent</td>
+                <td>AHE</td>
+                <td>30.0% → 36.0%<br /><strong>(+6.0%)</strong></td>
+                <td>35.0% → 35.0%<br /><strong>(+0.0%)</strong></td>
+                <td>18.5% → 25.9%<br /><strong>(+7.4%)</strong></td>
+                <td>27.8% → 33.0%<br /><strong>(+5.2%)</strong></td>
+              </tr>
+              <tr>
+                <td>Hyperagents</td>
+                <td>30.0% → 38.0%<br /><strong>(+8.0%)</strong></td>
+                <td>35.0% → 45.0%<br /><strong>(+10.0%)</strong></td>
+                <td>18.5% → 37.0%<br /><strong>(+18.5%)</strong></td>
+                <td>27.8% → 39.2%<br /><strong>(+11.4%)</strong></td>
+              </tr>
+              <tr>
+                <td>A Evolve</td>
+                <td>30.0% → 34.0%<br /><strong>(+4.0%)</strong></td>
+                <td>35.0% → 45.0%<br /><strong>(+10.0%)</strong></td>
+                <td>18.5% → 29.6%<br /><strong>(+11.1%)</strong></td>
+                <td>27.8% → 35.1%<br /><strong>(+7.3%)</strong></td>
+              </tr>
+              <tr>
+                <td>GEPA</td>
+                <td>30.0% → 32.0%<br /><strong>(+2.0%)</strong></td>
+                <td>35.0% → 45.0%<br /><strong>(+10.0%)</strong></td>
+                <td>18.5% → 25.9%<br /><strong>(+7.4%)</strong></td>
+                <td>27.8% → 33.0%<br /><strong>(+5.2%)</strong></td>
+              </tr>
+              <tr>
+                <td rowspan="4">Codex</td>
+                <td>AHE</td>
+                <td>30.0% → 36.0%<br /><strong>(+6.0%)</strong></td>
+                <td>30.0% → 45.0%<br /><strong>(+15.0%)</strong></td>
+                <td>7.4% → 14.8%<br /><strong>(+7.4%)</strong></td>
+                <td>23.7% → 32.0%<br /><strong>(+8.3%)</strong></td>
+              </tr>
+              <tr>
+                <td>Hyperagents</td>
+                <td>30.0% → 36.0%<br /><strong>(+6.0%)</strong></td>
+                <td>30.0% → 50.0%<br /><strong>(+20.0%)</strong></td>
+                <td>7.4% → 48.1%<br /><strong>(+40.7%)</strong></td>
+                <td>23.7% → 42.3%<br /><strong>(+18.6%)</strong></td>
+              </tr>
+              <tr>
+                <td>A Evolve</td>
+                <td>30.0% → 38.0%<br /><strong>(+8.0%)</strong></td>
+                <td>30.0% → 45.0%<br /><strong>(+15.0%)</strong></td>
+                <td>7.4% → 18.5%<br /><strong>(+11.1%)</strong></td>
+                <td>23.7% → 34.0%<br /><strong>(+10.3%)</strong></td>
+              </tr>
+              <tr>
+                <td>GEPA</td>
+                <td>30.0% → 36.0%<br /><strong>(+6.0%)</strong></td>
+                <td>30.0% → 35.0%<br /><strong>(+5.0%)</strong></td>
+                <td>7.4% → 14.8%<br /><strong>(+7.4%)</strong></td>
+                <td>23.7% → 29.9%<br /><strong>(+6.2%)</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>
+          <span class="lang-en" lang="en">Trustworthy by construction</span>
+          <span class="lang-zh" lang="zh-CN">从构造上可信</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">RSIHub separates evolvable policy from the mechanism that judges it:</span>
+          <span class="lang-zh" lang="zh-CN">RSIHub 将可进化的策略与评判它的机制分离：</span>
+        </p>
+        <ol>
+          <li>
+            <span class="lang-en" lang="en"><strong>The evaluator is frozen.</strong> Candidates cannot change the scoring contract.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>评估器被冻结。</strong>候选无法更改打分契约。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Mutation is bounded.</strong> Each recipe declares which target and operator paths may change.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>变异有边界。</strong>每个 recipe 声明哪些目标与操作符路径可以改变。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Evaluation is canonical.</strong> New generations are scored from clean candidate snapshots.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>评估是规范的。</strong>新的世代从干净的候选快照中打分。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Evidence is durable.</strong> Reports recompute results from stamped <code>archive.jsonl</code> records and Git generation tags.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>证据是持久的。</strong>报告从盖章的 <code>archive.jsonl</code> 记录与 Git 世代标签中重新计算结果。</span>
+          </li>
+        </ol>
+        <p>
+          <span class="lang-en" lang="en">Operators run as subprocesses rather than being imported into the framework process. See <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/concepts/design.md" target="_blank" rel="noreferrer">the design guide</a> for the complete ownership model and invariants.</span>
+          <span class="lang-zh" lang="zh-CN">操作符以子进程方式运行，而非被导入框架进程。完整的所有权模型与不变量见<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/concepts/design.md" target="_blank" rel="noreferrer">设计指南</a>。</span>
+        </p>
+
+        <h2>
+          <span class="lang-en" lang="en">Project status &amp; roadmap</span>
+          <span class="lang-zh" lang="zh-CN">项目状态与路线图</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">RSIHub is an active prototype for research and controlled experimentation. The current focus is reliable experiment mechanics, local-first workflows, and composable strategies for different agent-evolution scenarios.</span>
+          <span class="lang-zh" lang="zh-CN">RSIHub 是一个面向研究与受控实验的活跃原型。当前重点是可靠的实验机制、本地优先的工作流，以及面向不同智能体进化场景的可组合策略。</span>
+        </p>
+        <ul>
+          <li>
+            <span class="lang-en" lang="en"><strong>Scenario-oriented recipes:</strong> compose the current operator library into opinionated recipes for different agent-evolution use cases.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>面向场景的 recipes：</strong>将现有操作符库组合成针对不同智能体进化用例的成熟配方。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Local-first workflows:</strong> make lightweight, Docker-free iteration a first-class path for trusted local agents, prompts, skills, and small features.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>本地优先的工作流：</strong>让轻量、无需 Docker 的迭代成为受信任的本地智能体、提示词、技能与小功能的一等路径。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>More method integrations:</strong> add evolution and search methods while preserving the shared evaluator, lineage, and evidence contracts.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>更多方法集成：</strong>在保持共享的评估器、谱系与证据契约的前提下，加入更多进化与搜索方法。</span>
+          </li>
+        </ul>
+
+        <h2>
+          <span class="lang-en" lang="en">Documentation</span>
+          <span class="lang-zh" lang="zh-CN">文档</span>
+        </h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <span class="lang-en" lang="en">Document</span>
+                  <span class="lang-zh" lang="zh-CN">文档</span>
+                </th>
+                <th>
+                  <span class="lang-en" lang="en">Purpose</span>
+                  <span class="lang-zh" lang="zh-CN">用途</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="https://simpleagentlab.com/RSIHub/" target="_blank" rel="noreferrer">
+                  <span class="lang-en" lang="en">Documentation site</span>
+                  <span class="lang-zh" lang="zh-CN">文档站</span>
+                </a></td>
+                <td>
+                  <span class="lang-en" lang="en">Installation, operation, concepts, guides, and reference.</span>
+                  <span class="lang-zh" lang="zh-CN">安装、操作、概念、指南与参考。</span>
+                </td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/simple-agent-lab/RSIHub/blob/main/QUICKSTART.md" target="_blank" rel="noreferrer">Quick start</a></td>
+                <td>
+                  <span class="lang-en" lang="en">Recipe launcher setup and configuration.</span>
+                  <span class="lang-zh" lang="zh-CN">Recipe 启动器的安装与配置。</span>
+                </td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/concepts/design.md" target="_blank" rel="noreferrer">Design</a></td>
+                <td>
+                  <span class="lang-en" lang="en">System model, ownership boundaries, and invariants.</span>
+                  <span class="lang-zh" lang="zh-CN">系统模型、所有权边界与不变量。</span>
+                </td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/simple-agent-lab/RSIHub/blob/main/ARCHITECTURE.md" target="_blank" rel="noreferrer">Architecture</a></td>
+                <td>
+                  <span class="lang-en" lang="en">Enforced source-module map and line budgets.</span>
+                  <span class="lang-zh" lang="zh-CN">强制执行的源码模块映射与行数预算。</span>
+                </td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">Recipes</a></td>
+                <td>
+                  <span class="lang-en" lang="en">Supported evolution strategies.</span>
+                  <span class="lang-zh" lang="zh-CN">支持的进化策略。</span>
+                </td>
+              </tr>
+              <tr>
+                <td><a href="https://github.com/simple-agent-lab/RSIHub/blob/main/CONTRIBUTING.md" target="_blank" rel="noreferrer">Contributing</a></td>
+                <td>
+                  <span class="lang-en" lang="en">Development setup and repository conventions.</span>
+                  <span class="lang-zh" lang="zh-CN">开发环境搭建与仓库规范。</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>
+          <span class="lang-en" lang="en">License</span>
+          <span class="lang-zh" lang="zh-CN">许可协议</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">RSIHub is licensed under <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/LICENSE" target="_blank" rel="noreferrer">Apache-2.0</a>. See <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/NOTICE" target="_blank" rel="noreferrer">NOTICE</a> for required attributions.</span>
+          <span class="lang-zh" lang="zh-CN">RSIHub 以 <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/LICENSE" target="_blank" rel="noreferrer">Apache-2.0</a> 协议开源，所需的署名信息见 <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/NOTICE" target="_blank" rel="noreferrer">NOTICE</a>。</span>
+        </p>
+
+        <a class="back-link" href="../">
+          <span aria-hidden="true">← </span>
+          <span class="lang-en" lang="en">Back to Simple Agent Lab</span>
+          <span class="lang-zh" lang="zh-CN">返回 Simple Agent Lab</span>
+        </a>
+      </article>
+    </main>
+
+    <footer>
+      <span>Simple Agent Lab</span>
+      <a href="../disclaimer.html">
+        <span class="lang-en" lang="en">Disclaimer</span>
+        <span class="lang-zh" lang="zh-CN">免责声明</span>
+      </a>
+      <span>© 2026</span>
+    </footer>
+  </body>
+</html>
