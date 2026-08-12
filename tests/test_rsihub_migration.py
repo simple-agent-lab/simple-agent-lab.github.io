@@ -1,6 +1,7 @@
 from html.parser import HTMLParser
 from pathlib import Path
 import subprocess
+import tempfile
 import unittest
 
 
@@ -31,6 +32,30 @@ def parse_html(relative_path):
     parser = LinkParser()
     parser.feed((ROOT / relative_path).read_text(encoding="utf-8"))
     return parser
+
+
+def read_tracked_text(path):
+    if not path.is_file():
+        return None
+    try:
+        return path.read_text(encoding="utf-8")
+    except UnicodeDecodeError:
+        return None
+
+
+class TrackedTextTests(unittest.TestCase):
+    def test_read_tracked_text_skips_missing_and_non_utf8_paths(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            readable = root / "page.html"
+            binary = root / "font.woff2"
+            readable.write_text("RSIHub", encoding="utf-8")
+            binary.write_bytes(b"\xff\xfe\x00\x01")
+
+            self.assertEqual(read_tracked_text(readable), "RSIHub")
+            self.assertIsNone(read_tracked_text(binary))
+            self.assertIsNone(read_tracked_text(root / "deleted.html"))
+            self.assertIsNone(read_tracked_text(root))
 
 
 class RSIHubProjectPageTests(unittest.TestCase):
@@ -97,11 +122,7 @@ class RSIHubCompatibilityTests(unittest.TestCase):
         allowed = {
             Path("tests/test_rsihub_migration.py"),
         }
-        forbidden = (
-            "EvolveX",
-            "simple-agent-lab/EvolveX",
-            "simple-agent-lab.github.io/EvolveX",
-        )
+        forbidden = ("EvolveX",)
         tracked = subprocess.check_output(
             ["git", "ls-files", "-z"], cwd=ROOT
         ).decode("utf-8").split("\0")
@@ -114,6 +135,8 @@ class RSIHubCompatibilityTests(unittest.TestCase):
                 continue
             if path.suffix.lower() in {".png", ".jpg", ".jpeg", ".gif", ".webp"}:
                 continue
-            text = path.read_text(encoding="utf-8")
+            text = read_tracked_text(path)
+            if text is None:
+                continue
             for old_value in forbidden:
                 self.assertNotIn(old_value, text, f"{old_value!r} remains in {relative}")
