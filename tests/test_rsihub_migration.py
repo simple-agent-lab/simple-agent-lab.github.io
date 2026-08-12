@@ -93,10 +93,8 @@ class RSIHubCompatibilityTests(unittest.TestCase):
         self.assertIn("<loc>https://simpleagentlab.com/rsihub/</loc>", text)
         self.assertNotIn("<loc>https://simpleagentlab.com/evolvex/</loc>", text)
 
-    def test_old_identity_remains_only_in_migration_docs(self):
+    def test_old_identity_is_absent_from_published_files(self):
         allowed = {
-            Path("docs/superpowers/specs/2026-08-12-rsihub-rename-migration-design.md"),
-            Path("docs/superpowers/plans/2026-08-12-rsihub-rename-migration.md"),
             Path("tests/test_rsihub_migration.py"),
         }
         forbidden = (
