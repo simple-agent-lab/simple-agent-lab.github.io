@@ -1,5 +1,6 @@
 from html.parser import HTMLParser
 from pathlib import Path
+import subprocess
 import unittest
 
 
@@ -103,14 +104,15 @@ class RSIHubCompatibilityTests(unittest.TestCase):
             "simple-agent-lab/EvolveX",
             "simple-agent-lab.github.io/EvolveX",
         )
-        for path in ROOT.rglob("*"):
-            relative = path.relative_to(ROOT)
-            if (
-                not path.is_file()
-                or ".git" in relative.parts
-                or ".superpowers" in relative.parts
-                or relative in allowed
-            ):
+        tracked = subprocess.check_output(
+            ["git", "ls-files", "-z"], cwd=ROOT
+        ).decode("utf-8").split("\0")
+        for tracked_path in tracked:
+            if not tracked_path:
+                continue
+            relative = Path(tracked_path)
+            path = ROOT / relative
+            if relative in allowed:
                 continue
             if path.suffix.lower() in {".png", ".jpg", ".jpeg", ".gif", ".webp"}:
                 continue
