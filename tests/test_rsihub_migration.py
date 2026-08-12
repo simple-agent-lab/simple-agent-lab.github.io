@@ -58,3 +58,23 @@ class RSIHubProjectPageTests(unittest.TestCase):
         self.assertEqual({path.name for path in assets.iterdir()}, expected)
         for svg in assets.glob("*.svg"):
             self.assertNotIn("EvolveX", svg.read_text(encoding="utf-8"))
+
+
+class RSIHubHomepageTests(unittest.TestCase):
+    def test_homepage_uses_rsihub_name_and_actions(self):
+        text = (ROOT / "index.html").read_text(encoding="utf-8")
+        parser = parse_html("index.html")
+        self.assertIn("RSIHub", text)
+        self.assertNotIn("EvolveX", text)
+        self.assertIn("./rsihub/", parser.links)
+        self.assertIn(REPO_URL, parser.links)
+        self.assertIn(DOCS_URL, parser.links)
+
+    def test_homepage_structured_data_uses_canonical_rsihub_urls(self):
+        text = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertIn(f'"@id": "{OVERVIEW_URL}#software"', text)
+        self.assertIn(f'"url": "{OVERVIEW_URL}"', text)
+        self.assertIn(f'"codeRepository": "{REPO_URL}"', text)
+        self.assertNotIn("simpleagentlab.com/evolvex/", text)
+        self.assertNotIn("simple-agent-lab/EvolveX", text)
+        self.assertNotIn("simple-agent-lab.github.io/EvolveX", text)
