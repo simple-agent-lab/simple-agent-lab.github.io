@@ -78,3 +78,42 @@ class RSIHubHomepageTests(unittest.TestCase):
         self.assertNotIn("simpleagentlab.com/evolvex/", text)
         self.assertNotIn("simple-agent-lab/EvolveX", text)
         self.assertNotIn("simple-agent-lab.github.io/EvolveX", text)
+
+
+class RSIHubCompatibilityTests(unittest.TestCase):
+    def test_legacy_page_redirects_and_has_fallback(self):
+        parser = parse_html("evolvex/index.html")
+        self.assertEqual(parser.canonicals, [OVERVIEW_URL])
+        self.assertIn("0; url=/rsihub/", parser.refreshes)
+        self.assertIn("/rsihub/", parser.links)
+
+    def test_sitemap_contains_only_the_canonical_project_route(self):
+        text = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+        self.assertIn("<loc>https://simpleagentlab.com/rsihub/</loc>", text)
+        self.assertNotIn("<loc>https://simpleagentlab.com/evolvex/</loc>", text)
+
+    def test_old_identity_remains_only_in_migration_docs(self):
+        allowed = {
+            Path("docs/superpowers/specs/2026-08-12-rsihub-rename-migration-design.md"),
+            Path("docs/superpowers/plans/2026-08-12-rsihub-rename-migration.md"),
+            Path("tests/test_rsihub_migration.py"),
+        }
+        forbidden = (
+            "EvolveX",
+            "simple-agent-lab/EvolveX",
+            "simple-agent-lab.github.io/EvolveX",
+        )
+        for path in ROOT.rglob("*"):
+            relative = path.relative_to(ROOT)
+            if (
+                not path.is_file()
+                or ".git" in relative.parts
+                or ".superpowers" in relative.parts
+                or relative in allowed
+            ):
+                continue
+            if path.suffix.lower() in {".png", ".jpg", ".jpeg", ".gif", ".webp"}:
+                continue
+            text = path.read_text(encoding="utf-8")
+            for old_value in forbidden:
+                self.assertNotIn(old_value, text, f"{old_value!r} remains in {relative}")
