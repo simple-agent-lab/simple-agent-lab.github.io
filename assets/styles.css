@@ -283,6 +283,14 @@ footer a:hover { color: var(--fg); }
   text-decoration: none;
 }
 .page-actions a:hover { color: var(--fg); text-decoration: underline; }
+.page-actions .soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--faint);
+  font: 600 13px/1 var(--sans);
+  cursor: default;
+}
 .page-actions b { font: 400 14px/1 var(--sans); }
 .project-page figure { margin: 1.8rem 0 2rem; }
 .project-page figure img {
