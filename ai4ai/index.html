@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <title>On the Eve of AI4AI | Simple Agent Lab</title>
+    <meta
+      name="description"
+      content="AI for AI introduces no new capability class: it is long-horizon execution with a different goal. A taxonomy of closure across plan, execute, feedback, and repair, applied to 35 representative self-improving systems."
+    />
+    <meta
+      name="keywords"
+      content="AI4AI, long-horizon agents, recursive self-improvement, RSI, self-improving systems, self-evolving agents, closure audit, agent evaluation, harness, survey"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://simpleagentlab.com/ai4ai/" />
+
+    <meta property="og:title" content="On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement" />
+    <meta
+      property="og:description"
+      content="Execute is closed by the system in all 35 audited systems. Feedback is closed in none. That gap is what 'the eve of AI4AI' means."
+    />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://simpleagentlab.com/ai4ai/" />
+    <meta property="og:site_name" content="Simple Agent Lab" />
+    <meta property="og:image" content="https://simpleagentlab.com/assets/og.png" />
+    <meta property="og:image:alt" content="Simple Agent Lab — Simple yet effective methods for AI4AI" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="On the Eve of AI4AI | Simple Agent Lab" />
+    <meta
+      name="twitter:description"
+      content="A structural definition of long-horizon execution, a five-dimension taxonomy of AI4AI, and a closure audit of 35 systems."
+    />
+    <meta name="twitter:image" content="https://simpleagentlab.com/assets/og.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ScholarlyArticle",
+        "headline": "On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement",
+        "alternativeHeadline": "Definitions, Reliable Horizons, and Open Problems",
+        "url": "https://simpleagentlab.com/ai4ai/",
+        "datePublished": "2026-08-12",
+        "inLanguage": ["en", "zh-CN"],
+        "author": [
+          { "@type": "Person", "name": "Kai Wu" },
+          { "@type": "Person", "name": "Hao Lyu" },
+          { "@type": "Person", "name": "Zhen Luo" },
+          { "@type": "Person", "name": "Chaofan Wang" },
+          { "@type": "Person", "name": "Siyu Ye" },
+          { "@type": "Person", "name": "Jinghao Lin" },
+          { "@type": "Person", "name": "Xiaozhong Ji" },
+          { "@type": "Person", "name": "Boyuan Jiang" },
+          { "@type": "Person", "name": "Shengzhi Wang" },
+          { "@type": "Person", "name": "Zihan Wang" },
+          { "@type": "Person", "name": "Yiwen Ye" },
+          { "@type": "Person", "name": "Zimu Wang" },
+          { "@type": "Person", "name": "Wenzhe Liu" },
+          { "@type": "Person", "name": "Ruobing Wang" },
+          { "@type": "Person", "name": "Kai Cai" },
+          { "@type": "Person", "name": "Lei Yang" },
+          { "@type": "Person", "name": "Xiaobin Hu" },
+          { "@type": "Person", "name": "Qingwen Liu" }
+        ],
+        "publisher": { "@id": "https://simpleagentlab.com/#organization" },
+        "about": ["AI4AI", "Long-horizon agents", "Recursive self-improvement", "Agent evaluation"]
+      }
+    </script>
+
+    <link rel="icon" href="../assets/favicon.svg?v=4" type="image/svg+xml" />
+    <link rel="stylesheet" href="../assets/styles.css" />
+    <script>
+      try {
+        var root = document.documentElement;
+        var savedLanguage = localStorage.getItem("simple-agent-lab-language-choice");
+        var browserLanguages = navigator.languages && navigator.languages.length
+          ? navigator.languages
+          : [navigator.language || "en"];
+        var browserLanguage = browserLanguages.some(function (language) {
+          return language.toLowerCase().startsWith("zh");
+        }) ? "zh" : "en";
+        var language = savedLanguage === "en" || savedLanguage === "zh"
+          ? savedLanguage
+          : browserLanguage;
+        root.dataset.lang = language;
+        root.lang = language === "zh" ? "zh-CN" : "en";
+
+        var savedTheme = localStorage.getItem("simple-agent-lab-theme");
+        var theme = savedTheme === "light" || savedTheme === "dark"
+          ? savedTheme
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        root.dataset.theme = theme;
+        root.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]').setAttribute(
+          "content",
+          theme === "dark" ? "#111513" : "#ffffff"
+        );
+      } catch (error) {}
+    </script>
+    <script src="../assets/site.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      <span class="lang-en" lang="en">Skip to content</span>
+      <span class="lang-zh" lang="zh-CN">跳至正文</span>
+    </a>
+
+    <header class="site-header">
+      <a class="small-brand" href="../" aria-label="Simple Agent Lab home">
+        <img src="../assets/logo.svg" width="26" height="26" alt="" />
+        <span>Simple Agent Lab</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="../">
+          <span class="lang-en" lang="en">Home</span>
+          <span class="lang-zh" lang="zh-CN">首页</span>
+        </a>
+        <a href="https://github.com/simple-agent-lab" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="theme-toggle" type="button" aria-label="Switch to dark theme">
+          <span class="theme-action-en" lang="en">Dark</span>
+          <span class="theme-action-zh" lang="zh-CN">深色</span>
+        </button>
+        <button class="language-toggle" type="button" aria-label="切换为中文">中文</button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <article class="legal-page project-page has-toc">
+        <div class="toc-rail">
+          <nav class="toc" aria-labelledby="toc-title">
+            <p class="toc-title" id="toc-title">
+              <span class="lang-en" lang="en">Contents</span>
+              <span class="lang-zh" lang="zh-CN">目录</span>
+            </p>
+            <ul>
+              <li>
+                <a href="#abstract">
+                  <span class="lang-en" lang="en">Abstract</span>
+                  <span class="lang-zh" lang="zh-CN">摘要</span>
+                </a>
+              </li>
+              <li>
+                <a href="#loop">
+                  <span class="lang-en" lang="en">A long-horizon loop pointed at an AI system</span>
+                  <span class="lang-zh" lang="zh-CN">指向 AI 系统的 long-horizon 闭环</span>
+                </a>
+              </li>
+              <li>
+                <a href="#closure">
+                  <span class="lang-en" lang="en">Where closure sits</span>
+                  <span class="lang-zh" lang="zh-CN">自主到哪一步</span>
+                </a>
+              </li>
+              <li>
+                <a href="#horizon">
+                  <span class="lang-en" lang="en">Model and harness</span>
+                  <span class="lang-zh" lang="zh-CN">model 与 harness</span>
+                </a>
+              </li>
+              <li>
+                <a href="#composition">
+                  <span class="lang-en" lang="en">Why composition is less reliable</span>
+                  <span class="lang-zh" lang="zh-CN">组合为何更不可靠</span>
+                </a>
+              </li>
+              <li>
+                <a href="#conclusion">
+                  <span class="lang-en" lang="en">Conclusion</span>
+                  <span class="lang-zh" lang="zh-CN">结论</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="doc">
+        <figure class="cover">
+          <img
+            src="./assets/cover.jpg"
+            width="1600"
+            height="900"
+            alt="Cover illustration: four robots on a ship deck labelled plan, execute, feedback, and repair, under the title The Eve of AI4AI."
+          />
+        </figure>
+
+        <p class="eyebrow">
+          <span class="lang-en" lang="en">Paper · August 2026</span>
+          <span class="lang-zh" lang="zh-CN">论文 · 2026 年 8 月</span>
+        </p>
+        <h1>On the Eve of AI4AI</h1>
+        <p class="tagline">
+          <span class="lang-en" lang="en">From long-horizon agents to recursive self-improvement.</span>
+          <span class="lang-zh" lang="zh-CN">从 long-horizon agent 到 recursive self-improvement。</span>
+        </p>
+        <p class="subtitle">
+          <span class="lang-en" lang="en">Definitions, reliable horizons, and open problems.</span>
+          <span class="lang-zh" lang="zh-CN">定义、可靠 horizon 与开放问题。</span>
+        </p>
+        <p class="authors">
+          Kai Wu<sup>1</sup>, Hao Lyu<sup>1</sup>, Zhen Luo<sup>1</sup>, Chaofan Wang<sup>2</sup>,
+          Siyu Ye<sup>6</sup>, Jinghao Lin<sup>6</sup>, Xiaozhong Ji<sup>3</sup>, Boyuan Jiang<sup>4</sup>,
+          Shengzhi Wang<sup>1</sup>, Zihan Wang<sup>6</sup>, Yiwen Ye<sup>6</sup>, Zimu Wang<sup>5</sup>,
+          Wenzhe Liu<sup>6</sup>, Ruobing Wang<sup>6</sup>, Kai Cai<sup>6</sup>, Lei Yang<sup>8</sup>,
+          Xiaobin Hu<sup>7</sup>, Qingwen Liu<sup>1</sup>
+        </p>
+        <p class="affiliations">
+          <sup>1</sup>Tongji University · <sup>2</sup>Shanghai Jiao Tong University ·
+          <sup>3</sup>Nanjing University · <sup>4</sup>Zhejiang University ·
+          <sup>5</sup>UC Berkeley · <sup>6</sup>Simple Agent Lab ·
+          <sup>7</sup>National University of Singapore · <sup>8</sup>Nanyang Technological University
+        </p>
+        <div class="page-actions">
+          <!-- TODO(作者): 论文上线后把这里换成 arXiv 链接。 -->
+          <a href="https://arxiv.org/abs/2608.00000" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Paper</span>
+            <span class="lang-zh" lang="zh-CN">论文</span>
+            <b aria-hidden="true">↗</b>
+          </a>
+          <a href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Harness / Code</span>
+            <span class="lang-zh" lang="zh-CN">Harness / 代码</span>
+            <b aria-hidden="true">↗</b>
+          </a>
+        </div>
+
+        <div class="abstract" id="abstract">
+          <p>
+            <span class="lang-en" lang="en"><strong>Abstract:</strong> The release notes of <a href="https://www.anthropic.com/claude/fable" target="_blank" rel="noreferrer">Claude Fable 5</a>, <a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noreferrer">GPT-5.6</a>, <a href="https://www.kimi.com/ja-jp/blog/kimi-k3" target="_blank" rel="noreferrer">Kimi K3</a>, and <a href="https://z.ai/blog/glm-5.2" target="_blank" rel="noreferrer">GLM-5.2</a> point at one thing: keep a model working on agentic tasks, and let it evolve from its own execution. Whether AI can improve AI still draws conflicting answers, largely because the relevant literatures do not define autonomy and improvement the same way. This survey covers more than 200 papers and technical reports, and defines long-horizon execution as a repeated plan–execute–feedback–repair loop. AI for AI introduces no new capability class: replace the target of one such execution, so that “finish this task” becomes “improve this system,” keep plan, execute, feedback, and repair as they are, and what comes out is AI4AI. We release a 67-entry benchmark inventory and a close analysis of 35 representative AI4AI systems. Agents are increasingly capable at reproducing, implementing, and optimizing executable artifacts, while research judgment, experimental sufficiency, and sustained post-peak improvement remain open.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>摘要：</strong><a href="https://www.anthropic.com/claude/fable" target="_blank" rel="noreferrer">Claude Fable 5</a>、<a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noreferrer">GPT-5.6</a>、<a href="https://www.kimi.com/ja-jp/blog/kimi-k3" target="_blank" rel="noreferrer">Kimi K3</a>、<a href="https://z.ai/blog/glm-5.2" target="_blank" rel="noreferrer">GLM-5.2</a> 的发布材料指向同一方向：让模型持续执行 agentic 任务，并从自身的执行过程中进化。围绕“AI 能否改进 AI”的结论仍存在分歧，这在很大程度上源于各文献对“自主”与“改进”的定义并不一致。本文综述 200 余篇论文与技术报告，将 long-horizon execution 定义为反复执行的 plan–execute–feedback–repair 闭环。AI for AI 并未引入新的能力类别：将一次 long-horizon execution 的 target 从“完成这个任务”替换为“改进这个系统”，plan、execute、feedback、repair 四个阶段原样保留，所得即为 AI4AI。我们发布一份 67 条目的 benchmark inventory，以及对 35 个代表性 AI4AI 系统的细致分析：agent 在复现、实现与优化可执行产物上日益胜任，研究判断、实验充分性与越过峰值之后的持续改进仍是开放问题。</span>
+          </p>
+        </div>
+
+        <p>
+          <span class="lang-en" lang="en">The survey covers the component capabilities that AI4AI requires and how they are measured today, gives a taxonomy for locating where the loop closes, analyzes reliable execution within the coupled model, harness, environment, and evaluation stack, unfolds in depth along the model and harness routes, and ends with the failures that bound recursive improvement.</span>
+          <span class="lang-zh" lang="zh-CN">这篇综述覆盖 AI4AI 需要的各种组件能力，以及它们目前的度量方式；给出一套定位自主范围的 taxonomy，把可靠执行放在 model、harness、environment、evaluation 四层耦合的框架下分析，并沿 model 与 harness 两条路线深度展开；最后总结限制递归改进的各类失败。</span>
+        </p>
+
+        <figure class="framed plate">
+          <img
+            src="./assets/long_horizon_teaser.svg"
+            alt="Survey overview: component benchmarks and environments on the left, six task pressures and the model-harness-environment-evaluation stack in the middle, model-side and harness-side methods on the right."
+          />
+          <figcaption>
+            <span class="lang-en" lang="en">Survey overview: benchmarks and environments on the left, task pressure and the four-layer stack in the center, the model and harness routes on the right.</span>
+            <span class="lang-zh" lang="zh-CN">综述总览：左侧组件 benchmark 与 environment，中部 task pressure 与四层，右侧 model 与 harness 两条路线。</span>
+          </figcaption>
+        </figure>
+
+        <!-- TODO(作者)：这里可以加一段做这项工作的起因，150 字左右。 -->
+
+        <h2 id="loop">
+          <span class="lang-en" lang="en">AI4AI is a long-horizon loop pointed at an AI system</span>
+          <span class="lang-zh" lang="zh-CN">AI4AI 是一个指向 AI 系统的 long-horizon 闭环</span>
+        </h2>
+
+        <p>
+          <span class="lang-en" lang="en">Long-horizon is often equated with long context, many turns, or many tool calls; these proxies are insufficient. We define it structurally: given a goal, a system plans a route, executes against an environment, ingests feedback, and repairs its plan, state, or environment before continuing. A task is long-horizon when success requires this loop to be closed and repeated, so that information and consequences produced by earlier passes must be preserved and validated by later ones. Task pressure arrives along six coupled dimensions: time, steps, context, grounding, verification, and dependency.</span>
+          <span class="lang-zh" lang="zh-CN">long-horizon 常被等同于长 context、多轮交互或大量 tool call，这些代理指标并不充分。我们按结构定义：给定一个 goal，系统 plan 一条路径，对 environment execute，摄入 feedback，并在继续之前 repair 其计划、状态或环境；当成功要求该闭环被闭合并重复，使早先产生的信息与后果必须被后续 pass 保留和验证时，任务才是 long-horizon 的。task pressure 来自六个相互耦合的维度：时间、步数、context、grounding、verification 与依赖。</span>
+        </p>
+        <figure class="framed plate">
+          <img
+            src="./assets/section2_figure.svg"
+            alt="Four organizing questions: what the loop may change, why a single pass is already long-horizon, how to measure task pressure, closure and evidence, and when self-reference turns the loop inward."
+          />
+          <figcaption>
+            <span class="lang-en" lang="en">Four organizing questions: what may change, why one pass is long-horizon, how to measure, and when the loop recurses inward.</span>
+            <span class="lang-zh" lang="zh-CN">四个组织问题：改什么、为何 long-horizon、如何测量、何时向内递归。</span>
+          </figcaption>
+        </figure>
+
+        <h2 id="closure">
+          <span class="lang-en" lang="en">Where closure sits</span>
+          <span class="lang-zh" lang="zh-CN">自主到哪一步</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">Our taxonomy locates a system along five dimensions—what the loop may change (target), whether the improved system is the one doing the improving (self-reference), which stages the system supplies (closure), how much room the improvement signal leaves (grounding), and whether gains accumulate or transfer (compounding)—of which closure does most of the discriminating work. This is formalized as the five-tuple <code>(goal, plan, execute, feedback, repair)</code>.</span>
+          <span class="lang-zh" lang="zh-CN">我们的 taxonomy 用五个维度定位一个系统：闭环可以改动什么（target）、被改进的系统是否即执行改进的系统（self-reference）、五个环节里哪些是系统自主完成的（closure）、improvement signal 空间有多大（grounding），以及增益是否累积或可迁移（compounding），其中承担主要区分工作的是 closure。形式化为：<code>(goal, plan, execute, feedback, repair)</code> 五元组。</span>
+        </p>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <span class="lang-en" lang="en">Paradigm</span>
+                  <span class="lang-zh" lang="zh-CN">范式</span>
+                </th>
+                <th>
+                  <span class="lang-en" lang="en">Target</span>
+                  <span class="lang-zh" lang="zh-CN">target</span>
+                </th>
+                <th class="nowrap">
+                  <span class="lang-en" lang="en">Self-reference</span>
+                  <span class="lang-zh" lang="zh-CN">self-reference</span>
+                </th>
+                <th>
+                  <span class="lang-en" lang="en">Typical closure</span>
+                  <span class="lang-zh" lang="zh-CN">自主范围</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>AutoML / NAS</strong></td>
+                <td>
+                  <span class="lang-en" lang="en">architectures and hyperparameters</span>
+                  <span class="lang-zh" lang="zh-CN">架构与超参</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">no</span>
+                  <span class="lang-zh" lang="zh-CN">否</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">humans fix the goal and the search space; the system closes execute only</span>
+                  <span class="lang-zh" lang="zh-CN">只有 execute 是系统自主的，goal 和搜索空间由人定</span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>AI4AI</strong></td>
+                <td>
+                  <span class="lang-en" lang="en">any part of an AI system</span>
+                  <span class="lang-zh" lang="zh-CN">AI 系统的任何部分</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">not required</span>
+                  <span class="lang-zh" lang="zh-CN">不要求</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">the system closes plan and execute; feedback is mix under a human-written evaluator</span>
+                  <span class="lang-zh" lang="zh-CN">plan 与 execute 是系统自主的，feedback 在人写的 evaluator 下记为 mix</span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Recursive self-improvement</strong></td>
+                <td>
+                  <span class="lang-en" lang="en">the improvement mechanism itself</span>
+                  <span class="lang-zh" lang="zh-CN">改进机制本身</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">required</span>
+                  <span class="lang-zh" lang="zh-CN">要求</span>
+                </td>
+                <td>
+                  <span class="lang-en" lang="en">all four execution stages close; the goal is still given by humans</span>
+                  <span class="lang-zh" lang="zh-CN">四个执行阶段都是系统自主的，goal 仍由人定</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          <span class="lang-en" lang="en">A fixed harness (ReAct, Reflexion, MemGPT) extends the reliable horizon, but the agent mechanism itself is not improved. Letting an outer agent search over scaffold code (ADAS, Meta-Harness) keeps the improver and the improved as two roles. An agent editing its own code (Darwin Gödel Machine, Self-Harness) still answers to a fixed evaluator. The loop only becomes truly recursive once the feedback from an improvement enters the very process that proposes the next one. Distinguishing these levels keeps every prompt search from being called recursive self-improvement: on Terminal-Bench 2.1, once feedback and inference budget are matched, automated harness evolution does not reliably beat a simple test-time scaling baseline.</span>
+          <span class="lang-zh" lang="zh-CN">固定的 harness（ReAct、Reflexion、MemGPT）能延长可靠 horizon，但"Agent 机制"本身没有改进；让外部 agent 搜索 scaffold 代码（ADAS、Meta-Harness），改进者和被改进者仍是两个角色；agent 改自己的代码（Darwin Gödel Machine、Self-Harness），评判它的 evaluator 还是固定的。只有改进的反馈进入"提出下一个改进"的流程本身，闭环才算真正递归。分清这几级，才不至于把每次 prompt 搜索都叫成 recursive self-improvement，在 Terminal-Bench 2.1 上，把 feedback 和推理预算拉平之后，自动 harness 演化并没有稳定赢过简单的 test-time scaling 基线。</span>
+        </p>
+
+        <h2 id="horizon">
+          <span class="lang-en" lang="en">Two routes to a longer reliable horizon: model and harness</span>
+          <span class="lang-zh" lang="zh-CN">延长可靠 horizon：model 与 harness</span>
+        </h2>
+
+        <figure class="framed plate">
+          <img
+            src="./assets/model_design.svg"
+            alt="Model-side interventions mapped onto the plan, execute, feedback, and repair stages of the loop."
+          />
+          <figcaption>
+            <span class="lang-en" lang="en">Model-side interventions by stage: plan yields supervision, execute grounds in tools and state, feedback becomes step-level credit, repair rewrites the training recipe.</span>
+            <span class="lang-zh" lang="zh-CN">model 侧干预：plan 产生监督信号，execute 依赖 tool 与 state，feedback 转为 step-level credit，repair 改写训练配方。</span>
+          </figcaption>
+        </figure>
+
+        <p>
+          <span class="lang-en" lang="en">Simplify the system: assume steps are independent; at 95% per step, finishing 100 steps leaves under 1%. Real errors are not independent, so the number predicts nothing—it just sharpens the question: which part of the loop does a method improve? Model-side work covers every stage, yet the longer the task, the further end-to-end reliability falls, as if each step lost a fixed fraction. So the reliable horizon comes down to the harness: can errors be contained, and can the system recover. This matters more than it seems—between frontier models of similar capability, changing the harness can matter more than changing the model, even reversing rankings; swapping the scaffold alone moves one model's accuracy by 28 points, more than most of the model gaps people argue about.</span>
+          <span class="lang-zh" lang="zh-CN">把系统简单化：假设每步独立，单步成功率 95%，走完 100 步就只剩不到 1%。真实的错误不独立，这个数字不是预测，它只是把问题问准：一个方法改的是哪一环。model 侧每一环都有工作，但任务越长，端到端可靠性还是一路往下掉，像每走一步都固定折损一点。所以可靠 horizon 最终看 harness：错误压不压得住，错了能不能恢复。这比看上去更重要——能力相当的前沿模型之间，换 harness 的差异可以超过换模型，甚至反转排名；只换 scaffold，同一个模型的准确率就能差出 28 个百分点，比大家常争的模型差距还大。</span>
+        </p>
+
+        <h2 id="composition">
+          <span class="lang-en" lang="en">Why composition is less reliable than its parts</span>
+          <span class="lang-zh" lang="zh-CN">组合为何更不可靠</span>
+        </h2>
+
+        <p>
+          <span class="lang-en" lang="en">Components that work in isolation become less reliable once composed, for two reasons: the weakest link sets the whole—any required component can terminate the pass, so scores measured in isolation do not measure the full system—and handoffs lose information, since compression and summarization can remove a constraint that only a later experiment needs. The paper follows the resulting failures across four scales:</span>
+          <span class="lang-zh" lang="zh-CN">组件分开都能用，组合成系统反而更不可靠，原因有两条：一是最弱的一环决定整体，任何一个必需组件失败都会终止整个 pass，所以分开测的分数不代表完整系统；二是交接会丢信息，压缩和摘要可能删掉某个后面才用得上的约束。论文把由此产生的失败按四个尺度展开：</span>
+        </p>
+        <ul>
+          <li>
+            <span class="lang-en" lang="en"><strong>Within one pass.</strong> Planning, grounding, and tool use are tightly coupled: a local error—the wrong control, the wrong file, the wrong database row—reshapes the future state space, so later observations look self-consistent while drifting from the goal.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>单次 pass 之内。</strong>plan、grounding 与工具调用紧密耦合：一个局部错误——点错控件、改错文件、写错数据行——就会改变后续的状态空间，之后的观察看起来自洽，实际已经偏离 goal。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Across passes.</strong> Memory can retrieve stale state, and lossy summaries can drop task-critical constraints; an early mistake enters the trajectory and cascades, so later decisions stay coherent with the record while being causally downstream of the fault.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>跨 pass。</strong>记忆可能检索到过期状态，有损摘要可能压掉任务关键的约束；早期错误一旦进入轨迹状态就层层传导，后续决策与记录看似连贯，因果上却继承了那个错误。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Across generations.</strong> When a system both proposes and judges an improvement, their agreement is not evidence; recursive training on generated data can erode retained capabilities, and a weakening proxy invites reward hacking. In RSIBench-Data, more than three quarters of searches that continue past their best checkpoint terminate below it.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>跨代际。</strong>系统自己提出改进、又自己评判时，两者一致不构成证据；在生成数据上递归训练会侵蚀原有能力，proxy 变弱则引来 reward hacking。RSIBench-Data 里，越过最佳 checkpoint 还继续搜索的运行，超过四分之三最终停在峰值之下。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Evidence and control.</strong> Gains can be bought with budget, so a success rate is only readable alongside tokens, wall-clock time, verifier cost, and human intervention—together with model–harness attribution, contamination controls, and disclosed oversight.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>证据与控制。</strong>增益可以用预算买来，所以成功率只有和 token、时间、verifier 成本、人工介入放在一起才可读；此外还需要 model–harness 归因、污染控制和 oversight 披露。</span>
+          </li>
+        </ul>
+
+        <h2 id="conclusion">
+          <span class="lang-en" lang="en">Conclusion</span>
+          <span class="lang-zh" lang="zh-CN">结论</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">Back to where we started: the release notes of frontier models are pushing agents toward the same thing—sustained execution, and evolving from that execution. The judgment of this survey is that what AI4AI lacks has never been capability: plan, execute, feedback, and repair are each already strong on their own, and across the 35 systems execute is fully system-owned. What is missing is the authority to decide—no system picks its own goal, and none can judge what counts as “better” without a human. So “can AI improve AI” is no longer a question of whether the work can be done, but of who defines “better.” The eve ends the first time a system, with no human-specified goal or evaluation, has successors that reliably strengthen it. We hope this taxonomy and this audit help that moment arrive a little sooner.</span>
+          <span class="lang-zh" lang="zh-CN">回到开头：前沿模型的发布材料都在把 agent 推向同一件事，持续执行，并从执行中进化。这份综述给出的判断是，AI4AI 缺的从来不是能力：plan、execute、feedback、repair 每一个单独能力已经很强，35 个系统里 execute 更是全部自主。缺的是决策权，没有一个系统自己选目标，没有一个能不靠人判定“什么算更好”。所以“AI 能否改进 AI”已经不是能不能做事的问题，而是谁来定义“更好”的问题。当某个系统第一次在不由人指定目标与评测的前提下，后继者稳定强化自己，前夜就结束了。我们希望这套 taxonomy 和盘点，能让那一刻到来的更早一些。</span>
+        </p>
+
+        <a class="back-link" href="../">
+          <span class="lang-en" lang="en">← Back to Simple Agent Lab</span>
+          <span class="lang-zh" lang="zh-CN">← 返回 Simple Agent Lab</span>
+        </a>
+        </div>
+      </article>
+    </main>
+
+    <script>
+      (function () {
+        var links = Array.prototype.slice.call(document.querySelectorAll(".toc a"));
+        var targets = links
+          .map(function (link) {
+            return document.getElementById(link.getAttribute("href").slice(1));
+          })
+          .filter(Boolean);
+        if (!targets.length) return;
+
+        var ticking = false;
+        function highlight() {
+          ticking = false;
+          var current = 0;
+          for (var i = 0; i < targets.length; i++) {
+            if (targets[i].getBoundingClientRect().top <= 120) current = i;
+          }
+          links.forEach(function (link, i) {
+            link.classList.toggle("is-active", i === current);
+          });
+        }
+        function onScroll() {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(highlight);
+        }
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        highlight();
+      })();
+    </script>
+
+    <footer>
+      <span>Simple Agent Lab</span>
+      <a href="../disclaimer.html">
+        <span class="lang-en" lang="en">Disclaimer</span>
+        <span class="lang-zh" lang="zh-CN">免责声明</span>
+      </a>
+      <span>© 2026</span>
+    </footer>
+  </body>
+</html>
