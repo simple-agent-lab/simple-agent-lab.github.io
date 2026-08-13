@@ -252,7 +252,21 @@ footer a:hover { color: var(--fg); }
   font: 650 19px/1.5 var(--sans);
   letter-spacing: -.02em;
 }
-.project-page .subtitle { color: var(--soft); margin-bottom: 1.4rem; }
+.project-page .subtitle { color: var(--soft); margin-bottom: 1rem; }
+.project-page .authors {
+  margin-bottom: .45rem;
+  color: var(--soft);
+  font: 450 13.5px/1.75 var(--sans);
+}
+.project-page .affiliations {
+  margin-bottom: 1.6rem;
+  color: var(--faint);
+  font: 450 12px/1.7 var(--sans);
+}
+.project-page .authors sup, .project-page .affiliations sup {
+  font-size: 9px;
+  color: var(--faint);
+}
 .project-page h3 { margin: 2rem 0 .4rem; font: 700 1.02rem/1.35 var(--serif); }
 .page-actions {
   display: flex;
@@ -269,6 +283,14 @@ footer a:hover { color: var(--fg); }
   text-decoration: none;
 }
 .page-actions a:hover { color: var(--fg); text-decoration: underline; }
+.page-actions .soon {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--faint);
+  font: 600 13px/1 var(--sans);
+  cursor: default;
+}
 .page-actions b { font: 400 14px/1 var(--sans); }
 .project-page figure { margin: 1.8rem 0 2rem; }
 .project-page figure img {
@@ -296,8 +318,69 @@ footer a:hover { color: var(--fg); }
   background: var(--rule);
   font: 500 .82em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
+.project-page .doc { min-width: 0; }
+.toc-rail { display: none; }
+.project-page .abstract {
+  margin: 0 0 2.6rem;
+  padding-left: 20px;
+  border-left: 2px solid var(--rule);
+}
+.project-page .abstract p { margin: 0; color: var(--soft); font-size: 16px; }
+.project-page .abstract strong { color: var(--fg); }
+.project-page h2[id] { scroll-margin-top: 86px; }
+
+/* Wide viewports get a sticky contents rail in the left gutter while the article
+   column stays centered. Below 1200px there is no room, so the rail is dropped. */
+@media (min-width: 1200px) {
+  .project-page.has-toc {
+    max-width: none;
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 760px) 1fr;
+  }
+  .project-page.has-toc .doc { grid-column: 2; }
+  .toc-rail {
+    display: block;
+    position: sticky;
+    top: 96px;
+    grid-column: 1;
+    justify-self: end;
+    width: 190px;
+    margin-right: 40px;
+    align-self: start;
+  }
+  .toc-title {
+    margin-bottom: 12px;
+    color: var(--faint);
+    font: 650 11px/1 var(--sans);
+    letter-spacing: .09em;
+    text-transform: uppercase;
+  }
+  .toc ul { margin: 0; list-style: none; }
+  .toc li { margin: 0; }
+  .toc a {
+    display: block;
+    padding: 5px 0 5px 12px;
+    border-left: 2px solid var(--rule);
+    color: var(--faint);
+    font: 450 13px/1.4 var(--sans);
+    text-decoration: none;
+  }
+  .toc a:hover { color: var(--fg); }
+  .toc a.is-active { border-left-color: var(--fg); color: var(--fg); }
+}
+
+.project-page .cover { margin: 0 0 2.4rem; }
+.project-page .cover img { border-radius: 16px; }
+.project-page .opening-note { font-size: 18px; line-height: 1.6; }
+/* Figures exported from the paper carry their own white background, so they are
+   plated on white in both themes rather than inverted. */
+.project-page figure.plate img { padding: 12px; background: #fff; }
 .table-scroll { margin: 1.4rem 0 1.8rem; overflow-x: auto; }
 .table-scroll table { min-width: 560px; }
+.table-scroll.narrow { max-width: 380px; }
+.table-scroll.narrow table { min-width: 0; }
+.project-page th.num, .project-page td.num { padding-right: 0; text-align: right; }
+.project-page th.nowrap, .project-page td.nowrap { white-space: nowrap; }
 .project-page table {
   width: 100%;
   border-collapse: collapse;
