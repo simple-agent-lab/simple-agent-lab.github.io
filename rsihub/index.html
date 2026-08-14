@@ -488,17 +488,27 @@
       .recipes { margin-top: 6px; border-top: 1px solid var(--rule); }
       .recipe-row {
         display: grid;
-        grid-template-columns: 150px 1fr 220px;
+        grid-template-columns: 150px 1fr auto;
         gap: 18px;
         align-items: baseline;
         padding: 19px 2px;
         border-bottom: 1px solid var(--rule);
       }
       .recipe-row p { margin: 0; font: 450 15px/1.6 var(--sans); color: var(--fg); }
-      .recipe-row .surface { color: var(--faint); font: 500 12.5px/1.6 var(--sans); text-align: right; }
+      .recipe-ref {
+        justify-self: end;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--soft);
+        font: 600 13px/1 var(--sans);
+        text-decoration: none;
+      }
+      .recipe-ref:hover { color: var(--fg); text-decoration: underline; }
+      .recipe-ref b { font: 400 14px/1 var(--sans); }
       @media (max-width: 680px) {
         .recipe-row { grid-template-columns: 1fr; gap: 7px; }
-        .recipe-row .surface { text-align: left; }
+        .recipe-ref { justify-self: start; }
       }
 
       /* Showcase */
@@ -1010,7 +1020,6 @@
               <span class="lang-en" lang="en">Improve one candidate from its current best parent.</span>
               <span class="lang-zh" lang="zh-CN">从当前最优父代持续改进单个候选。</span>
             </p>
-            <span class="surface">target</span>
           </div>
           <div class="recipe-row">
             <code>aevolve</code>
@@ -1018,7 +1027,7 @@
               <span class="lang-en" lang="en">Evolve prompts and reusable agent skills.</span>
               <span class="lang-zh" lang="zh-CN">进化提示词与可复用的智能体技能。</span>
             </p>
-            <span class="surface">prompt + target skills</span>
+            <a class="recipe-ref" href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer"><span class="lang-en" lang="en">Code</span><span class="lang-zh" lang="zh-CN">代码</span><b aria-hidden="true">↗</b></a>
           </div>
           <div class="recipe-row">
             <code>ahe</code>
@@ -1026,7 +1035,7 @@
               <span class="lang-en" lang="en">Engineer the agent harness against evaluator feedback.</span>
               <span class="lang-zh" lang="zh-CN">依据评估器反馈改进 agent harness。</span>
             </p>
-            <span class="surface">target</span>
+            <a class="recipe-ref" href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer"><span class="lang-en" lang="en">Paper</span><span class="lang-zh" lang="zh-CN">论文</span><b aria-hidden="true">↗</b></a>
           </div>
           <div class="recipe-row">
             <code>gepa</code>
@@ -1034,7 +1043,7 @@
               <span class="lang-en" lang="en">Balance multiple objectives with minibatch validation.</span>
               <span class="lang-zh" lang="zh-CN">通过 minibatch 验证平衡多个目标。</span>
             </p>
-            <span class="surface">prompt + task skill</span>
+            <a class="recipe-ref" href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer"><span class="lang-en" lang="en">Paper</span><span class="lang-zh" lang="zh-CN">论文</span><b aria-hidden="true">↗</b></a>
           </div>
           <div class="recipe-row">
             <code>hyperagents</code>
@@ -1042,7 +1051,7 @@
               <span class="lang-en" lang="en">Co-evolve the target and the selected evolution policy.</span>
               <span class="lang-zh" lang="zh-CN">让目标与选定的进化策略共同进化。</span>
             </p>
-            <span class="surface">target + selected operators</span>
+            <a class="recipe-ref" href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer"><span class="lang-en" lang="en">Paper</span><span class="lang-zh" lang="zh-CN">论文</span><b aria-hidden="true">↗</b></a>
           </div>
         </div>
         <p class="after">
