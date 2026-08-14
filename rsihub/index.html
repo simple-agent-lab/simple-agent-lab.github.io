@@ -725,7 +725,7 @@
             <span class="rotor rotor-target"><span class="rotor-word">Codex</span><span class="sizer" aria-hidden="true">Codex</span><span class="sizer" aria-hidden="true">Claude Code</span><span class="sizer" aria-hidden="true">DeepSeek harness</span><span class="sizer" aria-hidden="true">MiniSWE</span></span><br />on
             <span class="rotor rotor-bench"><span class="rotor-word">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Tau³ Banking</span><span class="sizer" aria-hidden="true">your own eval</span></span></span>
           <span class="lang-zh" lang="zh-CN">在
-            <span class="rotor rotor-bench"><span class="rotor-word">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Tau³ Banking</span><span class="sizer" aria-hidden="true">你自己的评测</span></span><br />上进化
+            <span class="rotor rotor-bench"><span class="rotor-word">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Tau³ Banking</span><span class="sizer" aria-hidden="true">你自己的 benchmark</span></span><br />上进化
             <span class="rotor rotor-target"><span class="rotor-word">Codex</span><span class="sizer" aria-hidden="true">Codex</span><span class="sizer" aria-hidden="true">Claude Code</span><span class="sizer" aria-hidden="true">DeepSeek harness</span><span class="sizer" aria-hidden="true">MiniSWE</span></span></span>
         </p>
         <div class="hero-row">
@@ -773,7 +773,7 @@
         </div>
         <p class="terminal-note">
           <span class="lang-en" lang="en">Seed and best train scores from the published Codex × AHE run; intermediate generations abridged.</span>
-          <span class="lang-zh" lang="zh-CN">seed 与最佳 train 分数来自已发布的 Codex × AHE 运行；中间世代经简化。</span>
+          <span class="lang-zh" lang="zh-CN">seed 和最佳 train 分数来自真实的 Codex × AHE 运行，中间几代有省略。</span>
         </p>
         </div>
         </div>
@@ -783,15 +783,15 @@
       <section class="block wrap" id="results">
         <p class="kicker">
           <span class="lang-en" lang="en">Results</span>
-          <span class="lang-zh" lang="zh-CN">基准结果</span>
+          <span class="lang-zh" lang="zh-CN">Benchmark 结果</span>
         </p>
         <h2>
           <span class="lang-en" lang="en">Audited gains on real benchmarks.</span>
-          <span class="lang-zh" lang="zh-CN">真实基准上可审计的提升。</span>
+          <span class="lang-zh" lang="zh-CN">在真实 benchmark 上的提升</span>
         </h2>
         <p class="lead">
           <span class="lang-en" lang="en">Scores are percentages shown as <strong>seed → evolved agent</strong>. The train score is measured on the recipe’s training split; the full benchmark score is measured across the complete benchmark. All runs use a GPT-5.4-high target model and a GPT-5.4-xhigh Codex mutate operator.</span>
-          <span class="lang-zh" lang="zh-CN">分数为百分比，以 <strong>seed → 进化后的智能体</strong> 呈现。Train 分数在 recipe 的训练划分上测得；完整基准分数在整个基准上测得。所有运行使用 GPT-5.4-high 目标模型与 GPT-5.4-xhigh 的 Codex mutate 操作符。</span>
+          <span class="lang-zh" lang="zh-CN">分数格式为 <strong>seed → 进化后</strong>。Train 分数在 recipe 的训练集上测，完整分数在整个 benchmark 上测。所有实验的目标模型是 GPT-5.4-high，mutate 用 GPT-5.4-xhigh 的 Codex。</span>
         </p>
         <div class="bench reveal-chart" role="img" aria-label="Full-benchmark scores per method: dark bar sections show the seed score, light sections the improvement to the evolved agent’s best score. The table below carries the same data.">
           <div class="bench-grid">
@@ -865,11 +865,11 @@
                 <tr>
                   <th>
                     <span class="lang-en" lang="en">Benchmark</span>
-                    <span class="lang-zh" lang="zh-CN">基准</span>
+                    <span class="lang-zh" lang="zh-CN">Benchmark</span>
                   </th>
                   <th>
                     <span class="lang-en" lang="en">Target agent</span>
-                    <span class="lang-zh" lang="zh-CN">目标智能体</span>
+                    <span class="lang-zh" lang="zh-CN">目标 agent</span>
                   </th>
                   <th>
                     <span class="lang-en" lang="en">Method</span>
@@ -881,7 +881,7 @@
                   </th>
                   <th>
                     <span class="lang-en" lang="en">Full benchmark score</span>
-                    <span class="lang-zh" lang="zh-CN">完整基准分数</span>
+                    <span class="lang-zh" lang="zh-CN">完整 benchmark 分数</span>
                   </th>
                 </tr>
               </thead>
@@ -992,7 +992,7 @@
           <span class="lang-zh" lang="zh-CN">Recipe 决定如何选择父代、如何分析轨迹、修改范围、以及如何eval。框架负责承载这些决策：管理候选方案、运行eval、归档改动。</span>
         </p>
         <div class="arch" role="img" aria-label="Five built-in strategies (or a custom recipe) compose one loop of Select, Rollout, Analyze, Mutate, Gate, and Record inside a declared mutable surface, while the frozen evaluator, locked runtime, surface check, and stamped evidence stay outside candidate control.">
-          <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">Evolution methods</span><span class="lang-zh" lang="zh-CN">进化方法</span></span><span class="arch-note"><span class="lang-en" lang="en">five built-in strategies, or compose your own</span><span class="lang-zh" lang="zh-CN">五种内置策略，也可自行组合</span></span></div>
+          <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">Evolution methods</span><span class="lang-zh" lang="zh-CN">进化方法</span></span><span class="arch-note"><span class="lang-en" lang="en">five built-in strategies, or compose your own</span><span class="lang-zh" lang="zh-CN">内置五种策略，也可以自己组合</span></span></div>
           <div class="arch-pills">
             <span class="arch-m" style="--d:0ms">Hill Climb</span>
             <span class="arch-m" style="--d:70ms">A-Evolve</span>
@@ -1003,7 +1003,7 @@
           </div>
           <span class="arch-down" aria-hidden="true"></span>
           <div class="arch-loop">
-            <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">One composable loop</span><span class="lang-zh" lang="zh-CN">一个可组合的循环</span></span><span class="arch-note"><span class="lang-en" lang="en">recipes choose which stages and targets may evolve</span><span class="lang-zh" lang="zh-CN">recipe 决定哪些阶段与目标可以进化</span></span></div>
+            <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">One composable loop</span><span class="lang-zh" lang="zh-CN">迭代循环</span></span><span class="arch-note"><span class="lang-en" lang="en">recipes choose which stages and targets may evolve</span><span class="lang-zh" lang="zh-CN">recipe 决定哪些阶段与目标可以进化</span></span></div>
             <div class="arch-surface">
               <span class="arch-surface-label"><span class="lang-en" lang="en">Loop</span><span class="lang-zh" lang="zh-CN">Loop</span></span>
               <div class="arch-stages">
@@ -1017,7 +1017,7 @@
               <div class="arch-return"><span><span class="lang-en" lang="en">next generation</span><span class="lang-zh" lang="zh-CN">下一代</span></span></div>
             </div>
           </div>
-          <div class="arch-io" aria-hidden="true"><span>↓ <span class="lang-en" lang="en">evidence</span><span class="lang-zh" lang="zh-CN">证据</span></span><span>↑ <span class="lang-en" lang="en">contracts</span><span class="lang-zh" lang="zh-CN">契约</span></span></div>
+          <div class="arch-io" aria-hidden="true"><span>↓ <span class="lang-en" lang="en">evidence</span><span class="lang-zh" lang="zh-CN">证据</span></span><span>↑ <span class="lang-en" lang="en">contracts</span><span class="lang-zh" lang="zh-CN">约束</span></span></div>
           <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">Protected mechanism</span><span class="lang-zh" lang="zh-CN">保护机制</span></span><span class="arch-note"><span class="lang-en" lang="en">outside candidate control</span><span class="lang-zh" lang="zh-CN">候选无法触碰</span></span></div>
           <div class="arch-locks">
             <div class="lock" style="--d:1500ms"><b>Frozen evaluator</b><small><span class="lang-en" lang="en">pinned scoring contract</span><span class="lang-zh" lang="zh-CN">固定的evaluator</span></small></div>
@@ -1028,14 +1028,14 @@
         </div>
         <p class="after">
           <span class="lang-en" lang="en">Five built-in recipes compose the loop for different goals:</span>
-          <span class="lang-zh" lang="zh-CN">五个内置 recipe 面向不同目标组合这个循环：</span>
+          <span class="lang-zh" lang="zh-CN">内置的五个 recipe 各有侧重：</span>
         </p>
         <div class="recipes">
           <div class="recipe-row">
             <code>hill_climb</code>
             <p>
               <span class="lang-en" lang="en">Improve one candidate from its current best parent.</span>
-              <span class="lang-zh" lang="zh-CN">从当前最优父代持续改进单个候选。</span>
+              <span class="lang-zh" lang="zh-CN">在当前最优候选上持续改进。</span>
             </p>
             <span class="recipe-ref plain">
               <span class="lang-en" lang="en">Classic loop</span>
@@ -1046,7 +1046,7 @@
             <code>aevolve</code>
             <p>
               <span class="lang-en" lang="en">Evolve prompts and reusable agent skills.</span>
-              <span class="lang-zh" lang="zh-CN">进化提示词与可复用的智能体技能。</span>
+              <span class="lang-zh" lang="zh-CN">进化 prompt 和可复用的 skill。</span>
             </p>
             <a class="recipe-ref" href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer"><span class="lang-en" lang="en">Code</span><span class="lang-zh" lang="zh-CN">代码</span><b aria-hidden="true">↗</b></a>
           </div>
@@ -1054,7 +1054,7 @@
             <code>ahe</code>
             <p>
               <span class="lang-en" lang="en">Engineer the agent harness against evaluator feedback.</span>
-              <span class="lang-zh" lang="zh-CN">依据评估器反馈改进 agent harness。</span>
+              <span class="lang-zh" lang="zh-CN">根据 eval 反馈改进 agent harness。</span>
             </p>
             <a class="recipe-ref" href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer"><span class="lang-en" lang="en">Paper</span><span class="lang-zh" lang="zh-CN">论文</span><b aria-hidden="true">↗</b></a>
           </div>
@@ -1062,7 +1062,7 @@
             <code>gepa</code>
             <p>
               <span class="lang-en" lang="en">Balance multiple objectives with minibatch validation.</span>
-              <span class="lang-zh" lang="zh-CN">通过 minibatch 验证平衡多个目标。</span>
+              <span class="lang-zh" lang="zh-CN">用 minibatch 验证平衡多个目标。</span>
             </p>
             <a class="recipe-ref" href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer"><span class="lang-en" lang="en">Paper</span><span class="lang-zh" lang="zh-CN">论文</span><b aria-hidden="true">↗</b></a>
           </div>
@@ -1070,14 +1070,14 @@
             <code>hyperagents</code>
             <p>
               <span class="lang-en" lang="en">Co-evolve the target and the selected evolution policy.</span>
-              <span class="lang-zh" lang="zh-CN">让目标与选定的进化策略共同进化。</span>
+              <span class="lang-zh" lang="zh-CN">让目标和进化策略一起进化。</span>
             </p>
             <a class="recipe-ref" href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer"><span class="lang-en" lang="en">Paper</span><span class="lang-zh" lang="zh-CN">论文</span><b aria-hidden="true">↗</b></a>
           </div>
         </div>
         <p class="after">
           <span class="lang-en" lang="en">See <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">the recipe guide</a> for each strategy’s workflow and configuration.</span>
-          <span class="lang-zh" lang="zh-CN">每个策略的工作流与配置见 <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">recipe 指南</a>。</span>
+          <span class="lang-zh" lang="zh-CN">每个策略的用法和配置见 <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">recipe 指南</a>。</span>
         </p>
       </section>
 
@@ -1089,7 +1089,7 @@
         </h2>
         <p class="lead">
           <span class="lang-en" lang="en">RSIHub can improve a Skill as a complete package: instructions, references, and validation scripts evolve together while a frozen evaluator keeps the comparison honest. In this local Paper2Poster run, the same Codex model and paper prompt produced both LoRA posters below.</span>
-          <span class="lang-zh" lang="zh-CN">RSIHub 可以把一个 Skill 作为完整的包来改进：指令、参考资料与验证脚本共同进化，同时由冻结的评估器保证比较的公平。在这次本地 Paper2Poster 运行中，同一个 Codex 模型和同一条论文提示词生成了下面两张 LoRA 海报。</span>
+          <span class="lang-zh" lang="zh-CN">RSIHub 可以把 Skill 当成一个整体来进化：指令、参考资料、验证脚本一起改，eval 保持冻结来保证对比公平。下面两张 LoRA 海报来自同一个 Codex 模型和同一条 prompt，只是 Skill 的代数不同。</span>
         </p>
         <div class="showcase">
           <figure>
@@ -1106,7 +1106,7 @@
                 <span class="lang-zh" lang="zh-CN">Gen 0 · 12 行的最小 Skill</span>
               </strong>
               <span class="lang-en" lang="en">Deterministic geometry gate failed: 14 text elements overflowed the SVG viewBox.</span>
-              <span class="lang-zh" lang="zh-CN">未通过确定性几何门控：14 个文本元素溢出了 SVG viewBox。</span>
+              <span class="lang-zh" lang="zh-CN">没通过几何检查：14 个文本元素溢出了 SVG viewBox。</span>
             </figcaption>
           </figure>
           <figure>
@@ -1120,16 +1120,16 @@
             <figcaption>
               <strong>
                 <span class="lang-en" lang="en">Gen 2 · evolved editorial Skill</span>
-                <span class="lang-zh" lang="zh-CN">Gen 2 · 进化后的编辑版 Skill</span>
+                <span class="lang-zh" lang="zh-CN">Gen 2 · 进化后的 Skill</span>
               </strong>
               <span class="lang-en" lang="en">Passed deterministic renderability and geometry gates; paper fidelity remained advisory reviewer feedback.</span>
-              <span class="lang-zh" lang="zh-CN">通过了确定性可渲染与几何门控；论文忠实度作为建议性评审反馈保留。</span>
+              <span class="lang-zh" lang="zh-CN">渲染与几何检查全部通过；论文忠实度作为评审参考意见。</span>
             </figcaption>
           </figure>
         </div>
         <p class="after">
           <span class="lang-en" lang="en">Across the four-paper showcase, the deterministic completion pass rate moved from <strong>1/4</strong> at Gen 0 to <strong>4/4</strong> at Gen 2. This is a representative evolution run rather than a broad benchmark; see the <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">result snapshot</a>, <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">frozen rubric</a>, and <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">minimal seed Skill</a>.</span>
-          <span class="lang-zh" lang="zh-CN">在四篇论文的 showcase 中，确定性完成通过率从 Gen 0 的 <strong>1/4</strong> 提升到 Gen 2 的 <strong>4/4</strong>。这是一次代表性的进化运行，而非广泛的基准测试；另见<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">结果快照</a>、<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">冻结的评分标准</a>与<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">最小种子 Skill</a>。</span>
+          <span class="lang-zh" lang="zh-CN">四篇论文的测试中，通过率从 Gen 0 的 <strong>1/4</strong> 涨到 Gen 2 的 <strong>4/4</strong>。这只是一次示例运行，不是严格的 benchmark；<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">结果快照</a>、<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">评分标准</a>和<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">种子 Skill</a> 都在仓库里。</span>
         </p>
       </section>
 
@@ -1140,7 +1140,7 @@
         </h2>
         <p class="lead">
           <span class="lang-en" lang="en">Clone the repository and run your first generation in an afternoon.</span>
-          <span class="lang-zh" lang="zh-CN">克隆仓库，一个下午跑通你的第一个世代。</span>
+          <span class="lang-zh" lang="zh-CN">克隆仓库，一个下午跑通第一代。</span>
         </p>
         <code class="clone">git clone https://github.com/simple-agent-lab/RSIHub.git</code>
         <div class="hero-cta">
@@ -1191,7 +1191,7 @@
         };
         var BENCHES = {
           en: ["Terminal-Bench 2", "Tau³ Banking", "your own eval"],
-          zh: ["Terminal-Bench 2", "Tau³ Banking", "你自己的评测"]
+          zh: ["Terminal-Bench 2", "Tau³ Banking", "你自己的 benchmark"]
         };
         var reduceMotion = window.matchMedia
           && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
