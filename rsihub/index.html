@@ -93,6 +93,325 @@
 
     <link rel="icon" href="../assets/favicon.svg?v=4" type="image/svg+xml" />
     <link rel="stylesheet" href="../assets/styles.css" />
+    <style>
+      /* ————— RSIHub landing (page-scoped) ————— */
+      main.landing { width: 100%; padding: 0; overflow-x: clip; font-family: var(--sans); }
+      .landing .wrap {
+        max-width: 1024px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .landing p { color: var(--soft); font: 450 16px/1.7 var(--sans); }
+      .landing a { text-decoration-color: var(--rule); }
+      .landing a:hover { text-decoration-color: currentColor; }
+      .landing code {
+        padding: 2px 7px;
+        border-radius: 6px;
+        background: var(--rule);
+        font: 550 .84em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+
+      /* Hero */
+      .landing .hero { padding-top: 128px; padding-bottom: 0; text-align: center; }
+      .hero .lockup { margin: 0 0 34px; }
+      .hero .lockup svg { display: block; width: min(232px, 58vw); height: auto; aspect-ratio: 174.09 / 64; margin: 0 auto; }
+      .lockup .rsi { fill: var(--fg); }
+      .lockup .ramp-third { stop-color: #00a3b0; }
+      .lockup .ramp-fourth { stop-color: #2fa844; }
+      :root[data-theme="dark"] .lockup .ramp-third { stop-color: #00cbd4; }
+      :root[data-theme="dark"] .lockup .ramp-fourth { stop-color: #78e85c; }
+      .lockup .ring {
+        animation: recursive-loop 6.5s cubic-bezier(.65, -.1, .3, 1.12) .4s infinite;
+        transform-box: fill-box;
+        transform-origin: 50% 50%;
+      }
+      .landing .hero-title {
+        margin: 0 0 26px;
+        font: 650 clamp(34px, 6.4vw, 68px)/1.16 var(--sans);
+        letter-spacing: -.045em;
+        color: var(--fg);
+      }
+      .rotor {
+        display: inline-block;
+        max-width: 100%;
+        padding: .02em .3em .1em;
+        border-radius: .22em;
+        background: var(--rule);
+        color: var(--blue);
+        white-space: nowrap;
+        transition: opacity .22s ease, transform .22s ease, width .3s ease;
+      }
+      .rotor-bench { color: var(--teal, #0e7c70); }
+      :root[data-theme="dark"] .rotor-bench { color: #00cbd4; }
+      .rotor.is-out { opacity: 0; transform: translateY(.3em); }
+      .landing .hero-sub {
+        max-width: 640px;
+        margin: 0 auto 34px;
+        font: 450 17px/1.7 var(--sans);
+      }
+      .hero-cta { display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 62px; }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 13px 24px;
+        border-radius: 999px;
+        font: 650 15px/1 var(--sans);
+        text-decoration: none;
+        transition: transform .15s ease, border-color .15s ease, opacity .15s ease;
+      }
+      .btn:hover { transform: translateY(-1px); }
+      .btn-primary { background: var(--fg); color: var(--bg); }
+      .btn-primary:hover { opacity: .88; }
+      .btn-ghost { border: 1px solid var(--rule); color: var(--fg); }
+      .btn-ghost:hover { border-color: var(--soft); }
+      .btn b { font: 400 15px/1 var(--sans); }
+
+      /* Terminal card */
+      .terminal {
+        max-width: 720px;
+        margin: 0 auto;
+        border: 1px solid rgba(255, 255, 255, .09);
+        border-radius: 16px;
+        background: #0f1513;
+        box-shadow: 0 30px 70px -38px rgba(16, 44, 33, .55);
+        overflow: hidden;
+        text-align: left;
+      }
+      :root[data-theme="dark"] .terminal { border-color: var(--rule); background: #0c100e; box-shadow: none; }
+      .terminal-bar {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 13px 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, .07);
+      }
+      .terminal-bar i { width: 11px; height: 11px; border-radius: 50%; background: #39443e; }
+      .terminal-bar span {
+        margin-left: auto;
+        color: #7d8a83;
+        font: 550 11.5px/1 var(--sans);
+        letter-spacing: .06em;
+        text-transform: uppercase;
+      }
+      .terminal pre {
+        margin: 0;
+        padding: 20px 22px 24px;
+        overflow-x: auto;
+        color: #cdd8d1;
+        font: 500 13px/1.8 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      .terminal .t-p { color: #78e85c; }
+      .terminal .t-dim { color: #6f7d75; }
+      .terminal .t-val { color: #8ab8ff; }
+      .terminal .t-ok { color: #4fd6b0; }
+      .landing .terminal code { padding: 0; border-radius: 0; background: none; color: inherit; font: inherit; }
+      .landing .terminal-note {
+        max-width: 720px;
+        margin: 12px auto 0;
+        color: var(--faint);
+        font: 450 12.5px/1.6 var(--sans);
+      }
+
+      /* Stats strip */
+      .landing .stats { margin-top: 88px; }
+      .stats .row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 28px 20px;
+        padding: 34px 0;
+        border-top: 1px solid var(--rule);
+        border-bottom: 1px solid var(--rule);
+      }
+      .stat { text-align: center; }
+      .stat b {
+        display: block;
+        font: 650 clamp(27px, 3.6vw, 40px)/1.1 var(--sans);
+        letter-spacing: -.04em;
+        color: var(--fg);
+      }
+      .stat b.grad {
+        background: linear-gradient(90deg, #3c8cff, #0095fd 40%, #00a3b0 72%, #2fa844);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      :root[data-theme="dark"] .stat b.grad {
+        background: linear-gradient(90deg, #3c8cff, #0095fd 40%, #00cbd4 72%, #78e85c);
+        -webkit-background-clip: text;
+        background-clip: text;
+      }
+      .stat small { display: block; margin-top: 9px; color: var(--soft); font: 450 13px/1.5 var(--sans); }
+
+      /* Sections */
+      .landing .block { margin-top: 118px; }
+      .landing .kicker {
+        margin-bottom: 14px;
+        color: var(--faint);
+        font: 650 12px/1 var(--sans);
+        letter-spacing: .11em;
+        text-transform: uppercase;
+      }
+      .block h2 {
+        margin: 0 0 14px;
+        font: 650 clamp(26px, 3.6vw, 38px)/1.22 var(--sans);
+        letter-spacing: -.04em;
+        color: var(--fg);
+      }
+      .block .lead { max-width: 700px; margin: 0 0 36px; }
+      .block .after { max-width: 700px; margin: 26px 0 0; }
+
+      /* Loop pills */
+      .loop { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 34px; }
+      .loop .pill {
+        padding: 10px 17px;
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        font: 650 14px/1 var(--sans);
+        color: var(--fg);
+      }
+      .loop .pill.locked { background: var(--rule); border-color: transparent; }
+      .loop b { color: var(--faint); font: 400 16px/1 var(--sans); }
+
+      /* Figures */
+      .shot { margin: 0; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; }
+      .shot img { display: block; width: 100%; height: auto; }
+
+      /* Cards */
+      .cards { display: grid; gap: 16px; }
+      .cards.three { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      .cards.four { grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); }
+      .card {
+        padding: 24px 24px 26px;
+        border: 1px solid var(--rule);
+        border-radius: 16px;
+      }
+      .card .tag {
+        display: block;
+        margin-bottom: 12px;
+        color: var(--blue);
+        font: 700 11px/1 var(--sans);
+        letter-spacing: .09em;
+        text-transform: uppercase;
+      }
+      .card h3 { margin: 0 0 9px; font: 650 16.5px/1.35 var(--sans); color: var(--fg); }
+      .card h3 code { font-size: .92em; }
+      .card p { margin: 0; font: 450 14.5px/1.65 var(--sans); }
+      .card .num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        margin-bottom: 14px;
+        border: 1px solid var(--rule);
+        border-radius: 50%;
+        color: var(--faint);
+        font: 650 12.5px/1 var(--sans);
+      }
+
+      /* CLI block */
+      .landing pre.cli {
+        max-width: 700px;
+        margin: 24px 0 0;
+        padding: 16px 20px;
+        border-radius: 12px;
+        background: var(--rule);
+        overflow-x: auto;
+        font: 500 13px/1.75 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        color: var(--fg);
+      }
+      .landing pre.cli code { padding: 0; border-radius: 0; background: none; font: inherit; }
+
+      /* Recipe rows */
+      .recipes { margin-top: 6px; border-top: 1px solid var(--rule); }
+      .recipe-row {
+        display: grid;
+        grid-template-columns: 150px 1fr 220px;
+        gap: 18px;
+        align-items: baseline;
+        padding: 19px 2px;
+        border-bottom: 1px solid var(--rule);
+      }
+      .recipe-row p { margin: 0; font: 450 15px/1.6 var(--sans); color: var(--fg); }
+      .recipe-row .surface { color: var(--faint); font: 500 12.5px/1.6 var(--sans); text-align: right; }
+      @media (max-width: 680px) {
+        .recipe-row { grid-template-columns: 1fr; gap: 7px; }
+        .recipe-row .surface { text-align: left; }
+      }
+
+      /* Showcase */
+      .showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; margin: 0 0 26px; }
+      .showcase figure { margin: 0; }
+      .showcase img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 14px; }
+      .showcase figcaption { margin-top: 10px; color: var(--faint); font: 450 13px/1.55 var(--sans); }
+      .showcase figcaption strong { display: block; margin-bottom: 3px; color: var(--fg); font: 650 13px/1.4 var(--sans); }
+
+      /* Results table */
+      details.results { margin-top: 30px; border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; }
+      details.results summary { padding: 16px 20px; cursor: pointer; font: 650 14px/1.3 var(--sans); color: var(--fg); }
+      details.results .table-scroll { padding: 4px 20px 18px; overflow-x: auto; }
+      .landing table { width: 100%; border-collapse: collapse; font: 450 13.5px/1.55 var(--sans); }
+      .landing th {
+        padding: 8px 14px 8px 0;
+        border-bottom: 1px solid var(--fg);
+        color: var(--fg);
+        font: 650 12.5px/1.4 var(--sans);
+        text-align: left;
+        vertical-align: bottom;
+      }
+      .landing td {
+        padding: 9px 14px 9px 0;
+        border-bottom: 1px solid var(--rule);
+        color: var(--soft);
+        vertical-align: top;
+      }
+      .landing td strong { color: var(--fg); }
+      .landing td.nowrap, .landing th.nowrap { white-space: nowrap; }
+      .landing td small { color: var(--faint); }
+
+      /* CTA band */
+      .landing .cta { margin-top: 128px; padding: 78px 24px 12px; border-top: 1px solid var(--rule); text-align: center; }
+      .landing .cta .clone { background: none; }
+      .cta h2 {
+        margin: 0 0 14px;
+        font: 650 clamp(26px, 4vw, 42px)/1.2 var(--sans);
+        letter-spacing: -.04em;
+        color: var(--fg);
+      }
+      .cta .lead { max-width: 560px; margin: 0 auto 30px; }
+      .cta .clone {
+        display: inline-block;
+        max-width: 100%;
+        margin: 0 0 30px;
+        padding: 11px 18px;
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+        color: var(--soft);
+        font: 500 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      .cta .hero-cta { margin-bottom: 40px; }
+      .doc-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 26px; }
+      .doc-links a { color: var(--soft); font: 550 13.5px/1.4 var(--sans); text-decoration: none; }
+      .doc-links a:hover { color: var(--fg); text-decoration: underline; }
+
+      @media (max-width: 640px) {
+        .hero { padding-top: 108px; }
+        .block { margin-top: 88px; }
+        .cta { margin-top: 96px; padding-top: 60px; }
+        .stats { margin-top: 68px; }
+        .hero-cta .btn { padding: 12px 19px; font-size: 14px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .rotor { transition: none; }
+        .lockup .ring { animation: none; }
+        .btn { transition: none; }
+      }
+    </style>
     <script>
       try {
         var root = document.documentElement;
@@ -150,20 +469,18 @@
       </nav>
     </header>
 
-    <main id="main">
-      <article class="legal-page project-page">
-        <p class="eyebrow">
-          <span class="lang-en" lang="en">Framework</span>
-          <span class="lang-zh" lang="zh-CN">开源框架</span>
-        </p>
+    <main id="main" class="landing">
+      <section class="hero wrap">
         <h1 class="lockup">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="174" height="64" viewBox="-12.00 -12.00 174.09 64.00" role="img" aria-labelledby="lockup-title lockup-description">
             <title id="lockup-title">RSIHub</title>
             <desc id="lockup-description">The RSIHub ring mark beside the RSIHub wordmark, RSI in interface ink followed by Hub in a blue-to-green ramp.</desc>
-            <path d="M25.43 7.64 A13.5 13.5 0 0 1 32.36 14.57" fill="none" stroke="#3c8cff" stroke-width="6" stroke-linecap="round"/>
-            <path d="M32.36 25.43 A13.5 13.5 0 0 1 25.43 32.36" fill="none" stroke="#00cbd4" stroke-width="6" stroke-linecap="round"/>
-            <path d="M14.57 32.36 A13.5 13.5 0 0 1 7.64 25.43" fill="none" stroke="#0095fd" stroke-width="6" stroke-linecap="round"/>
-            <path d="M7.64 14.57 A13.5 13.5 0 0 1 14.57 7.64" fill="none" stroke="#78e85c" stroke-width="6" stroke-linecap="round"/>
+            <g class="ring">
+              <path d="M25.43 7.64 A13.5 13.5 0 0 1 32.36 14.57" fill="none" stroke="#3c8cff" stroke-width="6" stroke-linecap="round"/>
+              <path d="M32.36 25.43 A13.5 13.5 0 0 1 25.43 32.36" fill="none" stroke="#00cbd4" stroke-width="6" stroke-linecap="round"/>
+              <path d="M14.57 32.36 A13.5 13.5 0 0 1 7.64 25.43" fill="none" stroke="#0095fd" stroke-width="6" stroke-linecap="round"/>
+              <path d="M7.64 14.57 A13.5 13.5 0 0 1 14.57 7.64" fill="none" stroke="#78e85c" stroke-width="6" stroke-linecap="round"/>
+            </g>
             <g transform="translate(54.400 3.212) scale(0.028385)">
               <defs>
                 <linearGradient id="hub-ramp" gradientUnits="userSpaceOnUse" x1="1492" y1="0" x2="3371" y2="0">
@@ -187,282 +504,347 @@
             </g>
           </svg>
         </h1>
-        <p class="hero-line">
-          <span class="lang-en" lang="en">Evolve your <span class="rotor rotor-target">Codex</span> on <span class="rotor rotor-bench">Terminal-Bench 2</span>.</span>
-          <span class="lang-zh" lang="zh-CN">在 <span class="rotor rotor-bench">Terminal-Bench 2</span> 上进化你的 <span class="rotor rotor-target">Codex</span>。</span>
+        <p class="hero-title">
+          <span class="lang-en" lang="en">Evolve your <span class="rotor rotor-target">Codex</span><br />on <span class="rotor rotor-bench">Terminal-Bench 2</span>.</span>
+          <span class="lang-zh" lang="zh-CN">在 <span class="rotor rotor-bench">Terminal-Bench 2</span> 上<br />进化你的 <span class="rotor rotor-target">Codex</span>。</span>
         </p>
-        <p class="tagline">
-          <span class="lang-en" lang="en">Build agents that improve — and keep the evidence.</span>
-          <span class="lang-zh" lang="zh-CN">让智能体持续改进，并保留证据。</span>
+        <p class="hero-sub">
+          <span class="lang-en" lang="en">Build agents that improve — and keep the evidence. RSIHub runs candidates against a frozen evaluator, keeps every generation’s evidence, and carries verified improvements forward — without letting candidate code rewrite the rules that score it.</span>
+          <span class="lang-zh" lang="zh-CN">让智能体持续改进，并保留证据。RSIHub 让候选在冻结的评估器上运行，保留每一代的证据，将经验证的改进传递下去——同时不允许候选代码改写为其打分的规则。</span>
         </p>
-        <p class="subtitle">
-          <span class="lang-en" lang="en">A file-based evolution framework for evaluator-driven learning, reproducible candidate lineage, and controllable modification.</span>
-          <span class="lang-zh" lang="zh-CN">一个基于文件的进化框架，支持评估器驱动的学习、可复现的候选谱系，以及可控的修改。</span>
-        </p>
-        <div class="page-actions">
-          <a href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://github.com/simple-agent-lab/RSIHub/blob/main/QUICKSTART.md" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Get started</span>
+            <span class="lang-zh" lang="zh-CN">快速开始</span>
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">
             <span>GitHub</span>
             <b aria-hidden="true">↗</b>
           </a>
-          <a href="https://simpleagentlab.com/RSIHub/" target="_blank" rel="noreferrer">
-            <span class="lang-en" lang="en">Documentation</span>
+          <a class="btn btn-ghost" href="https://simpleagentlab.com/RSIHub/" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Docs</span>
             <span class="lang-zh" lang="zh-CN">文档</span>
             <b aria-hidden="true">↗</b>
           </a>
-          <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/QUICKSTART.md" target="_blank" rel="noreferrer">
-            <span class="lang-en" lang="en">Quick start</span>
-            <span class="lang-zh" lang="zh-CN">快速开始</span>
-            <b aria-hidden="true">↗</b>
-          </a>
         </div>
+        <div class="terminal">
+          <div class="terminal-bar" aria-hidden="true">
+            <i></i><i></i><i></i>
+            <span>ahe · terminal-bench 2</span>
+          </div>
+          <pre><code><span class="t-p">$</span> git clone https://github.com/simple-agent-lab/RSIHub.git &amp;&amp; cd RSIHub
+<span class="t-p">$</span> ./scripts/setup_terminal_bench.sh ahe
+<span class="t-p">$</span> ./scripts/run_recipe_demo.sh ahe
 
-        <h2>
-          <span class="lang-en" lang="en">What RSIHub does</span>
-          <span class="lang-zh" lang="zh-CN">RSIHub 做什么</span>
-        </h2>
-        <p>
-          <span class="lang-en" lang="en">RSIHub gives an agent a controlled way to improve itself. It runs candidates against a fixed evaluator, keeps the evidence for every generation, and carries verified improvements forward without letting candidate code rewrite the rules that score it.</span>
-          <span class="lang-zh" lang="zh-CN">RSIHub 为智能体提供一种受控的自我改进方式：候选在固定的评估器上运行，每一代都保留证据，经验证的改进被传递下去——同时不允许候选代码改写为其打分的规则。</span>
-        </p>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <span class="lang-en" lang="en">For agent builders</span>
-                  <span class="lang-zh" lang="zh-CN">面向智能体开发者</span>
-                </th>
-                <th>
-                  <span class="lang-en" lang="en">For researchers</span>
-                  <span class="lang-zh" lang="zh-CN">面向研究者</span>
-                </th>
-                <th>
-                  <span class="lang-en" lang="en">Evidence built in</span>
-                  <span class="lang-zh" lang="zh-CN">内建证据</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <span class="lang-en" lang="en">Improve prompts, skills, harnesses, and agent code in a reusable experiment workspace.</span>
-                  <span class="lang-zh" lang="zh-CN">在可复用的实验工作区中改进提示词、技能、harness 与智能体代码。</span>
-                </td>
-                <td>
-                  <span class="lang-en" lang="en">Compare evolution strategies under fixed evaluation and mutation boundaries.</span>
-                  <span class="lang-zh" lang="zh-CN">在固定的评估与变异边界下比较不同进化策略。</span>
-                </td>
-                <td>
-                  <span class="lang-en" lang="en">Connect every candidate to scores, artifacts, archive records, and Git lineage.</span>
-                  <span class="lang-zh" lang="zh-CN">将每个候选与得分、产物、归档记录和 Git 谱系关联起来。</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+<span class="t-dim">gen 0</span>  seed candidate     train <span class="t-val">60.0%</span>   <span class="t-dim">baseline tagged</span>
+<span class="t-dim">gen 2</span>  mutated harness    train <span class="t-val">68.0%</span>   <span class="t-ok">gate ✓ admitted</span>
+<span class="t-dim">gen 5</span>  best generation    train <span class="t-val">74.0%</span>   <span class="t-ok">tagged · archive.jsonl stamped</span></code></pre>
         </div>
-
-        <h2>
-          <span class="lang-en" lang="en">How RSIHub works</span>
-          <span class="lang-zh" lang="zh-CN">RSIHub 如何工作</span>
-        </h2>
-        <p>
-          <span class="lang-en" lang="en">Every recipe composes the same loop:</span>
-          <span class="lang-zh" lang="zh-CN">每个 recipe 都由同一个循环组成：</span>
+        <p class="terminal-note">
+          <span class="lang-en" lang="en">Seed and best train scores from the published Codex × AHE run; intermediate generations abridged.</span>
+          <span class="lang-zh" lang="zh-CN">seed 与最佳 train 分数来自已发布的 Codex × AHE 运行；中间世代经简化。</span>
         </p>
-        <p class="loop-line">select → evaluate → analyze → mutate → gate → record</p>
-        <figure class="framed">
-          <img
-            src="./assets/architecture.svg"
-            alt="RSIHub architecture: five built-in strategies and custom recipes compose a loop of select, rollout and evaluation, analyze, mutate, gate, and record. The target and selected operators occupy a declared mutable surface. The evaluator, runtime, surface check, and stamped evidence remain protected from candidate changes."
-          />
-        </figure>
-        <p>
+      </section>
+
+      <section class="stats wrap" aria-label="Highlights">
+        <div class="row">
+          <div class="stat">
+            <b class="grad">+13.4%</b>
+            <small>
+              <span class="lang-en" lang="en">best full-benchmark gain on Terminal-Bench 2</span>
+              <span class="lang-zh" lang="zh-CN">Terminal-Bench 2 完整基准最高提升</span>
+            </small>
+          </div>
+          <div class="stat">
+            <b class="grad">+27.9%</b>
+            <small>
+              <span class="lang-en" lang="en">best full-benchmark gain on Tau³ Banking</span>
+              <span class="lang-zh" lang="zh-CN">Tau³ Banking 完整基准最高提升</span>
+            </small>
+          </div>
+          <div class="stat">
+            <b>5</b>
+            <small>
+              <span class="lang-en" lang="en">built-in evolution recipes</span>
+              <span class="lang-zh" lang="zh-CN">内置进化 recipe</span>
+            </small>
+          </div>
+          <div class="stat">
+            <b>Apache-2.0</b>
+            <small>
+              <span class="lang-en" lang="en">open source, evidence included</span>
+              <span class="lang-zh" lang="zh-CN">开源协议，证据内建</span>
+            </small>
+          </div>
+        </div>
+      </section>
+
+      <section class="block wrap">
+        <p class="kicker">
+          <span class="lang-en" lang="en">How it works</span>
+          <span class="lang-zh" lang="zh-CN">工作原理</span>
+        </p>
+        <h2>
+          <span class="lang-en" lang="en">One loop. Every recipe.</span>
+          <span class="lang-zh" lang="zh-CN">一个循环，贯穿所有 recipe。</span>
+        </h2>
+        <p class="lead">
           <span class="lang-en" lang="en">A recipe decides how parents are selected, how traces are analyzed, what may be edited, and which evaluations admit a new generation. The framework owns the mechanism that makes those decisions inspectable: clean candidate snapshots, protected scoring, surface enforcement, Git tags, and stamped archive records.</span>
           <span class="lang-zh" lang="zh-CN">Recipe 决定如何选择父代、如何分析轨迹、哪些内容可以被编辑、以及哪些评估可以准入新的一代。框架则负责让这些决策可检查：干净的候选快照、受保护的打分、变异面约束、Git 标签与盖章的归档记录。</span>
         </p>
-        <p>
-          <span class="lang-en" lang="en">The public composition model has four parts:</span>
-          <span class="lang-zh" lang="zh-CN">公开的组合模型由四部分构成：</span>
+        <div class="loop" role="img" aria-label="select, evaluate, analyze, mutate, gate, record">
+          <span class="pill">select</span><b aria-hidden="true">→</b>
+          <span class="pill locked">evaluate</span><b aria-hidden="true">→</b>
+          <span class="pill">analyze</span><b aria-hidden="true">→</b>
+          <span class="pill">mutate</span><b aria-hidden="true">→</b>
+          <span class="pill">gate</span><b aria-hidden="true">→</b>
+          <span class="pill">record</span>
+        </div>
+        <figure class="shot">
+          <img
+            src="./assets/architecture.svg"
+            loading="lazy"
+            alt="RSIHub architecture: five built-in strategies and custom recipes compose a loop of select, rollout and evaluation, analyze, mutate, gate, and record. The target and selected operators occupy a declared mutable surface. The evaluator, runtime, surface check, and stamped evidence remain protected from candidate changes."
+          />
+        </figure>
+      </section>
+
+      <section class="block wrap">
+        <p class="kicker">
+          <span class="lang-en" lang="en">Composable by design</span>
+          <span class="lang-zh" lang="zh-CN">组合式设计</span>
         </p>
-        <ul>
-          <li>
-            <span class="lang-en" lang="en">a <strong>stage</strong> is a fixed lifecycle slot such as <code>select</code>, <code>analyze</code>, or <code>mutate</code>;</span>
-            <span class="lang-zh" lang="zh-CN"><strong>stage（阶段）</strong>是固定的生命周期槽位，例如 <code>select</code>、<code>analyze</code>、<code>mutate</code>；</span>
-          </li>
-          <li>
-            <span class="lang-en" lang="en">an <strong>operator</strong> is a reusable implementation at <code>library/&lt;stage&gt;/&lt;name&gt;.py</code>;</span>
-            <span class="lang-zh" lang="zh-CN"><strong>operator（操作符）</strong>是位于 <code>library/&lt;stage&gt;/&lt;name&gt;.py</code> 的可复用实现；</span>
-          </li>
-          <li>
-            <span class="lang-en" lang="en">a <strong>recipe</strong> is code-free selection and configuration of those operators;</span>
-            <span class="lang-zh" lang="zh-CN"><strong>recipe（配方）</strong>是对这些操作符的免代码选择与配置；</span>
-          </li>
-          <li>
-            <span class="lang-en" lang="en"><strong>evaluate</strong> is the framework-owned trusted mechanism, never a selectable operator.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>evaluate（评估）</strong>是框架持有的受信任机制，永远不是可选择的操作符。</span>
-          </li>
-        </ul>
-        <p>
+        <h2>
+          <span class="lang-en" lang="en">Four parts, cleanly separated.</span>
+          <span class="lang-zh" lang="zh-CN">四个部分，清晰分离。</span>
+        </h2>
+        <p class="lead">
+          <span class="lang-en" lang="en">The public composition model keeps policy swappable and the judging mechanism out of reach.</span>
+          <span class="lang-zh" lang="zh-CN">公开的组合模型让策略可替换，同时让评判机制不可触碰。</span>
+        </p>
+        <div class="cards four">
+          <div class="card">
+            <h3><code>stage</code></h3>
+            <p>
+              <span class="lang-en" lang="en">A fixed lifecycle slot such as <code>select</code>, <code>analyze</code>, or <code>mutate</code>.</span>
+              <span class="lang-zh" lang="zh-CN">固定的生命周期槽位，例如 <code>select</code>、<code>analyze</code>、<code>mutate</code>。</span>
+            </p>
+          </div>
+          <div class="card">
+            <h3><code>operator</code></h3>
+            <p>
+              <span class="lang-en" lang="en">A reusable implementation at <code>library/&lt;stage&gt;/&lt;name&gt;.py</code>.</span>
+              <span class="lang-zh" lang="zh-CN">位于 <code>library/&lt;stage&gt;/&lt;name&gt;.py</code> 的可复用实现。</span>
+            </p>
+          </div>
+          <div class="card">
+            <h3><code>recipe</code></h3>
+            <p>
+              <span class="lang-en" lang="en">Code-free selection and configuration of those operators.</span>
+              <span class="lang-zh" lang="zh-CN">对这些操作符的免代码选择与配置。</span>
+            </p>
+          </div>
+          <div class="card">
+            <h3><code>evaluate</code></h3>
+            <p>
+              <span class="lang-en" lang="en">The framework-owned trusted mechanism — never a selectable operator.</span>
+              <span class="lang-zh" lang="zh-CN">框架持有的受信任机制——永远不是可选择的操作符。</span>
+            </p>
+          </div>
+        </div>
+        <p class="after">
           <span class="lang-en" lang="en">Add an operator to a source checkout, validate it, and compose it without a registry edit:</span>
           <span class="lang-zh" lang="zh-CN">在源码检出中新增一个操作符、验证它并完成组合，全程无需修改注册表：</span>
         </p>
-        <pre><code>uv run --frozen evolve operator new mutate my_operator
+        <pre class="cli"><code>uv run --frozen evolve operator new mutate my_operator
 uv run --frozen evolve operator describe mutate/my_operator
 uv run --frozen evolve operator check mutate/my_operator --config '{}'
-uv run --frozen evolve operator list mutate
 uv run --frozen evolve recipe check /path/to/my-recipe/evolve.yaml</code></pre>
-        <p>
+        <p class="after">
           <span class="lang-en" lang="en">See <a href="https://simpleagentlab.com/RSIHub/reference/operators/" target="_blank" rel="noreferrer">the operator guide</a> for the complete workflow.</span>
           <span class="lang-zh" lang="zh-CN">完整工作流见 <a href="https://simpleagentlab.com/RSIHub/reference/operators/" target="_blank" rel="noreferrer">operator 指南</a>。</span>
         </p>
+      </section>
 
+      <section class="block wrap">
+        <p class="kicker">
+          <span class="lang-en" lang="en">Who it’s for</span>
+          <span class="lang-zh" lang="zh-CN">适用对象</span>
+        </p>
         <h2>
-          <span class="lang-en" lang="en">What can evolve</span>
-          <span class="lang-zh" lang="zh-CN">什么可以进化</span>
+          <span class="lang-en" lang="en">For builders, researchers, and reviewers.</span>
+          <span class="lang-zh" lang="zh-CN">面向开发者、研究者与审阅者。</span>
         </h2>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <span class="lang-en" lang="en">Surface</span>
-                  <span class="lang-zh" lang="zh-CN">可进化面</span>
-                </th>
-                <th>
-                  <span class="lang-en" lang="en">Examples</span>
-                  <span class="lang-zh" lang="zh-CN">示例</span>
-                </th>
-                <th>
-                  <span class="lang-en" lang="en">Best fit</span>
-                  <span class="lang-zh" lang="zh-CN">适用场景</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <span class="lang-en" lang="en">prompts and skills</span>
-                  <span class="lang-zh" lang="zh-CN">提示词与技能</span>
-                </td>
-                <td>
-                  <span class="lang-en" lang="en">system prompts, task skills, reusable instructions</span>
-                  <span class="lang-zh" lang="zh-CN">系统提示词、任务技能、可复用指令</span>
-                </td>
-                <td>
-                  <span class="lang-en" lang="en">policy and behavior improvement</span>
-                  <span class="lang-zh" lang="zh-CN">策略与行为改进</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="lang-en" lang="en">harnesses and target code</span>
-                  <span class="lang-zh" lang="zh-CN">harness 与目标代码</span>
-                </td>
-                <td>
-                  <span class="lang-en" lang="en">tools, orchestration, agent implementation</span>
-                  <span class="lang-zh" lang="zh-CN">工具、编排、智能体实现</span>
-                </td>
-                <td>
-                  <span class="lang-en" lang="en">agent engineering</span>
-                  <span class="lang-zh" lang="zh-CN">智能体工程</span>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="lang-en" lang="en">selected evolution operators</span>
-                  <span class="lang-zh" lang="zh-CN">被选定的进化操作符</span>
-                </td>
-                <td>
-                  <span class="lang-en" lang="en">analysis or mutation policy chosen by a recipe</span>
-                  <span class="lang-zh" lang="zh-CN">recipe 选定的分析或变异策略</span>
-                </td>
-                <td>
-                  <span class="lang-en" lang="en">controlled co-evolution</span>
-                  <span class="lang-zh" lang="zh-CN">受控的共同进化</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="cards three">
+          <div class="card">
+            <span class="tag">
+              <span class="lang-en" lang="en">Agent builders</span>
+              <span class="lang-zh" lang="zh-CN">智能体开发者</span>
+            </span>
+            <h3>
+              <span class="lang-en" lang="en">Ship better agents</span>
+              <span class="lang-zh" lang="zh-CN">交付更好的智能体</span>
+            </h3>
+            <p>
+              <span class="lang-en" lang="en">Improve prompts, skills, harnesses, and agent code in a reusable experiment workspace.</span>
+              <span class="lang-zh" lang="zh-CN">在可复用的实验工作区中改进提示词、技能、harness 与智能体代码。</span>
+            </p>
+          </div>
+          <div class="card">
+            <span class="tag">
+              <span class="lang-en" lang="en">Researchers</span>
+              <span class="lang-zh" lang="zh-CN">研究者</span>
+            </span>
+            <h3>
+              <span class="lang-en" lang="en">Compare methods fairly</span>
+              <span class="lang-zh" lang="zh-CN">公平比较方法</span>
+            </h3>
+            <p>
+              <span class="lang-en" lang="en">Compare evolution strategies under fixed evaluation and mutation boundaries.</span>
+              <span class="lang-zh" lang="zh-CN">在固定的评估与变异边界下比较不同进化策略。</span>
+            </p>
+          </div>
+          <div class="card">
+            <span class="tag">
+              <span class="lang-en" lang="en">Evidence built in</span>
+              <span class="lang-zh" lang="zh-CN">内建证据</span>
+            </span>
+            <h3>
+              <span class="lang-en" lang="en">Audit every claim</span>
+              <span class="lang-zh" lang="zh-CN">审计每一次改进</span>
+            </h3>
+            <p>
+              <span class="lang-en" lang="en">Connect every candidate to scores, artifacts, archive records, and Git lineage.</span>
+              <span class="lang-zh" lang="zh-CN">将每个候选与得分、产物、归档记录和 Git 谱系关联起来。</span>
+            </p>
+          </div>
         </div>
-        <p>
+      </section>
+
+      <section class="block wrap">
+        <p class="kicker">
+          <span class="lang-en" lang="en">Mutable surface</span>
+          <span class="lang-zh" lang="zh-CN">可变面</span>
+        </p>
+        <h2>
+          <span class="lang-en" lang="en">Declare what may change. Protect the rest.</span>
+          <span class="lang-zh" lang="zh-CN">声明可变的部分，保护其余一切。</span>
+        </h2>
+        <div class="cards three">
+          <div class="card">
+            <span class="tag">
+              <span class="lang-en" lang="en">Policy &amp; behavior</span>
+              <span class="lang-zh" lang="zh-CN">策略与行为</span>
+            </span>
+            <h3>
+              <span class="lang-en" lang="en">Prompts &amp; skills</span>
+              <span class="lang-zh" lang="zh-CN">提示词与技能</span>
+            </h3>
+            <p>
+              <span class="lang-en" lang="en">System prompts, task skills, and reusable instructions.</span>
+              <span class="lang-zh" lang="zh-CN">系统提示词、任务技能与可复用指令。</span>
+            </p>
+          </div>
+          <div class="card">
+            <span class="tag">
+              <span class="lang-en" lang="en">Agent engineering</span>
+              <span class="lang-zh" lang="zh-CN">智能体工程</span>
+            </span>
+            <h3>
+              <span class="lang-en" lang="en">Harnesses &amp; target code</span>
+              <span class="lang-zh" lang="zh-CN">Harness 与目标代码</span>
+            </h3>
+            <p>
+              <span class="lang-en" lang="en">Tools, orchestration, and the agent implementation itself.</span>
+              <span class="lang-zh" lang="zh-CN">工具、编排，以及智能体实现本身。</span>
+            </p>
+          </div>
+          <div class="card">
+            <span class="tag">
+              <span class="lang-en" lang="en">Controlled co-evolution</span>
+              <span class="lang-zh" lang="zh-CN">受控共同进化</span>
+            </span>
+            <h3>
+              <span class="lang-en" lang="en">Selected operators</span>
+              <span class="lang-zh" lang="zh-CN">选定的操作符</span>
+            </h3>
+            <p>
+              <span class="lang-en" lang="en">The analysis or mutation policy a recipe chooses to expose.</span>
+              <span class="lang-zh" lang="zh-CN">Recipe 选择开放的分析或变异策略。</span>
+            </p>
+          </div>
+        </div>
+        <p class="after">
           <span class="lang-en" lang="en">Each recipe declares its mutable paths. Evaluators, archive stamps, and the vendored framework mechanism stay outside that surface.</span>
           <span class="lang-zh" lang="zh-CN">每个 recipe 声明自己的可变路径。评估器、归档盖章与内置的框架机制始终位于可变面之外。</span>
         </p>
+      </section>
 
-        <h2>Recipes</h2>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <span class="lang-en" lang="en">Choose this when you want to…</span>
-                  <span class="lang-zh" lang="zh-CN">当你想要…</span>
-                </th>
-                <th>Recipe</th>
-                <th>
-                  <span class="lang-en" lang="en">Mutable surface</span>
-                  <span class="lang-zh" lang="zh-CN">可变面</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <span class="lang-en" lang="en">improve one candidate from its current best parent</span>
-                  <span class="lang-zh" lang="zh-CN">从当前最优父代持续改进单个候选</span>
-                </td>
-                <td><code>hill_climb</code></td>
-                <td>target</td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="lang-en" lang="en">evolve prompts and reusable agent skills</span>
-                  <span class="lang-zh" lang="zh-CN">进化提示词与可复用的智能体技能</span>
-                </td>
-                <td><code>aevolve</code></td>
-                <td>prompt and target skills</td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="lang-en" lang="en">engineer the agent harness against evaluator feedback</span>
-                  <span class="lang-zh" lang="zh-CN">依据评估器反馈改进 agent harness</span>
-                </td>
-                <td><code>ahe</code></td>
-                <td>target</td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="lang-en" lang="en">balance multiple objectives with minibatch validation</span>
-                  <span class="lang-zh" lang="zh-CN">通过 minibatch 验证平衡多个目标</span>
-                </td>
-                <td><code>gepa</code></td>
-                <td>prompt and task skill</td>
-              </tr>
-              <tr>
-                <td>
-                  <span class="lang-en" lang="en">co-evolve the target and selected evolution policy</span>
-                  <span class="lang-zh" lang="zh-CN">让目标与选定的进化策略共同进化</span>
-                </td>
-                <td><code>hyperagents</code></td>
-                <td>target and selected operators</td>
-              </tr>
-            </tbody>
-          </table>
+      <section class="block wrap">
+        <p class="kicker">Recipes</p>
+        <h2>
+          <span class="lang-en" lang="en">Five strategies, one mechanism.</span>
+          <span class="lang-zh" lang="zh-CN">五种策略，同一套机制。</span>
+        </h2>
+        <div class="recipes">
+          <div class="recipe-row">
+            <code>hill_climb</code>
+            <p>
+              <span class="lang-en" lang="en">Improve one candidate from its current best parent.</span>
+              <span class="lang-zh" lang="zh-CN">从当前最优父代持续改进单个候选。</span>
+            </p>
+            <span class="surface">target</span>
+          </div>
+          <div class="recipe-row">
+            <code>aevolve</code>
+            <p>
+              <span class="lang-en" lang="en">Evolve prompts and reusable agent skills.</span>
+              <span class="lang-zh" lang="zh-CN">进化提示词与可复用的智能体技能。</span>
+            </p>
+            <span class="surface">prompt + target skills</span>
+          </div>
+          <div class="recipe-row">
+            <code>ahe</code>
+            <p>
+              <span class="lang-en" lang="en">Engineer the agent harness against evaluator feedback.</span>
+              <span class="lang-zh" lang="zh-CN">依据评估器反馈改进 agent harness。</span>
+            </p>
+            <span class="surface">target</span>
+          </div>
+          <div class="recipe-row">
+            <code>gepa</code>
+            <p>
+              <span class="lang-en" lang="en">Balance multiple objectives with minibatch validation.</span>
+              <span class="lang-zh" lang="zh-CN">通过 minibatch 验证平衡多个目标。</span>
+            </p>
+            <span class="surface">prompt + task skill</span>
+          </div>
+          <div class="recipe-row">
+            <code>hyperagents</code>
+            <p>
+              <span class="lang-en" lang="en">Co-evolve the target and the selected evolution policy.</span>
+              <span class="lang-zh" lang="zh-CN">让目标与选定的进化策略共同进化。</span>
+            </p>
+            <span class="surface">target + selected operators</span>
+          </div>
         </div>
-        <p>
+        <p class="after">
           <span class="lang-en" lang="en">See <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">the recipe guide</a> for each strategy’s workflow and configuration.</span>
           <span class="lang-zh" lang="zh-CN">每个策略的工作流与配置见 <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">recipe 指南</a>。</span>
         </p>
+      </section>
 
+      <section class="block wrap">
+        <p class="kicker">Showcase</p>
         <h2>
-          <span class="lang-en" lang="en">Skill evolution showcase</span>
-          <span class="lang-zh" lang="zh-CN">技能进化 Showcase</span>
+          <span class="lang-en" lang="en">A Skill that learned poster design.</span>
+          <span class="lang-zh" lang="zh-CN">一个学会海报设计的 Skill。</span>
         </h2>
-        <p>
+        <p class="lead">
           <span class="lang-en" lang="en">RSIHub can improve a Skill as a complete package: instructions, references, and validation scripts evolve together while a frozen evaluator keeps the comparison honest. In this local Paper2Poster run, the same Codex model and paper prompt produced both LoRA posters below.</span>
           <span class="lang-zh" lang="zh-CN">RSIHub 可以把一个 Skill 作为完整的包来改进：指令、参考资料与验证脚本共同进化，同时由冻结的评估器保证比较的公平。在这次本地 Paper2Poster 运行中，同一个 Codex 模型和同一条论文提示词生成了下面两张 LoRA 海报。</span>
         </p>
-        <div class="showcase-grid">
+        <div class="showcase">
           <figure>
             <img
               src="./assets/paper-poster-lora-gen0.png"
@@ -498,281 +880,260 @@ uv run --frozen evolve recipe check /path/to/my-recipe/evolve.yaml</code></pre>
             </figcaption>
           </figure>
         </div>
-        <p>
-          <span class="lang-en" lang="en">Across the four-paper showcase, the deterministic completion pass rate moved from <strong>1/4</strong> at Gen 0 to <strong>4/4</strong> at Gen 2. The trials ran concurrently through Harbor’s local environment without Docker and retained ATIF trajectories plus evaluator-owned visual feedback. This is a representative evolution run rather than a broad benchmark; see the <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">result snapshot</a>, <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">frozen rubric</a>, and <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">minimal seed Skill</a>.</span>
-          <span class="lang-zh" lang="zh-CN">在四篇论文的 showcase 中，确定性完成通过率从 Gen 0 的 <strong>1/4</strong> 提升到 Gen 2 的 <strong>4/4</strong>。这些试验通过 Harbor 的本地环境并发运行（无需 Docker），并保留了 ATIF 轨迹与评估器持有的视觉反馈。这是一次代表性的进化运行，而非广泛的基准测试；另见<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">结果快照</a>、<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">冻结的评分标准</a>与<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">最小种子 Skill</a>。</span>
+        <p class="after">
+          <span class="lang-en" lang="en">Across the four-paper showcase, the deterministic completion pass rate moved from <strong>1/4</strong> at Gen 0 to <strong>4/4</strong> at Gen 2. This is a representative evolution run rather than a broad benchmark; see the <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">result snapshot</a>, <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">frozen rubric</a>, and <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">minimal seed Skill</a>.</span>
+          <span class="lang-zh" lang="zh-CN">在四篇论文的 showcase 中，确定性完成通过率从 Gen 0 的 <strong>1/4</strong> 提升到 Gen 2 的 <strong>4/4</strong>。这是一次代表性的进化运行，而非广泛的基准测试；另见<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">结果快照</a>、<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">冻结的评分标准</a>与<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">最小种子 Skill</a>。</span>
         </p>
+      </section>
 
-        <h2>
-          <span class="lang-en" lang="en">Benchmark results</span>
-          <span class="lang-zh" lang="zh-CN">基准测试结果</span>
-        </h2>
-        <p>
-          <span class="lang-en" lang="en">Scores are percentages shown as <strong>seed → evolved agent</strong>, with the absolute change underneath. The train score is measured on the recipe’s training split; the full benchmark score is measured across the complete benchmark. All runs use a GPT-5.4-high target model and a GPT-5.4-xhigh Codex mutate operator.</span>
-          <span class="lang-zh" lang="zh-CN">分数为百分比，以 <strong>seed → 进化后的智能体</strong> 呈现，括号中为绝对变化。Train 分数在 recipe 的训练划分上测得；完整基准分数在整个基准上测得。所有运行使用 GPT-5.4-high 目标模型与 GPT-5.4-xhigh 的 Codex mutate 操作符。</span>
+      <section class="block wrap">
+        <p class="kicker">
+          <span class="lang-en" lang="en">Results</span>
+          <span class="lang-zh" lang="zh-CN">基准结果</span>
         </p>
-        <figure class="framed">
+        <h2>
+          <span class="lang-en" lang="en">Audited gains on real benchmarks.</span>
+          <span class="lang-zh" lang="zh-CN">真实基准上可审计的提升。</span>
+        </h2>
+        <p class="lead">
+          <span class="lang-en" lang="en">Scores are percentages shown as <strong>seed → evolved agent</strong>. The train score is measured on the recipe’s training split; the full benchmark score is measured across the complete benchmark. All runs use a GPT-5.4-high target model and a GPT-5.4-xhigh Codex mutate operator.</span>
+          <span class="lang-zh" lang="zh-CN">分数为百分比，以 <strong>seed → 进化后的智能体</strong> 呈现。Train 分数在 recipe 的训练划分上测得；完整基准分数在整个基准上测得。所有运行使用 GPT-5.4-high 目标模型与 GPT-5.4-xhigh 的 Codex mutate 操作符。</span>
+        </p>
+        <figure class="shot">
           <img
             src="./assets/benchmark-results-rsihub-v2.svg"
             loading="lazy"
             alt="Terminal Bench 2 and Tau cubed Banking results for four evolution methods with MiniSWE and Codex target agents. MiniSWE is grouped left and Codex right in each panel. Dark bar sections show seed scores above each axis baseline; light sections show improvement to the best score."
           />
         </figure>
+        <details class="results">
+          <summary>
+            <span class="lang-en" lang="en">Full results table</span>
+            <span class="lang-zh" lang="zh-CN">完整结果表格</span>
+          </summary>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <span class="lang-en" lang="en">Benchmark</span>
+                    <span class="lang-zh" lang="zh-CN">基准</span>
+                  </th>
+                  <th>
+                    <span class="lang-en" lang="en">Target agent</span>
+                    <span class="lang-zh" lang="zh-CN">目标智能体</span>
+                  </th>
+                  <th>
+                    <span class="lang-en" lang="en">Method</span>
+                    <span class="lang-zh" lang="zh-CN">方法</span>
+                  </th>
+                  <th>
+                    <span class="lang-en" lang="en">Train score</span>
+                    <span class="lang-zh" lang="zh-CN">Train 分数</span>
+                  </th>
+                  <th>
+                    <span class="lang-en" lang="en">Full benchmark score</span>
+                    <span class="lang-zh" lang="zh-CN">完整基准分数</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="8" class="nowrap"><strong>Terminal-Bench 2</strong><br /><small>50 train / 19 gate / 20 sealed</small></td>
+                  <td rowspan="4" class="nowrap">MiniSWE</td>
+                  <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
+                  <td class="nowrap">70.0% → 74.0%<br /><strong>(+4.0%)</strong></td>
+                  <td class="nowrap">55.1% → 56.2%<br /><strong>(+1.1%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
+                  <td class="nowrap">58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
+                  <td class="nowrap">55.1% → 68.5%<br /><strong>(+13.4%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
+                  <td class="nowrap">66.0% → 68.0%<br /><strong>(+2.0%)</strong></td>
+                  <td class="nowrap">55.1% → 65.2%<br /><strong>(+10.1%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
+                  <td class="nowrap">58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
+                  <td class="nowrap">55.1% → 59.6%<br /><strong>(+4.5%)</strong></td>
+                </tr>
+                <tr>
+                  <td rowspan="4" class="nowrap">Codex</td>
+                  <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
+                  <td class="nowrap">60.0% → 74.0%<br /><strong>(+14.0%)</strong></td>
+                  <td class="nowrap">60.7% → 66.3%<br /><strong>(+5.6%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
+                  <td class="nowrap">58.0% → 72.0%<br /><strong>(+14.0%)</strong></td>
+                  <td class="nowrap">60.7% → 70.8%<br /><strong>(+10.1%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
+                  <td class="nowrap">62.0% → 62.0%<br /><strong>(0.0%)</strong></td>
+                  <td class="nowrap">60.7% → 64.0%<br /><strong>(+3.3%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
+                  <td class="nowrap">64.0% → 64.0%<br /><strong>(0.0%)</strong></td>
+                  <td class="nowrap">60.7% → 60.7%<br /><strong>(0.0%)</strong></td>
+                </tr>
+                <tr>
+                  <td rowspan="8" class="nowrap"><strong>Tau³ Banking</strong><br /><small>50 train / 20 gate / 27 sealed</small></td>
+                  <td rowspan="4" class="nowrap">MiniSWE</td>
+                  <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
+                  <td class="nowrap">34.0% → 36.0%<br /><strong>(+2.0%)</strong></td>
+                  <td class="nowrap">12.4% → 22.7%<br /><strong>(+10.3%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
+                  <td class="nowrap">30.0% → 38.0%<br /><strong>(+8.0%)</strong></td>
+                  <td class="nowrap">12.4% → 28.9%<br /><strong>(+16.5%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
+                  <td class="nowrap">30.0% → 34.0%<br /><strong>(+4.0%)</strong></td>
+                  <td class="nowrap">12.4% → 24.7%<br /><strong>(+12.3%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
+                  <td class="nowrap">30.0% → 32.0%<br /><strong>(+2.0%)</strong></td>
+                  <td class="nowrap">12.4% → 22.7%<br /><strong>(+10.3%)</strong></td>
+                </tr>
+                <tr>
+                  <td rowspan="4" class="nowrap">Codex</td>
+                  <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
+                  <td class="nowrap">32.0% → 36.0%<br /><strong>(+4.0%)</strong></td>
+                  <td class="nowrap">11.3% → 26.8%<br /><strong>(+15.5%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
+                  <td class="nowrap">34.0% → 36.0%<br /><strong>(+2.0%)</strong></td>
+                  <td class="nowrap">11.3% → 39.2%<br /><strong>(+27.9%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
+                  <td class="nowrap">30.0% → 38.0%<br /><strong>(+8.0%)</strong></td>
+                  <td class="nowrap">11.3% → 13.4%<br /><strong>(+2.1%)</strong></td>
+                </tr>
+                <tr>
+                  <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
+                  <td class="nowrap">10.0% → 16.0%<br /><strong>(+6.0%)</strong></td>
+                  <td class="nowrap">11.3% → 15.5%<br /><strong>(+4.2%)</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </section>
 
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <span class="lang-en" lang="en">Benchmark</span>
-                  <span class="lang-zh" lang="zh-CN">基准</span>
-                </th>
-                <th>
-                  <span class="lang-en" lang="en">Target agent</span>
-                  <span class="lang-zh" lang="zh-CN">目标智能体</span>
-                </th>
-                <th>
-                  <span class="lang-en" lang="en">Method</span>
-                  <span class="lang-zh" lang="zh-CN">方法</span>
-                </th>
-                <th>
-                  <span class="lang-en" lang="en">Train score</span>
-                  <span class="lang-zh" lang="zh-CN">Train 分数</span>
-                </th>
-                <th>
-                  <span class="lang-en" lang="en">Full benchmark score</span>
-                  <span class="lang-zh" lang="zh-CN">完整基准分数</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td rowspan="8" class="nowrap"><strong>Terminal-Bench 2</strong><br /><small>50 train / 19 gate / 20 sealed</small></td>
-                <td rowspan="4" class="nowrap">MiniSWE</td>
-                <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
-                <td class="nowrap">70.0% → 74.0%<br /><strong>(+4.0%)</strong></td>
-                <td class="nowrap">55.1% → 56.2%<br /><strong>(+1.1%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
-                <td class="nowrap">58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
-                <td class="nowrap">55.1% → 68.5%<br /><strong>(+13.4%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
-                <td class="nowrap">66.0% → 68.0%<br /><strong>(+2.0%)</strong></td>
-                <td class="nowrap">55.1% → 65.2%<br /><strong>(+10.1%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
-                <td class="nowrap">58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
-                <td class="nowrap">55.1% → 59.6%<br /><strong>(+4.5%)</strong></td>
-              </tr>
-              <tr>
-                <td rowspan="4" class="nowrap">Codex</td>
-                <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
-                <td class="nowrap">60.0% → 74.0%<br /><strong>(+14.0%)</strong></td>
-                <td class="nowrap">60.7% → 66.3%<br /><strong>(+5.6%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
-                <td class="nowrap">58.0% → 72.0%<br /><strong>(+14.0%)</strong></td>
-                <td class="nowrap">60.7% → 70.8%<br /><strong>(+10.1%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
-                <td class="nowrap">62.0% → 62.0%<br /><strong>(0.0%)</strong></td>
-                <td class="nowrap">60.7% → 64.0%<br /><strong>(+3.3%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
-                <td class="nowrap">64.0% → 64.0%<br /><strong>(0.0%)</strong></td>
-                <td class="nowrap">60.7% → 60.7%<br /><strong>(0.0%)</strong></td>
-              </tr>
-              <tr>
-                <td rowspan="8" class="nowrap"><strong>Tau³ Banking</strong><br /><small>50 train / 20 gate / 27 sealed</small></td>
-                <td rowspan="4" class="nowrap">MiniSWE</td>
-                <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
-                <td class="nowrap">34.0% → 36.0%<br /><strong>(+2.0%)</strong></td>
-                <td class="nowrap">12.4% → 22.7%<br /><strong>(+10.3%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
-                <td class="nowrap">30.0% → 38.0%<br /><strong>(+8.0%)</strong></td>
-                <td class="nowrap">12.4% → 28.9%<br /><strong>(+16.5%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
-                <td class="nowrap">30.0% → 34.0%<br /><strong>(+4.0%)</strong></td>
-                <td class="nowrap">12.4% → 24.7%<br /><strong>(+12.3%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
-                <td class="nowrap">30.0% → 32.0%<br /><strong>(+2.0%)</strong></td>
-                <td class="nowrap">12.4% → 22.7%<br /><strong>(+10.3%)</strong></td>
-              </tr>
-              <tr>
-                <td rowspan="4" class="nowrap">Codex</td>
-                <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
-                <td class="nowrap">32.0% → 36.0%<br /><strong>(+4.0%)</strong></td>
-                <td class="nowrap">11.3% → 26.8%<br /><strong>(+15.5%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
-                <td class="nowrap">34.0% → 36.0%<br /><strong>(+2.0%)</strong></td>
-                <td class="nowrap">11.3% → 39.2%<br /><strong>(+27.9%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
-                <td class="nowrap">30.0% → 38.0%<br /><strong>(+8.0%)</strong></td>
-                <td class="nowrap">11.3% → 13.4%<br /><strong>(+2.1%)</strong></td>
-              </tr>
-              <tr>
-                <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
-                <td class="nowrap">10.0% → 16.0%<br /><strong>(+6.0%)</strong></td>
-                <td class="nowrap">11.3% → 15.5%<br /><strong>(+4.2%)</strong></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h2>
-          <span class="lang-en" lang="en">Trustworthy by construction</span>
-          <span class="lang-zh" lang="zh-CN">从构造上可信</span>
-        </h2>
-        <p>
-          <span class="lang-en" lang="en">RSIHub separates evolvable policy from the mechanism that judges it:</span>
-          <span class="lang-zh" lang="zh-CN">RSIHub 将可进化的策略与评判它的机制分离：</span>
+      <section class="block wrap">
+        <p class="kicker">
+          <span class="lang-en" lang="en">Guarantees</span>
+          <span class="lang-zh" lang="zh-CN">机制保证</span>
         </p>
-        <ol>
-          <li>
-            <span class="lang-en" lang="en"><strong>The evaluator is frozen.</strong> Candidates cannot change the scoring contract.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>评估器被冻结。</strong>候选无法更改打分契约。</span>
-          </li>
-          <li>
-            <span class="lang-en" lang="en"><strong>Mutation is bounded.</strong> Each recipe declares which target and operator paths may change.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>变异有边界。</strong>每个 recipe 声明哪些目标与操作符路径可以改变。</span>
-          </li>
-          <li>
-            <span class="lang-en" lang="en"><strong>Evaluation is canonical.</strong> New generations are scored from clean candidate snapshots.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>评估是规范的。</strong>新的世代从干净的候选快照中打分。</span>
-          </li>
-          <li>
-            <span class="lang-en" lang="en"><strong>Evidence is durable.</strong> Reports recompute results from stamped <code>archive.jsonl</code> records and Git generation tags.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>证据是持久的。</strong>报告从盖章的 <code>archive.jsonl</code> 记录与 Git 世代标签中重新计算结果。</span>
-          </li>
-        </ol>
-        <p>
+        <h2>
+          <span class="lang-en" lang="en">Trustworthy by construction.</span>
+          <span class="lang-zh" lang="zh-CN">从构造上可信。</span>
+        </h2>
+        <p class="lead">
+          <span class="lang-en" lang="en">RSIHub separates evolvable policy from the mechanism that judges it.</span>
+          <span class="lang-zh" lang="zh-CN">RSIHub 将可进化的策略与评判它的机制分离。</span>
+        </p>
+        <div class="cards four">
+          <div class="card">
+            <span class="num" aria-hidden="true">1</span>
+            <h3>
+              <span class="lang-en" lang="en">The evaluator is frozen</span>
+              <span class="lang-zh" lang="zh-CN">评估器被冻结</span>
+            </h3>
+            <p>
+              <span class="lang-en" lang="en">Candidates cannot change the scoring contract.</span>
+              <span class="lang-zh" lang="zh-CN">候选无法更改打分契约。</span>
+            </p>
+          </div>
+          <div class="card">
+            <span class="num" aria-hidden="true">2</span>
+            <h3>
+              <span class="lang-en" lang="en">Mutation is bounded</span>
+              <span class="lang-zh" lang="zh-CN">变异有边界</span>
+            </h3>
+            <p>
+              <span class="lang-en" lang="en">Each recipe declares which target and operator paths may change.</span>
+              <span class="lang-zh" lang="zh-CN">每个 recipe 声明哪些目标与操作符路径可以改变。</span>
+            </p>
+          </div>
+          <div class="card">
+            <span class="num" aria-hidden="true">3</span>
+            <h3>
+              <span class="lang-en" lang="en">Evaluation is canonical</span>
+              <span class="lang-zh" lang="zh-CN">评估是规范的</span>
+            </h3>
+            <p>
+              <span class="lang-en" lang="en">New generations are scored from clean candidate snapshots.</span>
+              <span class="lang-zh" lang="zh-CN">新的世代从干净的候选快照中打分。</span>
+            </p>
+          </div>
+          <div class="card">
+            <span class="num" aria-hidden="true">4</span>
+            <h3>
+              <span class="lang-en" lang="en">Evidence is durable</span>
+              <span class="lang-zh" lang="zh-CN">证据是持久的</span>
+            </h3>
+            <p>
+              <span class="lang-en" lang="en">Reports recompute results from stamped <code>archive.jsonl</code> records and Git generation tags.</span>
+              <span class="lang-zh" lang="zh-CN">报告从盖章的 <code>archive.jsonl</code> 记录与 Git 世代标签中重新计算结果。</span>
+            </p>
+          </div>
+        </div>
+        <p class="after">
           <span class="lang-en" lang="en">Operators run as subprocesses rather than being imported into the framework process. See <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/concepts/design.md" target="_blank" rel="noreferrer">the design guide</a> for the complete ownership model and invariants.</span>
           <span class="lang-zh" lang="zh-CN">操作符以子进程方式运行，而非被导入框架进程。完整的所有权模型与不变量见<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/concepts/design.md" target="_blank" rel="noreferrer">设计指南</a>。</span>
         </p>
+      </section>
 
+      <section class="cta">
         <h2>
-          <span class="lang-en" lang="en">Project status &amp; roadmap</span>
-          <span class="lang-zh" lang="zh-CN">项目状态与路线图</span>
+          <span class="lang-en" lang="en">Build agents that improve —<br />and keep the evidence.</span>
+          <span class="lang-zh" lang="zh-CN">让智能体持续改进，<br />并保留证据。</span>
         </h2>
-        <p>
-          <span class="lang-en" lang="en">RSIHub is an active prototype for research and controlled experimentation. The current focus is reliable experiment mechanics, local-first workflows, and composable strategies for different agent-evolution scenarios.</span>
-          <span class="lang-zh" lang="zh-CN">RSIHub 是一个面向研究与受控实验的活跃原型。当前重点是可靠的实验机制、本地优先的工作流，以及面向不同智能体进化场景的可组合策略。</span>
+        <p class="lead">
+          <span class="lang-en" lang="en">Clone the repository and run your first generation in an afternoon.</span>
+          <span class="lang-zh" lang="zh-CN">克隆仓库，一个下午跑通你的第一个世代。</span>
         </p>
-        <ul>
-          <li>
-            <span class="lang-en" lang="en"><strong>Scenario-oriented recipes:</strong> compose the current operator library into opinionated recipes for different agent-evolution use cases.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>面向场景的 recipes：</strong>将现有操作符库组合成针对不同智能体进化用例的成熟配方。</span>
-          </li>
-          <li>
-            <span class="lang-en" lang="en"><strong>Local-first workflows:</strong> make lightweight, Docker-free iteration a first-class path for trusted local agents, prompts, skills, and small features.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>本地优先的工作流：</strong>让轻量、无需 Docker 的迭代成为受信任的本地智能体、提示词、技能与小功能的一等路径。</span>
-          </li>
-          <li>
-            <span class="lang-en" lang="en"><strong>More method integrations:</strong> add evolution and search methods while preserving the shared evaluator, lineage, and evidence contracts.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>更多方法集成：</strong>在保持共享的评估器、谱系与证据契约的前提下，加入更多进化与搜索方法。</span>
-          </li>
-        </ul>
-
-        <h2>
-          <span class="lang-en" lang="en">Documentation</span>
-          <span class="lang-zh" lang="zh-CN">文档</span>
-        </h2>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <span class="lang-en" lang="en">Document</span>
-                  <span class="lang-zh" lang="zh-CN">文档</span>
-                </th>
-                <th>
-                  <span class="lang-en" lang="en">Purpose</span>
-                  <span class="lang-zh" lang="zh-CN">用途</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><a href="https://simpleagentlab.com/RSIHub/" target="_blank" rel="noreferrer">
-                  <span class="lang-en" lang="en">Documentation site</span>
-                  <span class="lang-zh" lang="zh-CN">文档站</span>
-                </a></td>
-                <td>
-                  <span class="lang-en" lang="en">Installation, operation, concepts, guides, and reference.</span>
-                  <span class="lang-zh" lang="zh-CN">安装、操作、概念、指南与参考。</span>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="https://github.com/simple-agent-lab/RSIHub/blob/main/QUICKSTART.md" target="_blank" rel="noreferrer">Quick start</a></td>
-                <td>
-                  <span class="lang-en" lang="en">Recipe launcher setup and configuration.</span>
-                  <span class="lang-zh" lang="zh-CN">Recipe 启动器的安装与配置。</span>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/concepts/design.md" target="_blank" rel="noreferrer">Design</a></td>
-                <td>
-                  <span class="lang-en" lang="en">System model, ownership boundaries, and invariants.</span>
-                  <span class="lang-zh" lang="zh-CN">系统模型、所有权边界与不变量。</span>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="https://github.com/simple-agent-lab/RSIHub/blob/main/ARCHITECTURE.md" target="_blank" rel="noreferrer">Architecture</a></td>
-                <td>
-                  <span class="lang-en" lang="en">Enforced source-module map and line budgets.</span>
-                  <span class="lang-zh" lang="zh-CN">强制执行的源码模块映射与行数预算。</span>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">Recipes</a></td>
-                <td>
-                  <span class="lang-en" lang="en">Supported evolution strategies.</span>
-                  <span class="lang-zh" lang="zh-CN">支持的进化策略。</span>
-                </td>
-              </tr>
-              <tr>
-                <td><a href="https://github.com/simple-agent-lab/RSIHub/blob/main/CONTRIBUTING.md" target="_blank" rel="noreferrer">Contributing</a></td>
-                <td>
-                  <span class="lang-en" lang="en">Development setup and repository conventions.</span>
-                  <span class="lang-zh" lang="zh-CN">开发环境搭建与仓库规范。</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <code class="clone">git clone https://github.com/simple-agent-lab/RSIHub.git</code>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://github.com/simple-agent-lab/RSIHub/blob/main/QUICKSTART.md" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Get started</span>
+            <span class="lang-zh" lang="zh-CN">快速开始</span>
+          </a>
+          <a class="btn btn-ghost" href="https://simpleagentlab.com/RSIHub/" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Documentation</span>
+            <span class="lang-zh" lang="zh-CN">文档</span>
+            <b aria-hidden="true">↗</b>
+          </a>
         </div>
-
-        <h2>
-          <span class="lang-en" lang="en">License</span>
-          <span class="lang-zh" lang="zh-CN">许可协议</span>
-        </h2>
-        <p>
-          <span class="lang-en" lang="en">RSIHub is licensed under <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/LICENSE" target="_blank" rel="noreferrer">Apache-2.0</a>. See <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/NOTICE" target="_blank" rel="noreferrer">NOTICE</a> for required attributions.</span>
-          <span class="lang-zh" lang="zh-CN">RSIHub 以 <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/LICENSE" target="_blank" rel="noreferrer">Apache-2.0</a> 协议开源，所需的署名信息见 <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/NOTICE" target="_blank" rel="noreferrer">NOTICE</a>。</span>
-        </p>
-
-        <a class="back-link" href="../">
-          <span aria-hidden="true">← </span>
-          <span class="lang-en" lang="en">Back to Simple Agent Lab</span>
-          <span class="lang-zh" lang="zh-CN">返回 Simple Agent Lab</span>
-        </a>
-      </article>
+        <div class="doc-links">
+          <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/concepts/design.md" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Design</span>
+            <span class="lang-zh" lang="zh-CN">设计</span>
+          </a>
+          <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/ARCHITECTURE.md" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Architecture</span>
+            <span class="lang-zh" lang="zh-CN">架构</span>
+          </a>
+          <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">Recipes</a>
+          <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/CONTRIBUTING.md" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Contributing</span>
+            <span class="lang-zh" lang="zh-CN">贡献指南</span>
+          </a>
+          <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/LICENSE" target="_blank" rel="noreferrer">Apache-2.0</a>
+          <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/NOTICE" target="_blank" rel="noreferrer">NOTICE</a>
+        </div>
+      </section>
     </main>
 
     <footer>
@@ -786,27 +1147,36 @@ uv run --frozen evolve recipe check /path/to/my-recipe/evolve.yaml</code></pre>
 
     <script>
       (function () {
-        var TARGETS = ["Codex", "Claude Code", "your DeepSeek harness", "MiniSWE"];
-        var BENCHES = ["Terminal-Bench 2", "Tau³ Banking", "your own eval"];
+        var TARGETS = {
+          en: ["Codex", "Claude Code", "DeepSeek harness", "MiniSWE"],
+          zh: ["Codex", "Claude Code", "DeepSeek harness", "MiniSWE"]
+        };
+        var BENCHES = {
+          en: ["Terminal-Bench 2", "Tau³ Banking", "your own eval"],
+          zh: ["Terminal-Bench 2", "Tau³ Banking", "你自己的评测"]
+        };
         var reduceMotion = window.matchMedia
           && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-        function rotate(selector, items, firstDelay) {
+        function rotate(selector, lists, firstDelay) {
           var elements = Array.prototype.slice.call(document.querySelectorAll(selector));
           if (!elements.length) return;
           var index = 0;
+          function itemFor(element) {
+            return (element.closest(".lang-zh") ? lists.zh : lists.en)[index];
+          }
           function swap() {
-            index = (index + 1) % items.length;
+            index = (index + 1) % lists.en.length;
             elements.forEach(function (element) {
               // Hidden language variants (and reduced motion) swap without animating.
               if (reduceMotion || !element.offsetParent) {
-                element.textContent = items[index];
+                element.textContent = itemFor(element);
                 return;
               }
               var oldWidth = element.getBoundingClientRect().width;
               element.classList.add("is-out");
               window.setTimeout(function () {
-                element.textContent = items[index];
+                element.textContent = itemFor(element);
                 element.style.width = "auto";
                 var newWidth = element.getBoundingClientRect().width;
                 element.style.width = oldWidth + "px";
