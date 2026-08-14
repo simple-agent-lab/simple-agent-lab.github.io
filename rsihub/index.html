@@ -266,36 +266,6 @@
         font: 450 12.5px/1.6 var(--sans);
       }
 
-      /* Stats strip */
-      .landing .stats { margin-top: 88px; }
-      .stats .row {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 28px 20px;
-        padding: 34px 0;
-        border-top: 1px solid var(--rule);
-        border-bottom: 1px solid var(--rule);
-      }
-      .stat { text-align: center; }
-      .stat b {
-        display: block;
-        font: 650 clamp(27px, 3.6vw, 40px)/1.1 var(--sans);
-        letter-spacing: -.04em;
-        color: var(--fg);
-      }
-      .stat b.grad {
-        background: linear-gradient(90deg, #3c8cff, #0095fd 40%, #00a3b0 72%, #2fa844);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-      :root[data-theme="dark"] .stat b.grad {
-        background: linear-gradient(90deg, #3c8cff, #0095fd 40%, #00cbd4 72%, #78e85c);
-        -webkit-background-clip: text;
-        background-clip: text;
-      }
-      .stat small { display: block; margin-top: 9px; color: var(--soft); font: 450 13px/1.5 var(--sans); }
-
       /* Sections */
       .landing .block { margin-top: 118px; }
       .landing .kicker {
@@ -329,52 +299,6 @@
       /* Figures */
       .shot { margin: 0; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; }
       .shot img { display: block; width: 100%; height: auto; }
-
-      /* Cards */
-      .cards { display: grid; gap: 16px; }
-      .cards.three { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-      .cards.four { grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); }
-      .card {
-        padding: 24px 24px 26px;
-        border: 1px solid var(--rule);
-        border-radius: 16px;
-      }
-      .card .tag {
-        display: block;
-        margin-bottom: 12px;
-        color: var(--blue);
-        font: 700 11px/1 var(--sans);
-        letter-spacing: .09em;
-        text-transform: uppercase;
-      }
-      .card h3 { margin: 0 0 9px; font: 650 16.5px/1.35 var(--sans); color: var(--fg); }
-      .card h3 code { font-size: .92em; }
-      .card p { margin: 0; font: 450 14.5px/1.65 var(--sans); }
-      .card .num {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 26px;
-        height: 26px;
-        margin-bottom: 14px;
-        border: 1px solid var(--rule);
-        border-radius: 50%;
-        color: var(--faint);
-        font: 650 12.5px/1 var(--sans);
-      }
-
-      /* CLI block */
-      .landing pre.cli {
-        max-width: 700px;
-        margin: 24px 0 0;
-        padding: 16px 20px;
-        border-radius: 12px;
-        background: var(--rule);
-        overflow-x: auto;
-        font: 500 13px/1.75 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-        color: var(--fg);
-      }
-      .landing pre.cli code { padding: 0; border-radius: 0; background: none; font: inherit; }
 
       /* Recipe rows */
       .recipes { margin-top: 6px; border-top: 1px solid var(--rule); }
@@ -462,7 +386,6 @@
         .landing .hero-title { font-size: clamp(19px, 6.2vw, 34px); }
         .landing .block { margin-top: 88px; }
         .landing .cta { margin-top: 96px; padding-top: 60px; }
-        .landing .stats { margin-top: 68px; }
         .hero-cta .btn { padding: 12px 19px; font-size: 14px; }
       }
       @media (prefers-reduced-motion: reduce) {
@@ -623,347 +546,7 @@
         </div>
       </section>
 
-      <section class="stats wrap" aria-label="Highlights">
-        <div class="row">
-          <div class="stat">
-            <b class="grad">+13.4%</b>
-            <small>
-              <span class="lang-en" lang="en">best full-benchmark gain on Terminal-Bench 2</span>
-              <span class="lang-zh" lang="zh-CN">Terminal-Bench 2 完整基准最高提升</span>
-            </small>
-          </div>
-          <div class="stat">
-            <b class="grad">+27.9%</b>
-            <small>
-              <span class="lang-en" lang="en">best full-benchmark gain on Tau³ Banking</span>
-              <span class="lang-zh" lang="zh-CN">Tau³ Banking 完整基准最高提升</span>
-            </small>
-          </div>
-          <div class="stat">
-            <b>5</b>
-            <small>
-              <span class="lang-en" lang="en">built-in evolution recipes</span>
-              <span class="lang-zh" lang="zh-CN">内置进化 recipe</span>
-            </small>
-          </div>
-          <div class="stat">
-            <b>Apache-2.0</b>
-            <small>
-              <span class="lang-en" lang="en">open source, evidence included</span>
-              <span class="lang-zh" lang="zh-CN">开源协议，证据内建</span>
-            </small>
-          </div>
-        </div>
-      </section>
-
-      <section class="block wrap">
-        <p class="kicker">
-          <span class="lang-en" lang="en">How it works</span>
-          <span class="lang-zh" lang="zh-CN">工作原理</span>
-        </p>
-        <h2>
-          <span class="lang-en" lang="en">One loop. Every recipe.</span>
-          <span class="lang-zh" lang="zh-CN">一个循环，贯穿所有 recipe。</span>
-        </h2>
-        <p class="lead">
-          <span class="lang-en" lang="en">A recipe decides how parents are selected, how traces are analyzed, what may be edited, and which evaluations admit a new generation. The framework owns the mechanism that makes those decisions inspectable: clean candidate snapshots, protected scoring, surface enforcement, Git tags, and stamped archive records.</span>
-          <span class="lang-zh" lang="zh-CN">Recipe 决定如何选择父代、如何分析轨迹、哪些内容可以被编辑、以及哪些评估可以准入新的一代。框架则负责让这些决策可检查：干净的候选快照、受保护的打分、变异面约束、Git 标签与盖章的归档记录。</span>
-        </p>
-        <div class="loop" role="img" aria-label="select, evaluate, analyze, mutate, gate, record">
-          <span class="pill">select</span><b aria-hidden="true">→</b>
-          <span class="pill locked">evaluate</span><b aria-hidden="true">→</b>
-          <span class="pill">analyze</span><b aria-hidden="true">→</b>
-          <span class="pill">mutate</span><b aria-hidden="true">→</b>
-          <span class="pill">gate</span><b aria-hidden="true">→</b>
-          <span class="pill">record</span>
-        </div>
-        <figure class="shot">
-          <img
-            src="./assets/architecture.svg"
-            loading="lazy"
-            alt="RSIHub architecture: five built-in strategies and custom recipes compose a loop of select, rollout and evaluation, analyze, mutate, gate, and record. The target and selected operators occupy a declared mutable surface. The evaluator, runtime, surface check, and stamped evidence remain protected from candidate changes."
-          />
-        </figure>
-      </section>
-
-      <section class="block wrap">
-        <p class="kicker">
-          <span class="lang-en" lang="en">Composable by design</span>
-          <span class="lang-zh" lang="zh-CN">组合式设计</span>
-        </p>
-        <h2>
-          <span class="lang-en" lang="en">Four parts, cleanly separated.</span>
-          <span class="lang-zh" lang="zh-CN">四个部分，清晰分离。</span>
-        </h2>
-        <p class="lead">
-          <span class="lang-en" lang="en">The public composition model keeps policy swappable and the judging mechanism out of reach.</span>
-          <span class="lang-zh" lang="zh-CN">公开的组合模型让策略可替换，同时让评判机制不可触碰。</span>
-        </p>
-        <div class="cards four">
-          <div class="card">
-            <h3><code>stage</code></h3>
-            <p>
-              <span class="lang-en" lang="en">A fixed lifecycle slot such as <code>select</code>, <code>analyze</code>, or <code>mutate</code>.</span>
-              <span class="lang-zh" lang="zh-CN">固定的生命周期槽位，例如 <code>select</code>、<code>analyze</code>、<code>mutate</code>。</span>
-            </p>
-          </div>
-          <div class="card">
-            <h3><code>operator</code></h3>
-            <p>
-              <span class="lang-en" lang="en">A reusable implementation at <code>library/&lt;stage&gt;/&lt;name&gt;.py</code>.</span>
-              <span class="lang-zh" lang="zh-CN">位于 <code>library/&lt;stage&gt;/&lt;name&gt;.py</code> 的可复用实现。</span>
-            </p>
-          </div>
-          <div class="card">
-            <h3><code>recipe</code></h3>
-            <p>
-              <span class="lang-en" lang="en">Code-free selection and configuration of those operators.</span>
-              <span class="lang-zh" lang="zh-CN">对这些操作符的免代码选择与配置。</span>
-            </p>
-          </div>
-          <div class="card">
-            <h3><code>evaluate</code></h3>
-            <p>
-              <span class="lang-en" lang="en">The framework-owned trusted mechanism — never a selectable operator.</span>
-              <span class="lang-zh" lang="zh-CN">框架持有的受信任机制——永远不是可选择的操作符。</span>
-            </p>
-          </div>
-        </div>
-        <p class="after">
-          <span class="lang-en" lang="en">Add an operator to a source checkout, validate it, and compose it without a registry edit:</span>
-          <span class="lang-zh" lang="zh-CN">在源码检出中新增一个操作符、验证它并完成组合，全程无需修改注册表：</span>
-        </p>
-        <pre class="cli"><code>uv run --frozen evolve operator new mutate my_operator
-uv run --frozen evolve operator describe mutate/my_operator
-uv run --frozen evolve operator check mutate/my_operator --config '{}'
-uv run --frozen evolve recipe check /path/to/my-recipe/evolve.yaml</code></pre>
-        <p class="after">
-          <span class="lang-en" lang="en">See <a href="https://simpleagentlab.com/RSIHub/reference/operators/" target="_blank" rel="noreferrer">the operator guide</a> for the complete workflow.</span>
-          <span class="lang-zh" lang="zh-CN">完整工作流见 <a href="https://simpleagentlab.com/RSIHub/reference/operators/" target="_blank" rel="noreferrer">operator 指南</a>。</span>
-        </p>
-      </section>
-
-      <section class="block wrap">
-        <p class="kicker">
-          <span class="lang-en" lang="en">Who it’s for</span>
-          <span class="lang-zh" lang="zh-CN">适用对象</span>
-        </p>
-        <h2>
-          <span class="lang-en" lang="en">For builders, researchers, and reviewers.</span>
-          <span class="lang-zh" lang="zh-CN">面向开发者、研究者与审阅者。</span>
-        </h2>
-        <div class="cards three">
-          <div class="card">
-            <span class="tag">
-              <span class="lang-en" lang="en">Agent builders</span>
-              <span class="lang-zh" lang="zh-CN">智能体开发者</span>
-            </span>
-            <h3>
-              <span class="lang-en" lang="en">Ship better agents</span>
-              <span class="lang-zh" lang="zh-CN">交付更好的智能体</span>
-            </h3>
-            <p>
-              <span class="lang-en" lang="en">Improve prompts, skills, harnesses, and agent code in a reusable experiment workspace.</span>
-              <span class="lang-zh" lang="zh-CN">在可复用的实验工作区中改进提示词、技能、harness 与智能体代码。</span>
-            </p>
-          </div>
-          <div class="card">
-            <span class="tag">
-              <span class="lang-en" lang="en">Researchers</span>
-              <span class="lang-zh" lang="zh-CN">研究者</span>
-            </span>
-            <h3>
-              <span class="lang-en" lang="en">Compare methods fairly</span>
-              <span class="lang-zh" lang="zh-CN">公平比较方法</span>
-            </h3>
-            <p>
-              <span class="lang-en" lang="en">Compare evolution strategies under fixed evaluation and mutation boundaries.</span>
-              <span class="lang-zh" lang="zh-CN">在固定的评估与变异边界下比较不同进化策略。</span>
-            </p>
-          </div>
-          <div class="card">
-            <span class="tag">
-              <span class="lang-en" lang="en">Evidence built in</span>
-              <span class="lang-zh" lang="zh-CN">内建证据</span>
-            </span>
-            <h3>
-              <span class="lang-en" lang="en">Audit every claim</span>
-              <span class="lang-zh" lang="zh-CN">审计每一次改进</span>
-            </h3>
-            <p>
-              <span class="lang-en" lang="en">Connect every candidate to scores, artifacts, archive records, and Git lineage.</span>
-              <span class="lang-zh" lang="zh-CN">将每个候选与得分、产物、归档记录和 Git 谱系关联起来。</span>
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="block wrap">
-        <p class="kicker">
-          <span class="lang-en" lang="en">Mutable surface</span>
-          <span class="lang-zh" lang="zh-CN">可变面</span>
-        </p>
-        <h2>
-          <span class="lang-en" lang="en">Declare what may change. Protect the rest.</span>
-          <span class="lang-zh" lang="zh-CN">声明可变的部分，保护其余一切。</span>
-        </h2>
-        <div class="cards three">
-          <div class="card">
-            <span class="tag">
-              <span class="lang-en" lang="en">Policy &amp; behavior</span>
-              <span class="lang-zh" lang="zh-CN">策略与行为</span>
-            </span>
-            <h3>
-              <span class="lang-en" lang="en">Prompts &amp; skills</span>
-              <span class="lang-zh" lang="zh-CN">提示词与技能</span>
-            </h3>
-            <p>
-              <span class="lang-en" lang="en">System prompts, task skills, and reusable instructions.</span>
-              <span class="lang-zh" lang="zh-CN">系统提示词、任务技能与可复用指令。</span>
-            </p>
-          </div>
-          <div class="card">
-            <span class="tag">
-              <span class="lang-en" lang="en">Agent engineering</span>
-              <span class="lang-zh" lang="zh-CN">智能体工程</span>
-            </span>
-            <h3>
-              <span class="lang-en" lang="en">Harnesses &amp; target code</span>
-              <span class="lang-zh" lang="zh-CN">Harness 与目标代码</span>
-            </h3>
-            <p>
-              <span class="lang-en" lang="en">Tools, orchestration, and the agent implementation itself.</span>
-              <span class="lang-zh" lang="zh-CN">工具、编排，以及智能体实现本身。</span>
-            </p>
-          </div>
-          <div class="card">
-            <span class="tag">
-              <span class="lang-en" lang="en">Controlled co-evolution</span>
-              <span class="lang-zh" lang="zh-CN">受控共同进化</span>
-            </span>
-            <h3>
-              <span class="lang-en" lang="en">Selected operators</span>
-              <span class="lang-zh" lang="zh-CN">选定的操作符</span>
-            </h3>
-            <p>
-              <span class="lang-en" lang="en">The analysis or mutation policy a recipe chooses to expose.</span>
-              <span class="lang-zh" lang="zh-CN">Recipe 选择开放的分析或变异策略。</span>
-            </p>
-          </div>
-        </div>
-        <p class="after">
-          <span class="lang-en" lang="en">Each recipe declares its mutable paths. Evaluators, archive stamps, and the vendored framework mechanism stay outside that surface.</span>
-          <span class="lang-zh" lang="zh-CN">每个 recipe 声明自己的可变路径。评估器、归档盖章与内置的框架机制始终位于可变面之外。</span>
-        </p>
-      </section>
-
-      <section class="block wrap">
-        <p class="kicker">Recipes</p>
-        <h2>
-          <span class="lang-en" lang="en">Five strategies, one mechanism.</span>
-          <span class="lang-zh" lang="zh-CN">五种策略，同一套机制。</span>
-        </h2>
-        <div class="recipes">
-          <div class="recipe-row">
-            <code>hill_climb</code>
-            <p>
-              <span class="lang-en" lang="en">Improve one candidate from its current best parent.</span>
-              <span class="lang-zh" lang="zh-CN">从当前最优父代持续改进单个候选。</span>
-            </p>
-            <span class="surface">target</span>
-          </div>
-          <div class="recipe-row">
-            <code>aevolve</code>
-            <p>
-              <span class="lang-en" lang="en">Evolve prompts and reusable agent skills.</span>
-              <span class="lang-zh" lang="zh-CN">进化提示词与可复用的智能体技能。</span>
-            </p>
-            <span class="surface">prompt + target skills</span>
-          </div>
-          <div class="recipe-row">
-            <code>ahe</code>
-            <p>
-              <span class="lang-en" lang="en">Engineer the agent harness against evaluator feedback.</span>
-              <span class="lang-zh" lang="zh-CN">依据评估器反馈改进 agent harness。</span>
-            </p>
-            <span class="surface">target</span>
-          </div>
-          <div class="recipe-row">
-            <code>gepa</code>
-            <p>
-              <span class="lang-en" lang="en">Balance multiple objectives with minibatch validation.</span>
-              <span class="lang-zh" lang="zh-CN">通过 minibatch 验证平衡多个目标。</span>
-            </p>
-            <span class="surface">prompt + task skill</span>
-          </div>
-          <div class="recipe-row">
-            <code>hyperagents</code>
-            <p>
-              <span class="lang-en" lang="en">Co-evolve the target and the selected evolution policy.</span>
-              <span class="lang-zh" lang="zh-CN">让目标与选定的进化策略共同进化。</span>
-            </p>
-            <span class="surface">target + selected operators</span>
-          </div>
-        </div>
-        <p class="after">
-          <span class="lang-en" lang="en">See <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">the recipe guide</a> for each strategy’s workflow and configuration.</span>
-          <span class="lang-zh" lang="zh-CN">每个策略的工作流与配置见 <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">recipe 指南</a>。</span>
-        </p>
-      </section>
-
-      <section class="block wrap">
-        <p class="kicker">Showcase</p>
-        <h2>
-          <span class="lang-en" lang="en">A Skill that learned poster design.</span>
-          <span class="lang-zh" lang="zh-CN">一个学会海报设计的 Skill。</span>
-        </h2>
-        <p class="lead">
-          <span class="lang-en" lang="en">RSIHub can improve a Skill as a complete package: instructions, references, and validation scripts evolve together while a frozen evaluator keeps the comparison honest. In this local Paper2Poster run, the same Codex model and paper prompt produced both LoRA posters below.</span>
-          <span class="lang-zh" lang="zh-CN">RSIHub 可以把一个 Skill 作为完整的包来改进：指令、参考资料与验证脚本共同进化，同时由冻结的评估器保证比较的公平。在这次本地 Paper2Poster 运行中，同一个 Codex 模型和同一条论文提示词生成了下面两张 LoRA 海报。</span>
-        </p>
-        <div class="showcase">
-          <figure>
-            <img
-              src="./assets/paper-poster-lora-gen0.png"
-              width="1600"
-              height="1000"
-              loading="lazy"
-              alt="Generation zero LoRA research poster with a generic dashboard-style layout"
-            />
-            <figcaption>
-              <strong>
-                <span class="lang-en" lang="en">Gen 0 · minimal 12-line Skill</span>
-                <span class="lang-zh" lang="zh-CN">Gen 0 · 12 行的最小 Skill</span>
-              </strong>
-              <span class="lang-en" lang="en">Deterministic geometry gate failed: 14 text elements overflowed the SVG viewBox.</span>
-              <span class="lang-zh" lang="zh-CN">未通过确定性几何门控：14 个文本元素溢出了 SVG viewBox。</span>
-            </figcaption>
-          </figure>
-          <figure>
-            <img
-              src="./assets/paper-poster-lora-gen2.png"
-              width="1600"
-              height="2000"
-              loading="lazy"
-              alt="Generation two LoRA research poster with a paper-specific editorial layout and low-rank matrix visualization"
-            />
-            <figcaption>
-              <strong>
-                <span class="lang-en" lang="en">Gen 2 · evolved editorial Skill</span>
-                <span class="lang-zh" lang="zh-CN">Gen 2 · 进化后的编辑版 Skill</span>
-              </strong>
-              <span class="lang-en" lang="en">Passed deterministic renderability and geometry gates; paper fidelity remained advisory reviewer feedback.</span>
-              <span class="lang-zh" lang="zh-CN">通过了确定性可渲染与几何门控；论文忠实度作为建议性评审反馈保留。</span>
-            </figcaption>
-          </figure>
-        </div>
-        <p class="after">
-          <span class="lang-en" lang="en">Across the four-paper showcase, the deterministic completion pass rate moved from <strong>1/4</strong> at Gen 0 to <strong>4/4</strong> at Gen 2. This is a representative evolution run rather than a broad benchmark; see the <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">result snapshot</a>, <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">frozen rubric</a>, and <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">minimal seed Skill</a>.</span>
-          <span class="lang-zh" lang="zh-CN">在四篇论文的 showcase 中，确定性完成通过率从 Gen 0 的 <strong>1/4</strong> 提升到 Gen 2 的 <strong>4/4</strong>。这是一次代表性的进化运行，而非广泛的基准测试；另见<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">结果快照</a>、<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">冻结的评分标准</a>与<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">最小种子 Skill</a>。</span>
-        </p>
-      </section>
-
-      <section class="block wrap">
+      <section class="block wrap" id="results">
         <p class="kicker">
           <span class="lang-en" lang="en">Results</span>
           <span class="lang-zh" lang="zh-CN">基准结果</span>
@@ -1107,72 +690,139 @@ uv run --frozen evolve recipe check /path/to/my-recipe/evolve.yaml</code></pre>
         </details>
       </section>
 
-      <section class="block wrap">
+      <section class="block wrap" id="how-it-works">
         <p class="kicker">
-          <span class="lang-en" lang="en">Guarantees</span>
-          <span class="lang-zh" lang="zh-CN">机制保证</span>
+          <span class="lang-en" lang="en">How it works</span>
+          <span class="lang-zh" lang="zh-CN">工作原理</span>
         </p>
         <h2>
-          <span class="lang-en" lang="en">Trustworthy by construction.</span>
-          <span class="lang-zh" lang="zh-CN">从构造上可信。</span>
+          <span class="lang-en" lang="en">One loop. Five strategies.</span>
+          <span class="lang-zh" lang="zh-CN">一个循环，五种策略。</span>
         </h2>
         <p class="lead">
-          <span class="lang-en" lang="en">RSIHub separates evolvable policy from the mechanism that judges it.</span>
-          <span class="lang-zh" lang="zh-CN">RSIHub 将可进化的策略与评判它的机制分离。</span>
+          <span class="lang-en" lang="en">A recipe decides how parents are selected, how traces are analyzed, what may be edited, and which evaluations admit a new generation. The framework owns the mechanism that makes those decisions inspectable: clean candidate snapshots, protected scoring, surface enforcement, Git tags, and stamped archive records.</span>
+          <span class="lang-zh" lang="zh-CN">Recipe 决定如何选择父代、如何分析轨迹、哪些内容可以被编辑、以及哪些评估可以准入新的一代。框架则负责让这些决策可检查：干净的候选快照、受保护的打分、变异面约束、Git 标签与盖章的归档记录。</span>
         </p>
-        <div class="cards four">
-          <div class="card">
-            <span class="num" aria-hidden="true">1</span>
-            <h3>
-              <span class="lang-en" lang="en">The evaluator is frozen</span>
-              <span class="lang-zh" lang="zh-CN">评估器被冻结</span>
-            </h3>
+        <div class="loop" role="img" aria-label="select, evaluate, analyze, mutate, gate, record">
+          <span class="pill">select</span><b aria-hidden="true">→</b>
+          <span class="pill locked">evaluate</span><b aria-hidden="true">→</b>
+          <span class="pill">analyze</span><b aria-hidden="true">→</b>
+          <span class="pill">mutate</span><b aria-hidden="true">→</b>
+          <span class="pill">gate</span><b aria-hidden="true">→</b>
+          <span class="pill">record</span>
+        </div>
+        <figure class="shot">
+          <img
+            src="./assets/architecture.svg"
+            loading="lazy"
+            alt="RSIHub architecture: five built-in strategies and custom recipes compose a loop of select, rollout and evaluation, analyze, mutate, gate, and record. The target and selected operators occupy a declared mutable surface. The evaluator, runtime, surface check, and stamped evidence remain protected from candidate changes."
+          />
+        </figure>
+        <p class="after">
+          <span class="lang-en" lang="en">Five built-in recipes compose the loop for different goals:</span>
+          <span class="lang-zh" lang="zh-CN">五个内置 recipe 面向不同目标组合这个循环：</span>
+        </p>
+        <div class="recipes">
+          <div class="recipe-row">
+            <code>hill_climb</code>
             <p>
-              <span class="lang-en" lang="en">Candidates cannot change the scoring contract.</span>
-              <span class="lang-zh" lang="zh-CN">候选无法更改打分契约。</span>
+              <span class="lang-en" lang="en">Improve one candidate from its current best parent.</span>
+              <span class="lang-zh" lang="zh-CN">从当前最优父代持续改进单个候选。</span>
             </p>
+            <span class="surface">target</span>
           </div>
-          <div class="card">
-            <span class="num" aria-hidden="true">2</span>
-            <h3>
-              <span class="lang-en" lang="en">Mutation is bounded</span>
-              <span class="lang-zh" lang="zh-CN">变异有边界</span>
-            </h3>
+          <div class="recipe-row">
+            <code>aevolve</code>
             <p>
-              <span class="lang-en" lang="en">Each recipe declares which target and operator paths may change.</span>
-              <span class="lang-zh" lang="zh-CN">每个 recipe 声明哪些目标与操作符路径可以改变。</span>
+              <span class="lang-en" lang="en">Evolve prompts and reusable agent skills.</span>
+              <span class="lang-zh" lang="zh-CN">进化提示词与可复用的智能体技能。</span>
             </p>
+            <span class="surface">prompt + target skills</span>
           </div>
-          <div class="card">
-            <span class="num" aria-hidden="true">3</span>
-            <h3>
-              <span class="lang-en" lang="en">Evaluation is canonical</span>
-              <span class="lang-zh" lang="zh-CN">评估是规范的</span>
-            </h3>
+          <div class="recipe-row">
+            <code>ahe</code>
             <p>
-              <span class="lang-en" lang="en">New generations are scored from clean candidate snapshots.</span>
-              <span class="lang-zh" lang="zh-CN">新的世代从干净的候选快照中打分。</span>
+              <span class="lang-en" lang="en">Engineer the agent harness against evaluator feedback.</span>
+              <span class="lang-zh" lang="zh-CN">依据评估器反馈改进 agent harness。</span>
             </p>
+            <span class="surface">target</span>
           </div>
-          <div class="card">
-            <span class="num" aria-hidden="true">4</span>
-            <h3>
-              <span class="lang-en" lang="en">Evidence is durable</span>
-              <span class="lang-zh" lang="zh-CN">证据是持久的</span>
-            </h3>
+          <div class="recipe-row">
+            <code>gepa</code>
             <p>
-              <span class="lang-en" lang="en">Reports recompute results from stamped <code>archive.jsonl</code> records and Git generation tags.</span>
-              <span class="lang-zh" lang="zh-CN">报告从盖章的 <code>archive.jsonl</code> 记录与 Git 世代标签中重新计算结果。</span>
+              <span class="lang-en" lang="en">Balance multiple objectives with minibatch validation.</span>
+              <span class="lang-zh" lang="zh-CN">通过 minibatch 验证平衡多个目标。</span>
             </p>
+            <span class="surface">prompt + task skill</span>
+          </div>
+          <div class="recipe-row">
+            <code>hyperagents</code>
+            <p>
+              <span class="lang-en" lang="en">Co-evolve the target and the selected evolution policy.</span>
+              <span class="lang-zh" lang="zh-CN">让目标与选定的进化策略共同进化。</span>
+            </p>
+            <span class="surface">target + selected operators</span>
           </div>
         </div>
         <p class="after">
-          <span class="lang-en" lang="en">Operators run as subprocesses rather than being imported into the framework process. See <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/concepts/design.md" target="_blank" rel="noreferrer">the design guide</a> for the complete ownership model and invariants.</span>
-          <span class="lang-zh" lang="zh-CN">操作符以子进程方式运行，而非被导入框架进程。完整的所有权模型与不变量见<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/concepts/design.md" target="_blank" rel="noreferrer">设计指南</a>。</span>
+          <span class="lang-en" lang="en">See <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">the recipe guide</a> for each strategy’s workflow and configuration.</span>
+          <span class="lang-zh" lang="zh-CN">每个策略的工作流与配置见 <a href="https://github.com/simple-agent-lab/RSIHub/tree/main/recipes" target="_blank" rel="noreferrer">recipe 指南</a>。</span>
         </p>
       </section>
 
-      <section class="cta">
+      <section class="block wrap" id="showcase">
+        <p class="kicker">Showcase</p>
+        <h2>
+          <span class="lang-en" lang="en">A Skill that learned poster design.</span>
+          <span class="lang-zh" lang="zh-CN">一个学会海报设计的 Skill。</span>
+        </h2>
+        <p class="lead">
+          <span class="lang-en" lang="en">RSIHub can improve a Skill as a complete package: instructions, references, and validation scripts evolve together while a frozen evaluator keeps the comparison honest. In this local Paper2Poster run, the same Codex model and paper prompt produced both LoRA posters below.</span>
+          <span class="lang-zh" lang="zh-CN">RSIHub 可以把一个 Skill 作为完整的包来改进：指令、参考资料与验证脚本共同进化，同时由冻结的评估器保证比较的公平。在这次本地 Paper2Poster 运行中，同一个 Codex 模型和同一条论文提示词生成了下面两张 LoRA 海报。</span>
+        </p>
+        <div class="showcase">
+          <figure>
+            <img
+              src="./assets/paper-poster-lora-gen0.png"
+              width="1600"
+              height="1000"
+              loading="lazy"
+              alt="Generation zero LoRA research poster with a generic dashboard-style layout"
+            />
+            <figcaption>
+              <strong>
+                <span class="lang-en" lang="en">Gen 0 · minimal 12-line Skill</span>
+                <span class="lang-zh" lang="zh-CN">Gen 0 · 12 行的最小 Skill</span>
+              </strong>
+              <span class="lang-en" lang="en">Deterministic geometry gate failed: 14 text elements overflowed the SVG viewBox.</span>
+              <span class="lang-zh" lang="zh-CN">未通过确定性几何门控：14 个文本元素溢出了 SVG viewBox。</span>
+            </figcaption>
+          </figure>
+          <figure>
+            <img
+              src="./assets/paper-poster-lora-gen2.png"
+              width="1600"
+              height="2000"
+              loading="lazy"
+              alt="Generation two LoRA research poster with a paper-specific editorial layout and low-rank matrix visualization"
+            />
+            <figcaption>
+              <strong>
+                <span class="lang-en" lang="en">Gen 2 · evolved editorial Skill</span>
+                <span class="lang-zh" lang="zh-CN">Gen 2 · 进化后的编辑版 Skill</span>
+              </strong>
+              <span class="lang-en" lang="en">Passed deterministic renderability and geometry gates; paper fidelity remained advisory reviewer feedback.</span>
+              <span class="lang-zh" lang="zh-CN">通过了确定性可渲染与几何门控；论文忠实度作为建议性评审反馈保留。</span>
+            </figcaption>
+          </figure>
+        </div>
+        <p class="after">
+          <span class="lang-en" lang="en">Across the four-paper showcase, the deterministic completion pass rate moved from <strong>1/4</strong> at Gen 0 to <strong>4/4</strong> at Gen 2. This is a representative evolution run rather than a broad benchmark; see the <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">result snapshot</a>, <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">frozen rubric</a>, and <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">minimal seed Skill</a>.</span>
+          <span class="lang-zh" lang="zh-CN">在四篇论文的 showcase 中，确定性完成通过率从 Gen 0 的 <strong>1/4</strong> 提升到 Gen 2 的 <strong>4/4</strong>。这是一次代表性的进化运行，而非广泛的基准测试；另见<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">结果快照</a>、<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">冻结的评分标准</a>与<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">最小种子 Skill</a>。</span>
+        </p>
+      </section>
+
+      <section class="cta" id="get-started">
         <h2>
           <span class="lang-en" lang="en">Build agents that improve —<br />and keep the evidence.</span>
           <span class="lang-zh" lang="zh-CN">让智能体持续改进，<br />并保留证据。</span>
