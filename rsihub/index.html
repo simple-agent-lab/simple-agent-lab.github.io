@@ -133,19 +133,20 @@
         letter-spacing: -.045em;
         color: var(--fg);
       }
+      /* Each rotor reserves the width of its longest item via stacked hidden
+         sizers, so the surrounding text never moves when the word changes. */
       .rotor {
-        display: inline-block;
-        max-width: 100%;
-        padding: .02em .3em .1em;
-        border-radius: .22em;
-        background: var(--rule);
+        display: inline-grid;
         color: var(--blue);
+        text-align: center;
         white-space: nowrap;
-        transition: opacity .22s ease, transform .22s ease, width .3s ease;
       }
+      .rotor > span { grid-area: 1 / 1; }
+      .rotor .sizer { visibility: hidden; }
+      .rotor .rotor-word { transition: opacity .22s ease, transform .22s ease; }
+      .rotor .rotor-word.is-out { opacity: 0; transform: translateY(.3em); }
       .rotor-bench { color: var(--teal, #0e7c70); }
       :root[data-theme="dark"] .rotor-bench { color: #00cbd4; }
-      .rotor.is-out { opacity: 0; transform: translateY(.3em); }
       .landing .hero-sub {
         max-width: 640px;
         margin: 0 auto 34px;
@@ -505,8 +506,12 @@
           </svg>
         </h1>
         <p class="hero-title">
-          <span class="lang-en" lang="en">Evolve your <span class="rotor rotor-target">Codex</span><br />on <span class="rotor rotor-bench">Terminal-Bench 2</span>.</span>
-          <span class="lang-zh" lang="zh-CN">在 <span class="rotor rotor-bench">Terminal-Bench 2</span> 上<br />进化你的 <span class="rotor rotor-target">Codex</span>。</span>
+          <span class="lang-en" lang="en">Evolve your
+            <span class="rotor rotor-target"><span class="rotor-word">Codex</span><span class="sizer" aria-hidden="true">Codex</span><span class="sizer" aria-hidden="true">Claude Code</span><span class="sizer" aria-hidden="true">DeepSeek harness</span><span class="sizer" aria-hidden="true">MiniSWE</span></span><br />on
+            <span class="rotor rotor-bench"><span class="rotor-word">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Tau³ Banking</span><span class="sizer" aria-hidden="true">your own eval</span></span></span>
+          <span class="lang-zh" lang="zh-CN">在
+            <span class="rotor rotor-bench"><span class="rotor-word">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Tau³ Banking</span><span class="sizer" aria-hidden="true">你自己的评测</span></span> 上<br />进化你的
+            <span class="rotor rotor-target"><span class="rotor-word">Codex</span><span class="sizer" aria-hidden="true">Codex</span><span class="sizer" aria-hidden="true">Claude Code</span><span class="sizer" aria-hidden="true">DeepSeek harness</span><span class="sizer" aria-hidden="true">MiniSWE</span></span></span>
         </p>
         <p class="hero-sub">
           <span class="lang-en" lang="en">Build agents that improve — and keep the evidence. RSIHub runs candidates against a frozen evaluator, keeps every generation’s evidence, and carries verified improvements forward — without letting candidate code rewrite the rules that score it.</span>
@@ -1159,31 +1164,26 @@ uv run --frozen evolve recipe check /path/to/my-recipe/evolve.yaml</code></pre>
           && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         function rotate(selector, lists, firstDelay) {
-          var elements = Array.prototype.slice.call(document.querySelectorAll(selector));
-          if (!elements.length) return;
+          var words = Array.prototype.slice.call(
+            document.querySelectorAll(selector + " .rotor-word")
+          );
+          if (!words.length) return;
           var index = 0;
-          function itemFor(element) {
-            return (element.closest(".lang-zh") ? lists.zh : lists.en)[index];
+          function itemFor(word) {
+            return (word.closest(".lang-zh") ? lists.zh : lists.en)[index];
           }
           function swap() {
             index = (index + 1) % lists.en.length;
-            elements.forEach(function (element) {
+            words.forEach(function (word) {
               // Hidden language variants (and reduced motion) swap without animating.
-              if (reduceMotion || !element.offsetParent) {
-                element.textContent = itemFor(element);
+              if (reduceMotion || !word.offsetParent) {
+                word.textContent = itemFor(word);
                 return;
               }
-              var oldWidth = element.getBoundingClientRect().width;
-              element.classList.add("is-out");
+              word.classList.add("is-out");
               window.setTimeout(function () {
-                element.textContent = itemFor(element);
-                element.style.width = "auto";
-                var newWidth = element.getBoundingClientRect().width;
-                element.style.width = oldWidth + "px";
-                element.getBoundingClientRect();
-                element.style.width = newWidth + "px";
-                element.classList.remove("is-out");
-                window.setTimeout(function () { element.style.width = ""; }, 320);
+                word.textContent = itemFor(word);
+                word.classList.remove("is-out");
               }, 230);
             });
           }
