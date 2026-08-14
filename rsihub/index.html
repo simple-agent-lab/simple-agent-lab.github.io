@@ -731,8 +731,8 @@
         <div class="hero-row">
         <div class="hero-copy">
         <p class="hero-sub">
-          <span class="lang-en" lang="en">Build agents that improve — and keep the evidence. RSIHub runs candidates against a frozen evaluator, keeps every generation’s evidence, and carries verified improvements forward — without letting candidate code rewrite the rules that score it.</span>
-          <span class="lang-zh" lang="zh-CN">让智能体持续改进，并保留证据。RSIHub 让候选在冻结的评估器上运行，保留每一代的证据，将经验证的改进传递下去——同时不允许候选代码改写为其打分的规则。</span>
+          <span class="lang-en" lang="en">RSIHub is a framework focused on providing the environment for the RSI process, integrating well-known evolution methods and benchmarks.</span>
+          <span class="lang-zh" lang="zh-CN">RSIHub 是一个专注于为 RSI 过程提供环境的框架，集成了多种熟知的 evolve 方法与 benchmark。</span>
         </p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="https://github.com/simple-agent-lab/RSIHub/blob/main/QUICKSTART.md" target="_blank" rel="noreferrer">
@@ -984,12 +984,12 @@
           <span class="lang-zh" lang="zh-CN">工作原理</span>
         </p>
         <h2>
-          <span class="lang-en" lang="en">One loop. Five strategies.</span>
-          <span class="lang-zh" lang="zh-CN">一个循环，五种策略。</span>
+          <span class="lang-en" lang="en">A typical iteration loop.</span>
+          <span class="lang-zh" lang="zh-CN">一个典型的迭代循环</span>
         </h2>
         <p class="lead">
-          <span class="lang-en" lang="en">A recipe decides how parents are selected, how traces are analyzed, what may be edited, and which evaluations admit a new generation. The framework owns the mechanism that makes those decisions inspectable: clean candidate snapshots, protected scoring, surface enforcement, Git tags, and stamped archive records.</span>
-          <span class="lang-zh" lang="zh-CN">Recipe 决定如何选择父代、如何分析轨迹、哪些内容可以被编辑、以及哪些评估可以准入新的一代。框架则负责让这些决策可检查：干净的候选快照、受保护的打分、变异面约束、Git 标签与盖章的归档记录。</span>
+          <span class="lang-en" lang="en">A recipe decides how parents are selected, how traces are analyzed, what may be modified, and how evaluation runs. The framework carries those decisions: managing candidates, running evals, and archiving changes.</span>
+          <span class="lang-zh" lang="zh-CN">Recipe 决定如何选择父代、如何分析轨迹、修改范围、以及如何eval。框架负责承载这些决策：管理候选方案、运行eval、归档改动。</span>
         </p>
         <div class="arch" role="img" aria-label="Five built-in strategies (or a custom recipe) compose one loop of Select, Rollout, Analyze, Mutate, Gate, and Record inside a declared mutable surface, while the frozen evaluator, locked runtime, surface check, and stamped evidence stay outside candidate control.">
           <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">Evolution methods</span><span class="lang-zh" lang="zh-CN">进化方法</span></span><span class="arch-note"><span class="lang-en" lang="en">five built-in strategies, or compose your own</span><span class="lang-zh" lang="zh-CN">五种内置策略，也可自行组合</span></span></div>
@@ -1005,25 +1005,25 @@
           <div class="arch-loop">
             <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">One composable loop</span><span class="lang-zh" lang="zh-CN">一个可组合的循环</span></span><span class="arch-note"><span class="lang-en" lang="en">recipes choose which stages and targets may evolve</span><span class="lang-zh" lang="zh-CN">recipe 决定哪些阶段与目标可以进化</span></span></div>
             <div class="arch-surface">
-              <span class="arch-surface-label"><span class="lang-en" lang="en">Declared mutable surface · target + selected operators</span><span class="lang-zh" lang="zh-CN">声明的可变面 · target + 选定的操作符</span></span>
+              <span class="arch-surface-label"><span class="lang-en" lang="en">Loop</span><span class="lang-zh" lang="zh-CN">Loop</span></span>
               <div class="arch-stages">
                 <div class="stage" style="--d:560ms; --p:0"><b>Select</b><small><span class="lang-en" lang="en">choose a parent</span><span class="lang-zh" lang="zh-CN">选择父代</span></small></div>
-                <div class="stage" style="--d:670ms; --p:1"><b>Rollout</b><small><span class="lang-en" lang="en">run tasks + evaluator</span><span class="lang-zh" lang="zh-CN">运行任务与评估器</span></small></div>
+                <div class="stage" style="--d:670ms; --p:1"><b>Rollout</b><small><span class="lang-en" lang="en">run tasks + evaluator</span><span class="lang-zh" lang="zh-CN">运行任务与eval</span></small></div>
                 <div class="stage" style="--d:780ms; --p:2"><b>Analyze</b><small><span class="lang-en" lang="en">inspect the traces</span><span class="lang-zh" lang="zh-CN">分析轨迹</span></small></div>
-                <div class="stage hot" style="--d:890ms; --p:3"><b>Mutate</b><small><span class="lang-en" lang="en">edit the candidate</span><span class="lang-zh" lang="zh-CN">编辑候选</span></small></div>
-                <div class="stage hot" style="--d:1000ms; --p:4"><b>Gate</b><small><span class="lang-en" lang="en">accept verified gains</span><span class="lang-zh" lang="zh-CN">准入经验证的提升</span></small></div>
-                <div class="stage" style="--d:1110ms; --p:5"><b>Record</b><small><span class="lang-en" lang="en">tag + archive</span><span class="lang-zh" lang="zh-CN">打标签并归档</span></small></div>
+                <div class="stage hot" style="--d:890ms; --p:3"><b>Mutate</b><small><span class="lang-en" lang="en">propose a candidate</span><span class="lang-zh" lang="zh-CN">提出候选方案</span></small></div>
+                <div class="stage hot" style="--d:1000ms; --p:4"><b>Gate</b><small><span class="lang-en" lang="en">accept effective candidates</span><span class="lang-zh" lang="zh-CN">接受有效方案</span></small></div>
+                <div class="stage" style="--d:1110ms; --p:5"><b>Record</b><small><span class="lang-en" lang="en">tag + archive</span><span class="lang-zh" lang="zh-CN">打标并归档</span></small></div>
               </div>
               <div class="arch-return"><span><span class="lang-en" lang="en">next generation</span><span class="lang-zh" lang="zh-CN">下一代</span></span></div>
             </div>
           </div>
           <div class="arch-io" aria-hidden="true"><span>↓ <span class="lang-en" lang="en">evidence</span><span class="lang-zh" lang="zh-CN">证据</span></span><span>↑ <span class="lang-en" lang="en">contracts</span><span class="lang-zh" lang="zh-CN">契约</span></span></div>
-          <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">Protected mechanism</span><span class="lang-zh" lang="zh-CN">受保护机制</span></span><span class="arch-note"><span class="lang-en" lang="en">outside candidate control</span><span class="lang-zh" lang="zh-CN">候选无法触碰</span></span></div>
+          <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">Protected mechanism</span><span class="lang-zh" lang="zh-CN">保护机制</span></span><span class="arch-note"><span class="lang-en" lang="en">outside candidate control</span><span class="lang-zh" lang="zh-CN">候选无法触碰</span></span></div>
           <div class="arch-locks">
-            <div class="lock" style="--d:1500ms"><b>Frozen evaluator</b><small><span class="lang-en" lang="en">pinned scoring contract</span><span class="lang-zh" lang="zh-CN">固定的打分契约</span></small></div>
-            <div class="lock" style="--d:1590ms"><b>Locked runtime</b><small><span class="lang-en" lang="en">pinned deps + digest</span><span class="lang-zh" lang="zh-CN">锁定依赖与摘要</span></small></div>
-            <div class="lock" style="--d:1680ms"><b>Surface check</b><small><span class="lang-en" lang="en">declared paths only</span><span class="lang-zh" lang="zh-CN">仅允许声明的路径</span></small></div>
-            <div class="lock" style="--d:1770ms"><b>Stamped evidence</b><small><span class="lang-en" lang="en">archive + git lineage</span><span class="lang-zh" lang="zh-CN">归档与 Git 谱系</span></small></div>
+            <div class="lock" style="--d:1500ms"><b>Frozen evaluator</b><small><span class="lang-en" lang="en">pinned scoring contract</span><span class="lang-zh" lang="zh-CN">固定的evaluator</span></small></div>
+            <div class="lock" style="--d:1590ms"><b>Locked runtime</b><small><span class="lang-en" lang="en">pinned deps + digest</span><span class="lang-zh" lang="zh-CN">锁定的runtime</span></small></div>
+            <div class="lock" style="--d:1680ms"><b>Surface check</b><small><span class="lang-en" lang="en">declared paths only</span><span class="lang-zh" lang="zh-CN">仅允许范围内的修改</span></small></div>
+            <div class="lock" style="--d:1770ms"><b>Stamped evidence</b><small><span class="lang-en" lang="en">archive + git lineage</span><span class="lang-zh" lang="zh-CN">打标证据</span></small></div>
           </div>
         </div>
         <p class="after">
