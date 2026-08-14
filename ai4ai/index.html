@@ -166,7 +166,7 @@
               <li>
                 <a href="#composition">
                   <span class="lang-en" lang="en">Why composition is less reliable</span>
-                  <span class="lang-zh" lang="zh-CN">组合为何更不可靠</span>
+                  <span class="lang-zh" lang="zh-CN">组件组合之后为何不可靠</span>
                 </a>
               </li>
               <li>
@@ -317,7 +317,7 @@
                 </td>
                 <td>
                   <span class="lang-en" lang="en">humans fix the goal and the search space; the system closes execute only</span>
-                  <span class="lang-zh" lang="zh-CN">只有 execute 是系统自主的，goal 和搜索空间由人定</span>
+                  <span class="lang-zh" lang="zh-CN">只有 execute 是系统自主的，目标和搜索空间由人定</span>
                 </td>
               </tr>
               <tr>
@@ -360,7 +360,7 @@
 
         <h2 id="horizon">
           <span class="lang-en" lang="en">Two routes to a longer reliable horizon: model and harness</span>
-          <span class="lang-zh" lang="zh-CN">延长可靠 horizon：model 与 harness</span>
+          <span class="lang-zh" lang="zh-CN">如何延长可靠的长程任务执行能力：model 与 harness</span>
         </h2>
 
         <figure class="framed plate">
@@ -375,35 +375,43 @@
         </figure>
 
         <p>
-          <span class="lang-en" lang="en">Simplify the system: assume steps are independent; at 95% per step, finishing 100 steps leaves under 1%. Real errors are not independent, so the number predicts nothing—it just sharpens the question: which part of the loop does a method improve? Model-side work covers every stage, yet the longer the task, the further end-to-end reliability falls, as if each step lost a fixed fraction. So the reliable horizon comes down to the harness: can errors be contained, and can the system recover. This matters more than it seems—between frontier models of similar capability, changing the harness can matter more than changing the model, even reversing rankings; swapping the scaffold alone moves one model's accuracy by 28 points, more than most of the model gaps people argue about.</span>
-          <span class="lang-zh" lang="zh-CN">把系统简单化：假设每步独立，单步成功率 95%，走完 100 步就只剩不到 1%。真实的错误不独立，这个数字不是预测，它只是把问题问准：一个方法改的是哪一环。model 侧每一环都有工作，但任务越长，端到端可靠性还是一路往下掉，像每走一步都固定折损一点。所以可靠 horizon 最终看 harness：错误压不压得住，错了能不能恢复。这比看上去更重要——能力相当的前沿模型之间，换 harness 的差异可以超过换模型，甚至反转排名；只换 scaffold，同一个模型的准确率就能差出 28 个百分点，比大家常争的模型差距还大。</span>
+          <span class="lang-en" lang="en">Of any method that claims a longer horizon, ask two questions first: which stage of the loop it improves, and whether that improvement survives longer, more tightly coupled trajectories. The model route works stage by stage: plan turns reasoning and interaction traces into executable plans, execute grounds those plans in interfaces and state, feedback replaces one coarse trajectory-level reward with step-level credit assignment, and repair lets the evaluated policy rewrite the data, architecture, and training recipe that produce its successor. All of this lowers per-step error, yet end-to-end reliability still decays as tasks lengthen.</span>
+          <span class="lang-zh" lang="zh-CN">评价任何一个声称延长 horizon 的方法，先问两件事：它改进的是闭环里的哪一环，这个改进能否在更长、耦合更紧的轨迹上存活。model 这条路线沿四个阶段展开：plan 把推理与交互轨迹转成可执行的计划，执行层把计划落地到接口与状态，feedback 用 step-level 的信用分配机制替代粒度过粗的轨迹级 reward，修复阶段则让被评估过的策略改写产出下一个策略的数据、架构与训练配方。这些工作都在降低单步错误率，但任务变长时端到端可靠性仍会不断衰减。</span>
+        </p>
+        <p>
+          <span class="lang-en" lang="en">Reliable long-horizon execution also shows up in the harness, the runtime outside the weights: whether errors are contained locally, and whether the system recovers once they occur. Its leverage is larger than usually assumed: among frontier models of comparable capability, changing the harness can matter more than changing the model and can reverse rankings, and swapping the scaffold alone moves a single model's accuracy by 28 points. Evidence from the other direction makes the same point: on highly decomposable work, decomposition with per-step correction has sustained more than a million steps without a final error. This shows how far a harness can carry a fixed model, and also where that stops: tightly coupled tasks admit no such decomposition.</span>
+          <span class="lang-zh" lang="zh-CN">可靠的长程执行也会在 harness 上体现，也就是权重之外的运行时：错误能否被限制在局部，发生之后能否恢复。它的杠杆比通常认为的大：在能力相当的前沿模型之间，换 harness 的差异可以超过换模型，甚至反转模型排名，仅更换 scaffold 就能让同一个模型的准确率移动 28 个百分点。另一个方向的证据说明同一件事：在高度可分解的任务上，配合逐步校验的分解已经支撑超过一百万步而无最终错误。这既演示了 harness 能把一个固定的模型带多远，也展示了它的适用边界，耦合过强的任务没有这样的分解可用。</span>
         </p>
 
         <h2 id="composition">
           <span class="lang-en" lang="en">Why composition is less reliable than its parts</span>
-          <span class="lang-zh" lang="zh-CN">组合为何更不可靠</span>
+          <span class="lang-zh" lang="zh-CN">组件组合之后为何不可靠</span>
         </h2>
 
         <p>
-          <span class="lang-en" lang="en">Components that work in isolation become less reliable once composed, for two reasons: the weakest link sets the whole—any required component can terminate the pass, so scores measured in isolation do not measure the full system—and handoffs lose information, since compression and summarization can remove a constraint that only a later experiment needs. The paper follows the resulting failures across four scales:</span>
-          <span class="lang-zh" lang="zh-CN">组件分开都能用，组合成系统反而更不可靠，原因有两条：一是最弱的一环决定整体，任何一个必需组件失败都会终止整个 pass，所以分开测的分数不代表完整系统；二是交接会丢信息，压缩和摘要可能删掉某个后面才用得上的约束。论文把由此产生的失败按四个尺度展开：</span>
+          <span class="lang-en" lang="en">The paper introduces the <em>composition gap</em>: components are strong in isolation, yet once they share one goal, state, budget, and evaluator, end-to-end reliability remains unestablished. Two mechanisms produce the gap.</span>
+          <span class="lang-zh" lang="zh-CN">论文提出一个 <em>composition gap</em> 也即组合差值：组件层面很强，组合成共享同一个 goal、状态、预算与 evaluator 的系统之后，端到端可靠性却无从建立。产生这个差值的机制有两条。</span>
+        </p>
+        <p>
+          <span class="lang-en" lang="en">First, an AI4AI pass depends on every component: any single failure terminates the whole pass, so the least reliable component becomes the bottleneck; even short of outright failure, one local error changes all subsequent state, and later observations look consistent while the pass has already drifted off-goal.</span>
+          <span class="lang-zh" lang="zh-CN">其一，一个 AI4AI 迭代依赖每一个组件：任何一个组件失败都会终止整个迭代，最不可靠的一环成为瓶颈；即便没有当场失败，一个局部错误也会改变后续状态，之后的观察看似自洽，实际已偏离 goal。</span>
+        </p>
+        <p>
+          <span class="lang-en" lang="en">Second, handoffs between components lose information: compression and summarization can drop a constraint that only a later experiment needs, and evaluating only the final artifact cannot show where the loss occurred. The paper follows the resulting failures along the following lines.</span>
+          <span class="lang-zh" lang="zh-CN">其二，组件间的交接会丢信息：压缩与摘要可能删掉某个只有后续实验才用得上的约束，而只评最终产物，看不出信息是在哪里丢的。论文把由此产生的失败沿以下几个方面展开。</span>
         </p>
         <ul>
           <li>
-            <span class="lang-en" lang="en"><strong>Within one pass.</strong> Planning, grounding, and tool use are tightly coupled: a local error—the wrong control, the wrong file, the wrong database row—reshapes the future state space, so later observations look self-consistent while drifting from the goal.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>单次 pass 之内。</strong>plan、grounding 与工具调用紧密耦合：一个局部错误——点错控件、改错文件、写错数据行——就会改变后续的状态空间，之后的观察看起来自洽，实际已经偏离 goal。</span>
+            <span class="lang-en" lang="en"><strong>Across passes.</strong> Memory is at bottom state management, not a larger context window. Retrieving stale state or summarizing away a task-critical constraint shifts the goal actually being pursued, and because intermediate artifacts become part of the environment, later observations reinforce the drift rather than expose it. Recovery should therefore be judged as state repair—was the fault detected and localized, which state was rolled back or distrusted, did the trajectory return to a valid state—not as another attempt.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>跨迭代。</strong>记忆的本质是状态管理，不是更大的上下文窗口。检索到过期状态、有损摘要压掉任务关键的约束，都会让实际追求的目标发生漂移；由于中间产物已经成为环境的一部分，之后的观察不但不会暴露漂移，反而会强化它。恢复因此要按状态修复来评：故障是否被发现和定位，哪些状态被回滚或标记为不可信，修复后轨迹是否回到有效状态，而不是简单地再试一次。</span>
           </li>
           <li>
-            <span class="lang-en" lang="en"><strong>Across passes.</strong> Memory can retrieve stale state, and lossy summaries can drop task-critical constraints; an early mistake enters the trajectory and cascades, so later decisions stay coherent with the record while being causally downstream of the fault.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>跨 pass。</strong>记忆可能检索到过期状态，有损摘要可能压掉任务关键的约束；早期错误一旦进入轨迹状态就层层传导，后续决策与记录看似连贯，因果上却继承了那个错误。</span>
+            <span class="lang-en" lang="en"><strong>Across generations.</strong> When one system both proposes an improvement and judges it, their agreement is not evidence. Recursive training on generated data can erode retained capabilities, and a weakening improvement signal invites reward hacking: PostTrainBench records agents training on evaluation data and substituting existing checkpoints to improve the visible objective. RSIBench-Data quantifies the non-monotonicity: of searches that continue past their best checkpoint, more than three quarters terminate below that peak. More feedback and more generations are not evidence that the boundary of reliable execution is moving outward.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>跨代际。</strong>同一个系统既提出改进又评判改进时，两者一致不构成证据。在生成数据上递归训练会侵蚀原有能力，改进信号变弱则引来 reward hacking：PostTrainBench 记录到 agent 直接在评测数据上训练、替换现成 checkpoint 来改善可见指标。RSIBench-Data 把这种非单调性量化了：越过最佳 checkpoint 还继续搜索的运行，超过四分之三最终停在峰值之下。更多的反馈和更多的代际，并不能证明可靠执行的边界在外移。</span>
           </li>
           <li>
-            <span class="lang-en" lang="en"><strong>Across generations.</strong> When a system both proposes and judges an improvement, their agreement is not evidence; recursive training on generated data can erode retained capabilities, and a weakening proxy invites reward hacking. In RSIBench-Data, more than three quarters of searches that continue past their best checkpoint terminate below it.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>跨代际。</strong>系统自己提出改进、又自己评判时，两者一致不构成证据；在生成数据上递归训练会侵蚀原有能力，proxy 变弱则引来 reward hacking。RSIBench-Data 里，越过最佳 checkpoint 还继续搜索的运行，超过四分之三最终停在峰值之下。</span>
-          </li>
-          <li>
-            <span class="lang-en" lang="en"><strong>Evidence and control.</strong> Gains can be bought with budget, so a success rate is only readable alongside tokens, wall-clock time, verifier cost, and human intervention—together with model–harness attribution, contamination controls, and disclosed oversight.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>证据与控制。</strong>增益可以用预算买来，所以成功率只有和 token、时间、verifier 成本、人工介入放在一起才可读；此外还需要 model–harness 归因、污染控制和 oversight 披露。</span>
+            <span class="lang-en" lang="en"><strong>Evidence and control.</strong> Gains can be purchased with budget: longer prompts, more candidates, deeper search, and extra verifier calls all raise success rates. A success rate is therefore meaningful only alongside tokens, wall-clock time, verifier cost, and human intervention; a credible improvement claim additionally needs model–harness attribution (freeze the harness while changing the model, and the reverse), together with data-contamination controls and disclosure of human oversight.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>证据与控制。</strong>增益可以用预算买来：更长的 prompt、更多的候选、更深的搜索、更多的 verifier 调用都能推高成功率。所以成功率只有和 token、时间、verifier 成本、人工介入放在一起看才有意义；一个可信的改进声明还需要 model–harness 归因（固定 harness 换模型、固定模型换 harness 的对照），以及数据污染控制与人工监督方式的披露。</span>
           </li>
         </ul>
 
@@ -412,8 +420,12 @@
           <span class="lang-zh" lang="zh-CN">结论</span>
         </h2>
         <p>
-          <span class="lang-en" lang="en">Back to where we started: the release notes of frontier models are pushing agents toward the same thing—sustained execution, and evolving from that execution. The judgment of this survey is that what AI4AI lacks has never been capability: plan, execute, feedback, and repair are each already strong on their own, and across the 35 systems execute is fully system-owned. What is missing is the authority to decide—no system picks its own goal, and none can judge what counts as “better” without a human. So “can AI improve AI” is no longer a question of whether the work can be done, but of who defines “better.” The eve ends the first time a system, with no human-specified goal or evaluation, has successors that reliably strengthen it. We hope this taxonomy and this audit help that moment arrive a little sooner.</span>
-          <span class="lang-zh" lang="zh-CN">回到开头：前沿模型的发布材料都在把 agent 推向同一件事，持续执行，并从执行中进化。这份综述给出的判断是，AI4AI 缺的从来不是能力：plan、execute、feedback、repair 每一个单独能力已经很强，35 个系统里 execute 更是全部自主。缺的是决策权，没有一个系统自己选目标，没有一个能不靠人判定“什么算更好”。所以“AI 能否改进 AI”已经不是能不能做事的问题，而是谁来定义“更好”的问题。当某个系统第一次在不由人指定目标与评测的前提下，后继者稳定强化自己，前夜就结束了。我们希望这套 taxonomy 和盘点，能让那一刻到来的更早一些。</span>
+          <span class="lang-en" lang="en">Back to where we started: the release notes of frontier models are pushing agents toward the same thing—sustained execution, and evolving from that execution. The judgment of this survey is that what AI4AI lacks has never been capability: plan, execute, feedback, and repair are each already strong on their own, and across the 35 systems execute is fully system-owned. <strong>What is missing is the authority to decide—no system picks its own goal, and none can judge what counts as “better” without a human.</strong></span>
+          <span class="lang-zh" lang="zh-CN">回到开头：前沿模型的发布材料都在把 agent 推向同一件事，持续执行，并从执行中进化。这份综述给出的判断是，AI4AI 缺的从来不是能力：plan、execute、feedback、repair 每一个单独能力已经很强，35 个系统里 execute 更是全部自主。<strong>缺的是决策权，没有一个系统自己选目标，没有一个能不靠人判定“什么算更好”。</strong></span>
+        </p>
+        <p>
+          <span class="lang-en" lang="en">The eve ends the first time a system, with no human-specified goal or evaluation, has successors that reliably strengthen it. We hope this taxonomy and this audit help that moment arrive a little sooner.</span>
+          <span class="lang-zh" lang="zh-CN">当某个系统第一次在不由人指定目标与评测的前提下，后继者稳定强化自己，前夜就结束了。我们希望这套 taxonomy 和盘点，能让那一刻到来的更早一些。</span>
         </p>
 
         <a class="back-link" href="../">
