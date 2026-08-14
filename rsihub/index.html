@@ -113,10 +113,53 @@
         font: 550 .84em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       }
 
-      /* Hero */
-      .landing .hero { padding-top: 128px; padding-bottom: 0; text-align: left; }
-      .hero .lockup { margin: 0 0 34px; }
-      .hero .lockup svg { display: block; width: min(232px, 58vw); height: auto; aspect-ratio: 174.09 / 64; }
+      /* Hero — full-height first screen with a copy + demo split below the headline */
+      .landing .hero {
+        padding: 0;
+        text-align: left;
+        background:
+          radial-gradient(56rem 34rem at 84% 12%, rgba(60, 140, 255, .07), transparent 68%),
+          radial-gradient(46rem 30rem at 8% 88%, rgba(0, 163, 176, .06), transparent 68%);
+      }
+      :root[data-theme="dark"] .landing .hero {
+        background:
+          radial-gradient(56rem 34rem at 84% 12%, rgba(60, 140, 255, .11), transparent 68%),
+          radial-gradient(46rem 30rem at 8% 88%, rgba(0, 203, 212, .08), transparent 68%);
+      }
+      .landing .hero .wrap {
+        min-height: 100vh;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 92px;
+        padding-bottom: 56px;
+      }
+      .hero .lockup { margin: 0 0 30px; }
+      .hero .lockup svg { display: block; width: min(196px, 52vw); height: auto; aspect-ratio: 174.09 / 64; }
+      .hero-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
+        gap: clamp(28px, 4vw, 56px);
+        align-items: center;
+        margin-top: 10px;
+      }
+      .hero-copy { max-width: 560px; }
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: none; }
+      }
+      .hero .lockup,
+      .landing .hero-title,
+      .hero-copy,
+      .hero-demo { animation: rise .6s cubic-bezier(.22, .72, .28, 1) both; }
+      .landing .hero-title { animation-delay: .08s; }
+      .hero-copy { animation-delay: .16s; }
+      .hero-demo { animation-delay: .26s; }
+      .terminal .t-row { display: inline-block; animation: rise .5s ease-out both; }
+      .terminal .t-row.d1 { animation-delay: .85s; }
+      .terminal .t-row.d2 { animation-delay: 1.1s; }
+      .terminal .t-row.d3 { animation-delay: 1.35s; }
       .lockup .rsi { fill: var(--fg); }
       .lockup .ramp-third { stop-color: #00a3b0; }
       .lockup .ramp-fourth { stop-color: #2fa844; }
@@ -128,8 +171,8 @@
         transform-origin: 50% 50%;
       }
       .landing .hero-title {
-        margin: 0 0 26px;
-        font: 650 clamp(34px, 6.4vw, 68px)/1.16 var(--sans);
+        margin: 0 0 8px;
+        font: 650 clamp(34px, 5.6vw, 64px)/1.14 var(--sans);
         letter-spacing: -.045em;
         color: var(--fg);
       }
@@ -148,12 +191,12 @@
       .rotor-bench { color: var(--teal, #0e7c70); }
       :root[data-theme="dark"] .rotor-bench { color: #00cbd4; }
       .landing .hero-sub {
-        max-width: 640px;
-        margin: 0 0 34px;
+        max-width: 520px;
+        margin: 0 0 30px;
         font: 450 17px/1.7 var(--sans);
       }
       .hero-cta { display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 62px; }
-      .landing .hero .hero-cta { justify-content: flex-start; }
+      .landing .hero .hero-cta { justify-content: flex-start; margin-bottom: 0; }
       .btn {
         display: inline-flex;
         align-items: center;
@@ -173,7 +216,6 @@
 
       /* Terminal card */
       .terminal {
-        max-width: 720px;
         margin: 0;
         border: 1px solid rgba(255, 255, 255, .09);
         border-radius: 16px;
@@ -211,8 +253,7 @@
       .terminal .t-ok { color: #4fd6b0; }
       .landing .terminal code { padding: 0; border-radius: 0; background: none; color: inherit; font: inherit; }
       .landing .terminal-note {
-        max-width: 720px;
-        margin: 12px 0 0;
+        margin: 12px 2px 0;
         color: var(--faint);
         font: 450 12.5px/1.6 var(--sans);
       }
@@ -401,17 +442,30 @@
       .doc-links a { color: var(--soft); font: 550 13.5px/1.4 var(--sans); text-decoration: none; }
       .doc-links a:hover { color: var(--fg); text-decoration: underline; }
 
+      @media (max-width: 960px) {
+        .hero-row { grid-template-columns: minmax(0, 1fr); align-items: start; }
+        .landing .hero .wrap { min-height: 0; padding-top: 108px; padding-bottom: 64px; }
+        .hero-demo { max-width: 560px; }
+      }
       @media (max-width: 640px) {
-        .hero { padding-top: 108px; }
-        .block { margin-top: 88px; }
-        .cta { margin-top: 96px; padding-top: 60px; }
-        .stats { margin-top: 68px; }
+        .landing .hero .wrap { padding-top: 96px; }
+        /* The rotors reserve their longest item's width, so the headline must
+           shrink enough for that reservation to fit narrow viewports. */
+        .landing .hero-title { font-size: clamp(19px, 6.2vw, 34px); }
+        .landing .block { margin-top: 88px; }
+        .landing .cta { margin-top: 96px; padding-top: 60px; }
+        .landing .stats { margin-top: 68px; }
         .hero-cta .btn { padding: 12px 19px; font-size: 14px; }
       }
       @media (prefers-reduced-motion: reduce) {
-        .rotor { transition: none; }
+        .rotor .rotor-word { transition: none; }
         .lockup .ring { animation: none; }
         .btn { transition: none; }
+        .hero .lockup,
+        .landing .hero-title,
+        .hero-copy,
+        .hero-demo,
+        .terminal .t-row { animation: none; }
       }
     </style>
     <script>
@@ -472,7 +526,8 @@
     </header>
 
     <main id="main" class="landing">
-      <section class="hero wrap">
+      <section class="hero">
+        <div class="wrap">
         <h1 class="lockup">
           <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="174" height="64" viewBox="-12.00 -12.00 174.09 64.00" role="img" aria-labelledby="lockup-title lockup-description">
             <title id="lockup-title">RSIHub</title>
@@ -514,6 +569,8 @@
             <span class="rotor rotor-bench"><span class="rotor-word">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Tau³ Banking</span><span class="sizer" aria-hidden="true">你自己的评测</span></span><br />上进化你的
             <span class="rotor rotor-target"><span class="rotor-word">Codex</span><span class="sizer" aria-hidden="true">Codex</span><span class="sizer" aria-hidden="true">Claude Code</span><span class="sizer" aria-hidden="true">DeepSeek harness</span><span class="sizer" aria-hidden="true">MiniSWE</span></span></span>
         </p>
+        <div class="hero-row">
+        <div class="hero-copy">
         <p class="hero-sub">
           <span class="lang-en" lang="en">Build agents that improve — and keep the evidence. RSIHub runs candidates against a frozen evaluator, keeps every generation’s evidence, and carries verified improvements forward — without letting candidate code rewrite the rules that score it.</span>
           <span class="lang-zh" lang="zh-CN">让智能体持续改进，并保留证据。RSIHub 让候选在冻结的评估器上运行，保留每一代的证据，将经验证的改进传递下去——同时不允许候选代码改写为其打分的规则。</span>
@@ -533,23 +590,28 @@
             <b aria-hidden="true">↗</b>
           </a>
         </div>
+        </div>
+        <div class="hero-demo">
         <div class="terminal">
           <div class="terminal-bar" aria-hidden="true">
             <i></i><i></i><i></i>
             <span>ahe · terminal-bench 2</span>
           </div>
-          <pre><code><span class="t-p">$</span> git clone https://github.com/simple-agent-lab/RSIHub.git &amp;&amp; cd RSIHub
-<span class="t-p">$</span> ./scripts/setup_terminal_bench.sh ahe
+          <pre><code><span class="t-p">$</span> git clone https://github.com/simple-agent-lab/RSIHub.git
+<span class="t-p">$</span> cd RSIHub &amp;&amp; ./scripts/setup_terminal_bench.sh ahe
 <span class="t-p">$</span> ./scripts/run_recipe_demo.sh ahe
 
-<span class="t-dim">gen 0</span>  seed candidate     train <span class="t-val">60.0%</span>   <span class="t-dim">baseline tagged</span>
-<span class="t-dim">gen 2</span>  mutated harness    train <span class="t-val">68.0%</span>   <span class="t-ok">gate ✓ admitted</span>
-<span class="t-dim">gen 5</span>  best generation    train <span class="t-val">74.0%</span>   <span class="t-ok">tagged · archive.jsonl stamped</span></code></pre>
+<span class="t-row d1"><span class="t-dim">gen 0</span>  seed        train <span class="t-val">60.0%</span>   <span class="t-dim">baseline tagged</span></span>
+<span class="t-row d2"><span class="t-dim">gen 2</span>  candidate   train <span class="t-val">68.0%</span>   <span class="t-ok">gate ✓ admitted</span></span>
+<span class="t-row d3"><span class="t-dim">gen 5</span>  best        train <span class="t-val">74.0%</span>   <span class="t-ok">archive.jsonl stamped</span></span></code></pre>
         </div>
         <p class="terminal-note">
           <span class="lang-en" lang="en">Seed and best train scores from the published Codex × AHE run; intermediate generations abridged.</span>
           <span class="lang-zh" lang="zh-CN">seed 与最佳 train 分数来自已发布的 Codex × AHE 运行；中间世代经简化。</span>
         </p>
+        </div>
+        </div>
+        </div>
       </section>
 
       <section class="stats wrap" aria-label="Highlights">
