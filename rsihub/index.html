@@ -221,6 +221,18 @@
       .btn-ghost { border: 1px solid var(--rule); color: var(--fg); }
       .btn-ghost:hover { border-color: var(--soft); }
       .btn b { font: 400 15px/1 var(--sans); }
+      .btn-soon { gap: 9px; border-style: dashed; color: var(--faint); cursor: default; }
+      .btn-soon:hover { transform: none; border-color: var(--rule); }
+      .btn-soon .soon {
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: var(--rule);
+        color: var(--soft);
+        font: 750 9.5px/1 var(--sans);
+        font-style: normal;
+        letter-spacing: .07em;
+        text-transform: uppercase;
+      }
 
       /* Terminal card */
       .terminal {
@@ -266,8 +278,66 @@
         font: 450 12.5px/1.6 var(--sans);
       }
 
+      /* Paged scrolling: each section snaps to a screen and reveals on entry */
+      html { scroll-snap-type: y proximity; }
+      .landing .hero, .landing .block, .landing .cta { scroll-snap-align: start; }
+      .reveal { transition: opacity .55s ease, transform .55s cubic-bezier(.22, .72, .28, 1); }
+      .js .reveal { opacity: 0; transform: translateY(22px); }
+      .js .in > .reveal { opacity: 1; transform: none; }
+
+      /* Benchmark chart (animated, old blue/orange palette) */
+      .bench-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+      .bench-panel { border: 1px solid var(--rule); border-radius: 16px; padding: 22px 20px 16px; }
+      .bench-panel h3 { margin: 0 0 34px; text-align: center; font: 750 16px/1.3 var(--sans); color: var(--fg); }
+      .bench-plot { position: relative; display: flex; gap: 5%; height: 280px; margin: 0 8px 54px 34px; }
+      .bench-line { position: absolute; left: 0; right: 0; border-top: 1px solid var(--rule); pointer-events: none; }
+      .bench-line.base { border-top-color: var(--faint); }
+      .bench-line b { position: absolute; right: 100%; top: -.55em; margin-right: 6px; color: var(--faint); font: 450 10.5px/1 var(--sans); }
+      .bench-group { position: relative; flex: 1; display: flex; align-items: stretch; gap: 12%; }
+      .bench-agent { position: absolute; top: -30px; left: 50%; transform: translateX(-50%); font: 800 13px/1 var(--sans); }
+      .bench-agent.miniswe { color: #1d4ed8; }
+      .bench-agent.codex { color: #c2410c; }
+      :root[data-theme="dark"] .bench-agent.miniswe { color: #93c5fd; }
+      :root[data-theme="dark"] .bench-agent.codex { color: #fdba74; }
+      .bench-div { border-left: 1px dashed var(--rule); margin: 0 1%; }
+      .bar { position: relative; flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: flex-end; }
+      .bar .fill { display: block; width: 100%; }
+      .bar .fill-seed { position: relative; height: var(--sh); overflow: hidden; transition: height .7s cubic-bezier(.22, .72, .28, 1) var(--ds); }
+      .bar .fill-gain { height: var(--gh); border-radius: 5px 5px 0 0; transition: height .7s cubic-bezier(.22, .72, .28, 1) var(--dg); }
+      .bar.no-gain .fill-seed { border-radius: 5px 5px 0 0; }
+      .bar.miniswe .fill-seed { background: #1d4ed8; }
+      .bar.miniswe .fill-gain { background: #93c5fd; }
+      .bar.codex .fill-seed { background: #c2410c; }
+      .bar.codex .fill-gain { background: #fdba74; }
+      .bar .fill-seed em { position: absolute; top: 7px; left: 0; right: 0; text-align: center; color: #fff; font: 800 11.5px/1 var(--sans); font-style: normal; }
+      .bar-top { margin-bottom: 5px; text-align: center; font: 800 12px/1.3 var(--sans); color: var(--fg); transition: opacity .45s ease var(--dl), transform .45s ease var(--dl); }
+      .bar-top i { display: block; font-style: normal; font-size: 10.5px; }
+      .bar-top i.up { color: #1a7f37; }
+      .bar-top i.flat { color: #9a6700; }
+      :root[data-theme="dark"] .bar-top i.up { color: #3fb950; }
+      :root[data-theme="dark"] .bar-top i.flat { color: #d29922; }
+      .bar-method { position: absolute; top: 100%; right: 50%; margin-top: 8px; transform: rotate(-32deg); transform-origin: 100% 0; color: var(--soft); font: 750 11px/1 var(--sans); white-space: nowrap; }
+      .bench-foot { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 16px; }
+      .bench-key { display: inline-flex; align-items: center; gap: 6px; color: var(--fg); font: 650 12.5px/1 var(--sans); }
+      .bench-key .chip { width: 12px; height: 12px; border-radius: 3px; }
+      .bench-key .chip.miniswe { background: #1d4ed8; }
+      .bench-key .chip.codex { background: #c2410c; }
+      .bench-note { color: var(--faint); font: 450 12px/1.5 var(--sans); }
+      /* Bars stay collapsed until their section scrolls into view. */
+      .js .landing .block:not(.in) .bar .fill { height: 0; }
+      .js .landing .block:not(.in) .bar-top { opacity: 0; transform: translateY(6px); }
+      @media (max-width: 860px) { .bench-grid { grid-template-columns: 1fr; } }
+
       /* Sections */
-      .landing .block { margin-top: 118px; }
+      .landing .block {
+        min-height: calc(100vh - 72px);
+        min-height: calc(100svh - 72px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 56px;
+        padding-bottom: 56px;
+      }
       .landing .kicker {
         margin-bottom: 14px;
         color: var(--faint);
@@ -348,7 +418,17 @@
       .landing td small { color: var(--faint); }
 
       /* CTA band */
-      .landing .cta { margin-top: 128px; padding: 78px 24px 12px; border-top: 1px solid var(--rule); text-align: center; }
+      .landing .cta {
+        min-height: calc(100vh - 260px);
+        min-height: calc(100svh - 260px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 32px;
+        padding: 78px 24px 12px;
+        border-top: 1px solid var(--rule);
+        text-align: center;
+      }
       .landing .cta .clone { background: none; }
       .cta h2 {
         margin: 0 0 14px;
@@ -384,8 +464,8 @@
         /* The rotors reserve their longest item's width, so the headline must
            shrink enough for that reservation to fit narrow viewports. */
         .landing .hero-title { font-size: clamp(19px, 6.2vw, 34px); }
-        .landing .block { margin-top: 88px; }
-        .landing .cta { margin-top: 96px; padding-top: 60px; }
+        .landing .block { padding-top: 40px; padding-bottom: 40px; }
+        .landing .cta { padding-top: 60px; }
         .hero-cta .btn { padding: 12px 19px; font-size: 14px; }
       }
       @media (prefers-reduced-motion: reduce) {
@@ -397,11 +477,14 @@
         .hero-copy,
         .hero-demo,
         .terminal .t-row { animation: none; }
+        html { scroll-snap-type: none; }
+        .reveal, .bar .fill, .bar-top { transition: none; }
       }
     </style>
     <script>
       try {
         var root = document.documentElement;
+        root.classList.add("js");
         var savedLanguage = localStorage.getItem("simple-agent-lab-language-choice");
         var browserLanguages = navigator.languages && navigator.languages.length
           ? navigator.languages
@@ -521,6 +604,13 @@
             <span class="lang-zh" lang="zh-CN">文档</span>
             <b aria-hidden="true">↗</b>
           </a>
+          <span class="btn btn-ghost btn-soon" aria-disabled="true" title="Paper in preparation">
+            <span>arXiv</span>
+            <em class="soon">
+              <span class="lang-en" lang="en">Coming soon</span>
+              <span class="lang-zh" lang="zh-CN">敬请期待</span>
+            </em>
+          </span>
         </div>
         </div>
         <div class="hero-demo">
@@ -559,13 +649,67 @@
           <span class="lang-en" lang="en">Scores are percentages shown as <strong>seed → evolved agent</strong>. The train score is measured on the recipe’s training split; the full benchmark score is measured across the complete benchmark. All runs use a GPT-5.4-high target model and a GPT-5.4-xhigh Codex mutate operator.</span>
           <span class="lang-zh" lang="zh-CN">分数为百分比，以 <strong>seed → 进化后的智能体</strong> 呈现。Train 分数在 recipe 的训练划分上测得；完整基准分数在整个基准上测得。所有运行使用 GPT-5.4-high 目标模型与 GPT-5.4-xhigh 的 Codex mutate 操作符。</span>
         </p>
-        <figure class="shot">
-          <img
-            src="./assets/benchmark-results-rsihub-v2.svg"
-            loading="lazy"
-            alt="Terminal Bench 2 and Tau cubed Banking results for four evolution methods with MiniSWE and Codex target agents. MiniSWE is grouped left and Codex right in each panel. Dark bar sections show seed scores above each axis baseline; light sections show improvement to the best score."
-          />
-        </figure>
+        <div class="bench reveal-chart" role="img" aria-label="Full-benchmark scores per method: dark bar sections show the seed score, light sections the improvement to the evolved agent’s best score. The table below carries the same data.">
+          <div class="bench-grid">
+            <div class="bench-panel">
+              <h3>Terminal-Bench 2</h3>
+              <div class="bench-plot">
+                <span class="bench-line base" style="bottom:0.0%"><b>50%</b></span>
+                <span class="bench-line" style="bottom:33.3%"><b>60%</b></span>
+                <span class="bench-line" style="bottom:66.7%"><b>70%</b></span>
+                <span class="bench-line" style="bottom:100.0%"><b>80%</b></span>
+                <div class="bench-group">
+                  <span class="bench-agent miniswe">MiniSWE</span>
+                  <div class="bar miniswe" style="--sh:17.00%; --gh:3.67%; --ds:0ms; --dg:550ms; --dl:950ms"><span class="bar-top"><b>56.2</b><i class="up">(+1.1)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>55.1</em></span><span class="bar-method">AHE</span></div>
+                  <div class="bar miniswe" style="--sh:17.00%; --gh:44.67%; --ds:70ms; --dg:620ms; --dl:1020ms"><span class="bar-top"><b>68.5</b><i class="up">(+13.4)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>55.1</em></span><span class="bar-method">Hyperagents</span></div>
+                  <div class="bar miniswe" style="--sh:17.00%; --gh:33.67%; --ds:140ms; --dg:690ms; --dl:1090ms"><span class="bar-top"><b>65.2</b><i class="up">(+10.1)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>55.1</em></span><span class="bar-method">A-Evolve</span></div>
+                  <div class="bar miniswe" style="--sh:17.00%; --gh:15.00%; --ds:210ms; --dg:760ms; --dl:1160ms"><span class="bar-top"><b>59.6</b><i class="up">(+4.5)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>55.1</em></span><span class="bar-method">GEPA</span></div>
+                </div>
+                <span class="bench-div" aria-hidden="true"></span>
+                <div class="bench-group">
+                  <span class="bench-agent codex">Codex</span>
+                  <div class="bar codex" style="--sh:35.67%; --gh:18.67%; --ds:280ms; --dg:830ms; --dl:1230ms"><span class="bar-top"><b>66.3</b><i class="up">(+5.6)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>60.7</em></span><span class="bar-method">AHE</span></div>
+                  <div class="bar codex" style="--sh:35.67%; --gh:33.67%; --ds:350ms; --dg:900ms; --dl:1300ms"><span class="bar-top"><b>70.8</b><i class="up">(+10.1)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>60.7</em></span><span class="bar-method">Hyperagents</span></div>
+                  <div class="bar codex" style="--sh:35.67%; --gh:11.00%; --ds:420ms; --dg:970ms; --dl:1370ms"><span class="bar-top"><b>64.0</b><i class="up">(+3.3)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>60.7</em></span><span class="bar-method">A-Evolve</span></div>
+                  <div class="bar codex no-gain" style="--sh:35.67%; --gh:0.00%; --ds:490ms; --dg:1040ms; --dl:1440ms"><span class="bar-top"><b>60.7</b><i class="flat">(0.0)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>60.7</em></span><span class="bar-method">GEPA</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="bench-panel">
+              <h3>Tau³ Banking</h3>
+              <div class="bench-plot">
+                <span class="bench-line base" style="bottom:0.0%"><b>5%</b></span>
+                <span class="bench-line" style="bottom:25.0%"><b>15%</b></span>
+                <span class="bench-line" style="bottom:50.0%"><b>25%</b></span>
+                <span class="bench-line" style="bottom:75.0%"><b>35%</b></span>
+                <span class="bench-line" style="bottom:100.0%"><b>45%</b></span>
+                <div class="bench-group">
+                  <span class="bench-agent miniswe">MiniSWE</span>
+                  <div class="bar miniswe" style="--sh:18.50%; --gh:25.75%; --ds:0ms; --dg:550ms; --dl:950ms"><span class="bar-top"><b>22.7</b><i class="up">(+10.3)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>12.4</em></span><span class="bar-method">AHE</span></div>
+                  <div class="bar miniswe" style="--sh:18.50%; --gh:41.25%; --ds:70ms; --dg:620ms; --dl:1020ms"><span class="bar-top"><b>28.9</b><i class="up">(+16.5)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>12.4</em></span><span class="bar-method">Hyperagents</span></div>
+                  <div class="bar miniswe" style="--sh:18.50%; --gh:30.75%; --ds:140ms; --dg:690ms; --dl:1090ms"><span class="bar-top"><b>24.7</b><i class="up">(+12.3)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>12.4</em></span><span class="bar-method">A-Evolve</span></div>
+                  <div class="bar miniswe" style="--sh:18.50%; --gh:25.75%; --ds:210ms; --dg:760ms; --dl:1160ms"><span class="bar-top"><b>22.7</b><i class="up">(+10.3)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>12.4</em></span><span class="bar-method">GEPA</span></div>
+                </div>
+                <span class="bench-div" aria-hidden="true"></span>
+                <div class="bench-group">
+                  <span class="bench-agent codex">Codex</span>
+                  <div class="bar codex" style="--sh:15.75%; --gh:38.75%; --ds:280ms; --dg:830ms; --dl:1230ms"><span class="bar-top"><b>26.8</b><i class="up">(+15.5)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>11.3</em></span><span class="bar-method">AHE</span></div>
+                  <div class="bar codex" style="--sh:15.75%; --gh:69.75%; --ds:350ms; --dg:900ms; --dl:1300ms"><span class="bar-top"><b>39.2</b><i class="up">(+27.9)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>11.3</em></span><span class="bar-method">Hyperagents</span></div>
+                  <div class="bar codex" style="--sh:15.75%; --gh:5.25%; --ds:420ms; --dg:970ms; --dl:1370ms"><span class="bar-top"><b>13.4</b><i class="up">(+2.1)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>11.3</em></span><span class="bar-method">A-Evolve</span></div>
+                  <div class="bar codex" style="--sh:15.75%; --gh:10.50%; --ds:490ms; --dg:1040ms; --dl:1440ms"><span class="bar-top"><b>15.5</b><i class="up">(+4.2)</i></span><span class="fill fill-gain"></span><span class="fill fill-seed"><em>11.3</em></span><span class="bar-method">GEPA</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bench-foot">
+            <span class="bench-key"><i class="chip miniswe"></i>MiniSWE</span>
+            <span class="bench-key"><i class="chip codex"></i>Codex</span>
+            <span class="bench-note">
+              <span class="lang-en" lang="en">dark = seed · light = improvement · labels show best (change)</span>
+              <span class="lang-zh" lang="zh-CN">深色 = seed · 浅色 = 提升 · 标注为最佳分数（变化）</span>
+            </span>
+          </div>
+        </div>
         <details class="results">
           <summary>
             <span class="lang-en" lang="en">Full results table</span>
@@ -917,6 +1061,31 @@
 
         rotate(".rotor-target", TARGETS, 2600);
         rotate(".rotor-bench", BENCHES, 4700);
+
+        // Scroll-reveal: sections fade in (and the benchmark bars grow) the
+        // first time they enter the viewport.
+        var sections = Array.prototype.slice.call(
+          document.querySelectorAll(".landing .block, .landing .cta")
+        );
+        if (reduceMotion || !("IntersectionObserver" in window)) {
+          sections.forEach(function (section) { section.classList.add("in"); });
+        } else {
+          sections.forEach(function (section) {
+            Array.prototype.forEach.call(section.children, function (child, i) {
+              child.classList.add("reveal");
+              child.style.transitionDelay = Math.min(i * 90, 450) + "ms";
+            });
+          });
+          var observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in");
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.15 });
+          sections.forEach(function (section) { observer.observe(section); });
+        }
       })();
     </script>
   </body>
