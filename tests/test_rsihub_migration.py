@@ -77,10 +77,8 @@ class RSIHubProjectPageTests(unittest.TestCase):
         expected = {
             "architecture.svg",
             "benchmark-results-rsihub-v2.svg",
-            "evolve-lineage.svg",
             "paper-poster-lora-gen0.png",
             "paper-poster-lora-gen2.png",
-            "rsihub-mark.svg",
         }
         self.assertEqual({path.name for path in assets.iterdir()}, expected)
         for svg in assets.glob("*.svg"):
