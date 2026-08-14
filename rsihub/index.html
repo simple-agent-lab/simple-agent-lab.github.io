@@ -507,6 +507,8 @@
       }
       .recipe-ref:hover { color: var(--fg); text-decoration: underline; }
       .recipe-ref b { font: 400 14px/1 var(--sans); }
+      .recipe-ref.plain { color: var(--faint); cursor: default; }
+      .recipe-ref.plain:hover { color: var(--faint); text-decoration: none; }
       @media (max-width: 680px) {
         .recipe-row { grid-template-columns: 1fr; gap: 7px; }
         .recipe-ref { justify-self: start; }
@@ -1021,6 +1023,10 @@
               <span class="lang-en" lang="en">Improve one candidate from its current best parent.</span>
               <span class="lang-zh" lang="zh-CN">从当前最优父代持续改进单个候选。</span>
             </p>
+            <span class="recipe-ref plain">
+              <span class="lang-en" lang="en">Classic loop</span>
+              <span class="lang-zh" lang="zh-CN">经典循环</span>
+            </span>
           </div>
           <div class="recipe-row">
             <code>aevolve</code>
