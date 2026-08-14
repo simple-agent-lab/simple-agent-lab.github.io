@@ -8,7 +8,7 @@
     <title>RSIHub | Self-Evolving Agent Framework by Simple Agent Lab</title>
     <meta
       name="description"
-      content="RSIHub is an open-source framework for self-evolving agents by Simple Agent Lab: evaluator-driven evolution, reproducible candidate lineage, and controlled self-modification. Build agents that improve and keep the evidence."
+      content="RSIHub is an open-source framework for self-evolving agents by Simple Agent Lab: evaluator-driven learning, reproducible candidate lineage, and controllable modification. Build agents that improve and keep the evidence."
     />
     <meta
       name="keywords"
@@ -48,7 +48,7 @@
             "name": "RSIHub",
             "url": "https://simpleagentlab.com/rsihub/",
             "codeRepository": "https://github.com/simple-agent-lab/RSIHub",
-            "description": "RSIHub is an open-source framework for self-evolving agents: evaluator-driven evolution, reproducible candidate lineage, and controlled self-modification.",
+            "description": "RSIHub is an open-source framework for self-evolving agents: evaluator-driven learning, reproducible candidate lineage, and controllable modification.",
             "programmingLanguage": "Python",
             "license": "https://www.apache.org/licenses/LICENSE-2.0",
             "keywords": [
@@ -152,6 +152,7 @@
 
     <main id="main">
       <article class="legal-page project-page">
+        <img class="page-mark" src="./assets/rsihub-mark.svg" width="56" height="56" alt="" />
         <p class="eyebrow">
           <span class="lang-en" lang="en">Framework</span>
           <span class="lang-zh" lang="zh-CN">开源框架</span>
@@ -162,8 +163,8 @@
           <span class="lang-zh" lang="zh-CN">让智能体持续改进，并保留证据。</span>
         </p>
         <p class="subtitle">
-          <span class="lang-en" lang="en">A file-based framework for evaluator-driven evolution, reproducible candidate lineage, and controlled self-modification.</span>
-          <span class="lang-zh" lang="zh-CN">一个基于文件的框架，支持评估器驱动的进化、可复现的候选谱系，以及受控的自我修改。</span>
+          <span class="lang-en" lang="en">A file-based evolution framework for evaluator-driven learning, reproducible candidate lineage, and controllable modification.</span>
+          <span class="lang-zh" lang="zh-CN">一个基于文件的进化框架，支持评估器驱动的学习、可复现的候选谱系，以及可控的修改。</span>
         </p>
         <div class="page-actions">
           <a href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">
@@ -256,6 +257,41 @@
         <p>
           <span class="lang-en" lang="en">A recipe decides how parents are selected, how traces are analyzed, what may be edited, and which evaluations admit a new generation. The framework owns the mechanism that makes those decisions inspectable: clean candidate snapshots, protected scoring, surface enforcement, Git tags, and stamped archive records.</span>
           <span class="lang-zh" lang="zh-CN">Recipe 决定如何选择父代、如何分析轨迹、哪些内容可以被编辑、以及哪些评估可以准入新的一代。框架则负责让这些决策可检查：干净的候选快照、受保护的打分、变异面约束、Git 标签与盖章的归档记录。</span>
+        </p>
+        <p>
+          <span class="lang-en" lang="en">The public composition model has four parts:</span>
+          <span class="lang-zh" lang="zh-CN">公开的组合模型由四部分构成：</span>
+        </p>
+        <ul>
+          <li>
+            <span class="lang-en" lang="en">a <strong>stage</strong> is a fixed lifecycle slot such as <code>select</code>, <code>analyze</code>, or <code>mutate</code>;</span>
+            <span class="lang-zh" lang="zh-CN"><strong>stage（阶段）</strong>是固定的生命周期槽位，例如 <code>select</code>、<code>analyze</code>、<code>mutate</code>；</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en">an <strong>operator</strong> is a reusable implementation at <code>library/&lt;stage&gt;/&lt;name&gt;.py</code>;</span>
+            <span class="lang-zh" lang="zh-CN"><strong>operator（操作符）</strong>是位于 <code>library/&lt;stage&gt;/&lt;name&gt;.py</code> 的可复用实现；</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en">a <strong>recipe</strong> is code-free selection and configuration of those operators;</span>
+            <span class="lang-zh" lang="zh-CN"><strong>recipe（配方）</strong>是对这些操作符的免代码选择与配置；</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>evaluate</strong> is the framework-owned trusted mechanism, never a selectable operator.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>evaluate（评估）</strong>是框架持有的受信任机制，永远不是可选择的操作符。</span>
+          </li>
+        </ul>
+        <p>
+          <span class="lang-en" lang="en">Add an operator to a source checkout, validate it, and compose it without a registry edit:</span>
+          <span class="lang-zh" lang="zh-CN">在源码检出中新增一个操作符、验证它并完成组合，全程无需修改注册表：</span>
+        </p>
+        <pre><code>uv run --frozen evolve operator new mutate my_operator
+uv run --frozen evolve operator describe mutate/my_operator
+uv run --frozen evolve operator check mutate/my_operator --config '{}'
+uv run --frozen evolve operator list mutate
+uv run --frozen evolve recipe check /path/to/my-recipe/evolve.yaml</code></pre>
+        <p>
+          <span class="lang-en" lang="en">See <a href="https://simpleagentlab.com/RSIHub/reference/operators/" target="_blank" rel="noreferrer">the operator guide</a> for the complete workflow.</span>
+          <span class="lang-zh" lang="zh-CN">完整工作流见 <a href="https://simpleagentlab.com/RSIHub/reference/operators/" target="_blank" rel="noreferrer">operator 指南</a>。</span>
         </p>
 
         <h2>
@@ -441,8 +477,8 @@
           </figure>
         </div>
         <p>
-          <span class="lang-en" lang="en">Across the four-paper showcase, the deterministic completion pass rate moved from <strong>1/4</strong> at Gen 0 to <strong>4/4</strong> at Gen 2. The trials ran concurrently through Harbor’s local environment without Docker and retained ATIF trajectories plus evaluator-owned visual feedback. This is a representative evolution run rather than a broad benchmark.</span>
-          <span class="lang-zh" lang="zh-CN">在四篇论文的 showcase 中，确定性完成通过率从 Gen 0 的 <strong>1/4</strong> 提升到 Gen 2 的 <strong>4/4</strong>。这些试验通过 Harbor 的本地环境并发运行（无需 Docker），并保留了 ATIF 轨迹与评估器持有的视觉反馈。这是一次代表性的进化运行，而非广泛的基准测试。</span>
+          <span class="lang-en" lang="en">Across the four-paper showcase, the deterministic completion pass rate moved from <strong>1/4</strong> at Gen 0 to <strong>4/4</strong> at Gen 2. The trials ran concurrently through Harbor’s local environment without Docker and retained ATIF trajectories plus evaluator-owned visual feedback. This is a representative evolution run rather than a broad benchmark; see the <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">result snapshot</a>, <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">frozen rubric</a>, and <a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">minimal seed Skill</a>.</span>
+          <span class="lang-zh" lang="zh-CN">在四篇论文的 showcase 中，确定性完成通过率从 Gen 0 的 <strong>1/4</strong> 提升到 Gen 2 的 <strong>4/4</strong>。这些试验通过 Harbor 的本地环境并发运行（无需 Docker），并保留了 ATIF 轨迹与评估器持有的视觉反馈。这是一次代表性的进化运行，而非广泛的基准测试；另见<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/docs/results/paper-poster-skill-evolution.json" target="_blank" rel="noreferrer">结果快照</a>、<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/rubric.json" target="_blank" rel="noreferrer">冻结的评分标准</a>与<a href="https://github.com/simple-agent-lab/RSIHub/blob/main/evals/skills/make-paper-poster/seed/skills/make-paper-poster/SKILL.md" target="_blank" rel="noreferrer">最小种子 Skill</a>。</span>
         </p>
 
         <h2>
@@ -450,26 +486,25 @@
           <span class="lang-zh" lang="zh-CN">基准测试结果</span>
         </h2>
         <p>
-          <span class="lang-en" lang="en">Scores are shown as <strong>seed → best</strong>, with the absolute change underneath. All runs use a GPT-5.4-high target model and a GPT-5.4-xhigh Codex meta-agent.</span>
-          <span class="lang-zh" lang="zh-CN">分数以 <strong>seed → best</strong> 呈现，括号中为绝对变化。所有运行使用 GPT-5.4-high 目标模型与 GPT-5.4-xhigh Codex meta-agent。</span>
+          <span class="lang-en" lang="en">Scores are percentages shown as <strong>seed → evolved agent</strong>, with the absolute change underneath. The train score is measured on the recipe’s training split; the full benchmark score is measured across the complete benchmark. All runs use a GPT-5.4-high target model and a GPT-5.4-xhigh Codex mutate operator.</span>
+          <span class="lang-zh" lang="zh-CN">分数为百分比，以 <strong>seed → 进化后的智能体</strong> 呈现，括号中为绝对变化。Train 分数在 recipe 的训练划分上测得；完整基准分数在整个基准上测得。所有运行使用 GPT-5.4-high 目标模型与 GPT-5.4-xhigh 的 Codex mutate 操作符。</span>
         </p>
         <figure class="framed">
           <img
-            src="./assets/benchmark-results.svg"
+            src="./assets/benchmark-results-rsihub-v2.svg"
             loading="lazy"
-            alt="Terminal Bench 2 and Tau cubed Banking results for AHE, Hyperagents, A Evolve, and GEPA with MiniSWE and Codex target agents. Each stacked bar labels the seed score inside the dark section and the best score plus improvement above the light section."
+            alt="Terminal Bench 2 and Tau cubed Banking results for four evolution methods with MiniSWE and Codex target agents. MiniSWE is grouped left and Codex right in each panel. Dark bar sections show seed scores above each axis baseline; light sections show improvement to the best score."
           />
         </figure>
 
-        <h3>Terminal Bench 2</h3>
-        <p>
-          <span class="lang-en" lang="en">Split: <strong>50 train / 19 gate / 20 sealed</strong>.</span>
-          <span class="lang-zh" lang="zh-CN">数据划分：<strong>50 train / 19 gate / 20 sealed</strong>。</span>
-        </p>
         <div class="table-scroll">
           <table>
             <thead>
               <tr>
+                <th>
+                  <span class="lang-en" lang="en">Benchmark</span>
+                  <span class="lang-zh" lang="zh-CN">基准</span>
+                </th>
                 <th>
                   <span class="lang-en" lang="en">Target agent</span>
                   <span class="lang-zh" lang="zh-CN">目标智能体</span>
@@ -478,156 +513,102 @@
                   <span class="lang-en" lang="en">Method</span>
                   <span class="lang-zh" lang="zh-CN">方法</span>
                 </th>
-                <th>Train</th>
-                <th>Gate</th>
-                <th>Sealed</th>
-                <th>Overall</th>
+                <th>
+                  <span class="lang-en" lang="en">Train score</span>
+                  <span class="lang-zh" lang="zh-CN">Train 分数</span>
+                </th>
+                <th>
+                  <span class="lang-en" lang="en">Full benchmark score</span>
+                  <span class="lang-zh" lang="zh-CN">完整基准分数</span>
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td rowspan="4">MiniSWE Agent</td>
-                <td>AHE</td>
-                <td>58.0% → 74.0%<br /><strong>(+16.0%)</strong></td>
-                <td>57.9% → 68.4%<br /><strong>(+10.5%)</strong></td>
-                <td>70.0% → 70.0%<br /><strong>(+0.0%)</strong></td>
-                <td>60.7% → 71.9%<br /><strong>(+11.2%)</strong></td>
+                <td rowspan="8" class="nowrap"><strong>Terminal-Bench 2</strong><br /><small>50 train / 19 gate / 20 sealed</small></td>
+                <td rowspan="4" class="nowrap">MiniSWE</td>
+                <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
+                <td class="nowrap">70.0% → 74.0%<br /><strong>(+4.0%)</strong></td>
+                <td class="nowrap">55.1% → 56.2%<br /><strong>(+1.1%)</strong></td>
               </tr>
               <tr>
-                <td>Hyperagents</td>
-                <td>58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
-                <td>57.9% → 73.7%<br /><strong>(+15.8%)</strong></td>
-                <td>70.0% → 70.0%<br /><strong>(+0.0%)</strong></td>
-                <td>60.7% → 69.7%<br /><strong>(+9.0%)</strong></td>
+                <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
+                <td class="nowrap">58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
+                <td class="nowrap">55.1% → 68.5%<br /><strong>(+13.4%)</strong></td>
               </tr>
               <tr>
-                <td>A Evolve</td>
-                <td>58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
-                <td>57.9% → 78.9%<br /><strong>(+21.0%)</strong></td>
-                <td>70.0% → 65.0%<br /><strong>(−5.0%)</strong></td>
-                <td>60.7% → 69.7%<br /><strong>(+9.0%)</strong></td>
+                <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
+                <td class="nowrap">66.0% → 68.0%<br /><strong>(+2.0%)</strong></td>
+                <td class="nowrap">55.1% → 65.2%<br /><strong>(+10.1%)</strong></td>
               </tr>
               <tr>
-                <td>GEPA</td>
-                <td>58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
-                <td>57.9% → 68.4%<br /><strong>(+10.5%)</strong></td>
-                <td>70.0% → 75.0%<br /><strong>(+5.0%)</strong></td>
-                <td>60.7% → 69.7%<br /><strong>(+9.0%)</strong></td>
+                <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
+                <td class="nowrap">58.0% → 68.0%<br /><strong>(+10.0%)</strong></td>
+                <td class="nowrap">55.1% → 59.6%<br /><strong>(+4.5%)</strong></td>
               </tr>
               <tr>
-                <td rowspan="4">Codex</td>
-                <td>AHE</td>
-                <td>58.0% → 74.0%<br /><strong>(+16.0%)</strong></td>
-                <td>52.6% → 47.4%<br /><strong>(−5.2%)</strong></td>
-                <td>65.0% → 70.0%<br /><strong>(+5.0%)</strong></td>
-                <td>58.4% → 67.4%<br /><strong>(+9.0%)</strong></td>
+                <td rowspan="4" class="nowrap">Codex</td>
+                <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
+                <td class="nowrap">60.0% → 74.0%<br /><strong>(+14.0%)</strong></td>
+                <td class="nowrap">60.7% → 66.3%<br /><strong>(+5.6%)</strong></td>
               </tr>
               <tr>
-                <td>Hyperagents</td>
-                <td>58.0% → 72.0%<br /><strong>(+14.0%)</strong></td>
-                <td>52.6% → 57.9%<br /><strong>(+5.3%)</strong></td>
-                <td>65.0% → 75.0%<br /><strong>(+10.0%)</strong></td>
-                <td>58.4% → 69.7%<br /><strong>(+11.3%)</strong></td>
+                <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
+                <td class="nowrap">58.0% → 72.0%<br /><strong>(+14.0%)</strong></td>
+                <td class="nowrap">60.7% → 70.8%<br /><strong>(+10.1%)</strong></td>
               </tr>
               <tr>
-                <td>A Evolve</td>
-                <td>58.0% → 58.0%<br /><strong>(+0.0%)</strong></td>
-                <td>52.6% → 52.6%<br /><strong>(+0.0%)</strong></td>
-                <td>65.0% → 65.0%<br /><strong>(+0.0%)</strong></td>
-                <td>58.4% → 58.4%<br /><strong>(+0.0%)</strong></td>
+                <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
+                <td class="nowrap">62.0% → 62.0%<br /><strong>(0.0%)</strong></td>
+                <td class="nowrap">60.7% → 64.0%<br /><strong>(+3.3%)</strong></td>
               </tr>
               <tr>
-                <td>GEPA</td>
-                <td>58.0% → 58.0%<br /><strong>(+0.0%)</strong></td>
-                <td>52.6% → 52.6%<br /><strong>(+0.0%)</strong></td>
-                <td>65.0% → 65.0%<br /><strong>(+0.0%)</strong></td>
-                <td>58.4% → 58.4%<br /><strong>(+0.0%)</strong></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <h3>Tau³ Banking</h3>
-        <p>
-          <span class="lang-en" lang="en">Split: <strong>50 train / 20 gate / 27 sealed</strong>.</span>
-          <span class="lang-zh" lang="zh-CN">数据划分：<strong>50 train / 20 gate / 27 sealed</strong>。</span>
-        </p>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  <span class="lang-en" lang="en">Target agent</span>
-                  <span class="lang-zh" lang="zh-CN">目标智能体</span>
-                </th>
-                <th>
-                  <span class="lang-en" lang="en">Method</span>
-                  <span class="lang-zh" lang="zh-CN">方法</span>
-                </th>
-                <th>Train</th>
-                <th>Gate</th>
-                <th>Sealed</th>
-                <th>Overall</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td rowspan="4">MiniSWE Agent</td>
-                <td>AHE</td>
-                <td>30.0% → 36.0%<br /><strong>(+6.0%)</strong></td>
-                <td>35.0% → 35.0%<br /><strong>(+0.0%)</strong></td>
-                <td>18.5% → 25.9%<br /><strong>(+7.4%)</strong></td>
-                <td>27.8% → 33.0%<br /><strong>(+5.2%)</strong></td>
+                <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
+                <td class="nowrap">64.0% → 64.0%<br /><strong>(0.0%)</strong></td>
+                <td class="nowrap">60.7% → 60.7%<br /><strong>(0.0%)</strong></td>
               </tr>
               <tr>
-                <td>Hyperagents</td>
-                <td>30.0% → 38.0%<br /><strong>(+8.0%)</strong></td>
-                <td>35.0% → 45.0%<br /><strong>(+10.0%)</strong></td>
-                <td>18.5% → 37.0%<br /><strong>(+18.5%)</strong></td>
-                <td>27.8% → 39.2%<br /><strong>(+11.4%)</strong></td>
+                <td rowspan="8" class="nowrap"><strong>Tau³ Banking</strong><br /><small>50 train / 20 gate / 27 sealed</small></td>
+                <td rowspan="4" class="nowrap">MiniSWE</td>
+                <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
+                <td class="nowrap">34.0% → 36.0%<br /><strong>(+2.0%)</strong></td>
+                <td class="nowrap">12.4% → 22.7%<br /><strong>(+10.3%)</strong></td>
               </tr>
               <tr>
-                <td>A Evolve</td>
-                <td>30.0% → 34.0%<br /><strong>(+4.0%)</strong></td>
-                <td>35.0% → 45.0%<br /><strong>(+10.0%)</strong></td>
-                <td>18.5% → 29.6%<br /><strong>(+11.1%)</strong></td>
-                <td>27.8% → 35.1%<br /><strong>(+7.3%)</strong></td>
+                <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
+                <td class="nowrap">30.0% → 38.0%<br /><strong>(+8.0%)</strong></td>
+                <td class="nowrap">12.4% → 28.9%<br /><strong>(+16.5%)</strong></td>
               </tr>
               <tr>
-                <td>GEPA</td>
-                <td>30.0% → 32.0%<br /><strong>(+2.0%)</strong></td>
-                <td>35.0% → 45.0%<br /><strong>(+10.0%)</strong></td>
-                <td>18.5% → 25.9%<br /><strong>(+7.4%)</strong></td>
-                <td>27.8% → 33.0%<br /><strong>(+5.2%)</strong></td>
+                <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
+                <td class="nowrap">30.0% → 34.0%<br /><strong>(+4.0%)</strong></td>
+                <td class="nowrap">12.4% → 24.7%<br /><strong>(+12.3%)</strong></td>
               </tr>
               <tr>
-                <td rowspan="4">Codex</td>
-                <td>AHE</td>
-                <td>30.0% → 36.0%<br /><strong>(+6.0%)</strong></td>
-                <td>30.0% → 45.0%<br /><strong>(+15.0%)</strong></td>
-                <td>7.4% → 14.8%<br /><strong>(+7.4%)</strong></td>
-                <td>23.7% → 32.0%<br /><strong>(+8.3%)</strong></td>
+                <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
+                <td class="nowrap">30.0% → 32.0%<br /><strong>(+2.0%)</strong></td>
+                <td class="nowrap">12.4% → 22.7%<br /><strong>(+10.3%)</strong></td>
               </tr>
               <tr>
-                <td>Hyperagents</td>
-                <td>30.0% → 36.0%<br /><strong>(+6.0%)</strong></td>
-                <td>30.0% → 50.0%<br /><strong>(+20.0%)</strong></td>
-                <td>7.4% → 48.1%<br /><strong>(+40.7%)</strong></td>
-                <td>23.7% → 42.3%<br /><strong>(+18.6%)</strong></td>
+                <td rowspan="4" class="nowrap">Codex</td>
+                <td class="nowrap"><a href="https://arxiv.org/pdf/2604.25850" target="_blank" rel="noreferrer">AHE</a></td>
+                <td class="nowrap">32.0% → 36.0%<br /><strong>(+4.0%)</strong></td>
+                <td class="nowrap">11.3% → 26.8%<br /><strong>(+15.5%)</strong></td>
               </tr>
               <tr>
-                <td>A Evolve</td>
-                <td>30.0% → 38.0%<br /><strong>(+8.0%)</strong></td>
-                <td>30.0% → 45.0%<br /><strong>(+15.0%)</strong></td>
-                <td>7.4% → 18.5%<br /><strong>(+11.1%)</strong></td>
-                <td>23.7% → 34.0%<br /><strong>(+10.3%)</strong></td>
+                <td class="nowrap"><a href="https://arxiv.org/abs/2603.19461" target="_blank" rel="noreferrer">Hyperagents</a></td>
+                <td class="nowrap">34.0% → 36.0%<br /><strong>(+2.0%)</strong></td>
+                <td class="nowrap">11.3% → 39.2%<br /><strong>(+27.9%)</strong></td>
               </tr>
               <tr>
-                <td>GEPA</td>
-                <td>30.0% → 36.0%<br /><strong>(+6.0%)</strong></td>
-                <td>30.0% → 35.0%<br /><strong>(+5.0%)</strong></td>
-                <td>7.4% → 14.8%<br /><strong>(+7.4%)</strong></td>
-                <td>23.7% → 29.9%<br /><strong>(+6.2%)</strong></td>
+                <td class="nowrap"><a href="https://github.com/A-EVO-Lab/a-evolve" target="_blank" rel="noreferrer">A-Evolve</a></td>
+                <td class="nowrap">30.0% → 38.0%<br /><strong>(+8.0%)</strong></td>
+                <td class="nowrap">11.3% → 13.4%<br /><strong>(+2.1%)</strong></td>
+              </tr>
+              <tr>
+                <td class="nowrap"><a href="https://arxiv.org/abs/2507.19457" target="_blank" rel="noreferrer">GEPA</a></td>
+                <td class="nowrap">10.0% → 16.0%<br /><strong>(+6.0%)</strong></td>
+                <td class="nowrap">11.3% → 15.5%<br /><strong>(+4.2%)</strong></td>
               </tr>
             </tbody>
           </table>

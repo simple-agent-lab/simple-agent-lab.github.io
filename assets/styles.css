@@ -247,6 +247,12 @@ footer a:hover { color: var(--fg); }
 
 .project-page { max-width: 760px; }
 .project-page h1 { margin-bottom: 1rem; }
+.project-page .page-mark {
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+}
 .project-page .tagline {
   margin-bottom: .5rem;
   font: 650 19px/1.5 var(--sans);
@@ -317,6 +323,20 @@ footer a:hover { color: var(--fg); }
   border-radius: 5px;
   background: var(--rule);
   font: 500 .82em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.project-page pre {
+  margin: 1.3rem 0 1.7rem;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: var(--rule);
+  overflow-x: auto;
+  font: 500 13px/1.7 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.project-page pre code {
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  font: inherit;
 }
 .project-page .doc { min-width: 0; }
 .toc-rail { display: none; }
