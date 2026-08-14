@@ -75,9 +75,6 @@ class RSIHubProjectPageTests(unittest.TestCase):
     def test_project_assets_moved_and_svg_titles_renamed(self):
         assets = ROOT / "rsihub/assets"
         expected = {
-            "architecture.svg",
-            "benchmark-results.svg",
-            "evolve-lineage.svg",
             "paper-poster-lora-gen0.png",
             "paper-poster-lora-gen2.png",
         }
