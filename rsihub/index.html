@@ -114,9 +114,9 @@
       }
 
       /* Hero */
-      .landing .hero { padding-top: 128px; padding-bottom: 0; text-align: center; }
+      .landing .hero { padding-top: 128px; padding-bottom: 0; text-align: left; }
       .hero .lockup { margin: 0 0 34px; }
-      .hero .lockup svg { display: block; width: min(232px, 58vw); height: auto; aspect-ratio: 174.09 / 64; margin: 0 auto; }
+      .hero .lockup svg { display: block; width: min(232px, 58vw); height: auto; aspect-ratio: 174.09 / 64; }
       .lockup .rsi { fill: var(--fg); }
       .lockup .ramp-third { stop-color: #00a3b0; }
       .lockup .ramp-fourth { stop-color: #2fa844; }
@@ -138,7 +138,7 @@
       .rotor {
         display: inline-grid;
         color: var(--blue);
-        text-align: center;
+        text-align: left;
         white-space: nowrap;
       }
       .rotor > span { grid-area: 1 / 1; }
@@ -149,10 +149,11 @@
       :root[data-theme="dark"] .rotor-bench { color: #00cbd4; }
       .landing .hero-sub {
         max-width: 640px;
-        margin: 0 auto 34px;
+        margin: 0 0 34px;
         font: 450 17px/1.7 var(--sans);
       }
       .hero-cta { display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 62px; }
+      .landing .hero .hero-cta { justify-content: flex-start; }
       .btn {
         display: inline-flex;
         align-items: center;
@@ -173,7 +174,7 @@
       /* Terminal card */
       .terminal {
         max-width: 720px;
-        margin: 0 auto;
+        margin: 0;
         border: 1px solid rgba(255, 255, 255, .09);
         border-radius: 16px;
         background: #0f1513;
@@ -211,7 +212,7 @@
       .landing .terminal code { padding: 0; border-radius: 0; background: none; color: inherit; font: inherit; }
       .landing .terminal-note {
         max-width: 720px;
-        margin: 12px auto 0;
+        margin: 12px 0 0;
         color: var(--faint);
         font: 450 12.5px/1.6 var(--sans);
       }
@@ -510,7 +511,7 @@
             <span class="rotor rotor-target"><span class="rotor-word">Codex</span><span class="sizer" aria-hidden="true">Codex</span><span class="sizer" aria-hidden="true">Claude Code</span><span class="sizer" aria-hidden="true">DeepSeek harness</span><span class="sizer" aria-hidden="true">MiniSWE</span></span><br />on
             <span class="rotor rotor-bench"><span class="rotor-word">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Tau³ Banking</span><span class="sizer" aria-hidden="true">your own eval</span></span></span>
           <span class="lang-zh" lang="zh-CN">在
-            <span class="rotor rotor-bench"><span class="rotor-word">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Tau³ Banking</span><span class="sizer" aria-hidden="true">你自己的评测</span></span> 上<br />进化你的
+            <span class="rotor rotor-bench"><span class="rotor-word">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Terminal-Bench 2</span><span class="sizer" aria-hidden="true">Tau³ Banking</span><span class="sizer" aria-hidden="true">你自己的评测</span></span><br />上进化你的
             <span class="rotor rotor-target"><span class="rotor-word">Codex</span><span class="sizer" aria-hidden="true">Codex</span><span class="sizer" aria-hidden="true">Claude Code</span><span class="sizer" aria-hidden="true">DeepSeek harness</span><span class="sizer" aria-hidden="true">MiniSWE</span></span></span>
         </p>
         <p class="hero-sub">
