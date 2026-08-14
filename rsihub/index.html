@@ -354,21 +354,135 @@
       .block .lead { max-width: 700px; margin: 0 0 36px; }
       .block .after { max-width: 700px; margin: 26px 0 0; }
 
-      /* Loop pills */
-      .loop { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 34px; }
-      .loop .pill {
-        padding: 10px 17px;
-        border: 1px solid var(--rule);
-        border-radius: 999px;
-        font: 650 14px/1 var(--sans);
-        color: var(--fg);
+      /* Architecture diagram (animated, blue/orange palette) */
+      .arch { border: 1px solid var(--rule); border-radius: 16px; padding: 22px 22px 18px; }
+      .arch-head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
+      .arch-cap { color: var(--soft); font: 750 11px/1.4 var(--sans); letter-spacing: .09em; text-transform: uppercase; }
+      .arch-note { color: var(--faint); font: 450 11.5px/1.4 var(--sans); }
+      .arch-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+      .arch-m {
+        flex: 1;
+        min-width: 110px;
+        padding: 10px 12px;
+        border: 1px solid rgba(29, 78, 216, .35);
+        border-radius: 10px;
+        background: rgba(147, 197, 253, .12);
+        color: #1d4ed8;
+        font: 700 13px/1.2 var(--sans);
+        text-align: center;
+        transition: opacity .45s ease var(--d), transform .45s ease var(--d);
       }
-      .loop .pill.locked { background: var(--rule); border-color: transparent; }
-      .loop b { color: var(--faint); font: 400 16px/1 var(--sans); }
-
-      /* Figures */
-      .shot { margin: 0; border: 1px solid var(--rule); border-radius: 16px; overflow: hidden; }
-      .shot img { display: block; width: 100%; height: auto; }
+      .arch-m.custom { border-style: dashed; border-color: var(--faint); background: none; color: var(--soft); }
+      :root[data-theme="dark"] .arch-m { color: #93c5fd; border-color: rgba(147, 197, 253, .35); background: rgba(59, 130, 246, .14); }
+      :root[data-theme="dark"] .arch-m.custom { border-color: var(--faint); background: none; color: var(--soft); }
+      .arch-down { display: block; width: 1px; height: 24px; margin: 12px auto; background: var(--faint); transform-origin: top; transition: transform .4s ease .45s; }
+      .arch-loop { border: 1px solid var(--rule); border-radius: 14px; padding: 16px 16px 14px; background: rgba(147, 197, 253, .07); }
+      :root[data-theme="dark"] .arch-loop { background: rgba(59, 130, 246, .07); }
+      .arch-surface { position: relative; border: 1.5px dashed rgba(194, 65, 12, .5); border-radius: 12px; padding: 22px 14px 14px; margin-top: 10px; transition: opacity .5s ease 1.3s; }
+      :root[data-theme="dark"] .arch-surface { border-color: rgba(253, 186, 116, .45); }
+      .arch-surface-label {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 94%;
+        padding: 3px 10px;
+        border-radius: 999px;
+        background: var(--bg);
+        color: #c2410c;
+        font: 750 10.5px/1.4 var(--sans);
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      :root[data-theme="dark"] .arch-surface-label { color: #fdba74; }
+      .arch-stages { display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px; }
+      .stage {
+        position: relative;
+        padding: 12px 10px 13px;
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        background: var(--bg);
+        text-align: center;
+        transition: opacity .45s ease var(--d), transform .45s ease var(--d);
+        animation: stage-pulse 7.2s ease-in-out calc(2.2s + var(--p) * 1.2s) infinite;
+      }
+      .stage b { display: block; margin-bottom: 3px; font: 750 13px/1.3 var(--sans); color: var(--fg); }
+      .stage small { color: var(--soft); font: 450 10.5px/1.35 var(--sans); }
+      .stage::after {
+        content: "→";
+        position: absolute;
+        top: 50%;
+        right: -19px;
+        transform: translateY(-50%);
+        color: var(--faint);
+        font: 400 13px/1 var(--sans);
+      }
+      .arch-stages .stage:last-child::after { content: none; }
+      .stage.hot { border-color: rgba(194, 65, 12, .45); background: rgba(253, 186, 116, .14); }
+      .stage.hot b { color: #c2410c; }
+      :root[data-theme="dark"] .stage.hot b { color: #fdba74; }
+      @keyframes stage-pulse {
+        0%, 12% { box-shadow: 0 0 0 3px rgba(29, 78, 216, .22); }
+        18%, 100% { box-shadow: 0 0 0 0 rgba(29, 78, 216, 0); }
+      }
+      .arch-return {
+        position: relative;
+        height: 14px;
+        margin: 16px 6px 14px;
+        border: 1px solid var(--rule);
+        border-top: none;
+        border-radius: 0 0 10px 10px;
+        transition: opacity .5s ease 1.45s;
+      }
+      .arch-return span {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 3px;
+        color: var(--faint);
+        font: 550 10.5px/1.4 var(--sans);
+        white-space: nowrap;
+      }
+      .arch-io { display: flex; justify-content: space-between; margin: 12px 10px; color: var(--faint); font: 550 11px/1.4 var(--sans); transition: opacity .5s ease 1.4s; }
+      .arch-locks { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+      .lock {
+        padding: 12px 12px 13px;
+        border: 1px solid rgba(255, 255, 255, .08);
+        border-radius: 10px;
+        background: #0f172a;
+        text-align: center;
+        transition: opacity .45s ease var(--d), transform .45s ease var(--d);
+      }
+      :root[data-theme="dark"] .lock { background: #1e293b; }
+      .lock b { display: block; margin-bottom: 3px; color: #fff; font: 750 12.5px/1.3 var(--sans); }
+      .lock small { color: #94a3b8; font: 450 10.5px/1.35 var(--sans); }
+      /* Diagram stays collapsed until its section scrolls into view. */
+      .js .landing .block:not(.in) .arch-m,
+      .js .landing .block:not(.in) .stage,
+      .js .landing .block:not(.in) .lock { opacity: 0; transform: translateY(10px); }
+      .js .landing .block:not(.in) .arch-down { transform: scaleY(0); }
+      .js .landing .block:not(.in) .arch-surface,
+      .js .landing .block:not(.in) .arch-return,
+      .js .landing .block:not(.in) .arch-io { opacity: 0; }
+      @media (max-width: 860px) {
+        .arch-stages { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+        .stage::after { content: none; }
+        .arch-locks { grid-template-columns: repeat(2, 1fr); }
+        .arch-surface { padding-top: 14px; }
+        .arch-surface-label {
+          position: static;
+          display: block;
+          width: fit-content;
+          margin: 0 auto 12px;
+          transform: none;
+          white-space: normal;
+          text-align: center;
+        }
+      }
 
       /* Recipe rows */
       .recipes { margin-top: 6px; border-top: 1px solid var(--rule); }
@@ -424,6 +538,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         margin-top: 32px;
         padding: 78px 24px 12px;
         border-top: 1px solid var(--rule);
@@ -479,6 +594,8 @@
         .terminal .t-row { animation: none; }
         html { scroll-snap-type: none; }
         .reveal, .bar .fill, .bar-top { transition: none; }
+        .arch-m, .stage, .lock, .arch-down, .arch-surface, .arch-return, .arch-io { transition: none; }
+        .stage { animation: none; }
       }
     </style>
     <script>
@@ -847,21 +964,41 @@
           <span class="lang-en" lang="en">A recipe decides how parents are selected, how traces are analyzed, what may be edited, and which evaluations admit a new generation. The framework owns the mechanism that makes those decisions inspectable: clean candidate snapshots, protected scoring, surface enforcement, Git tags, and stamped archive records.</span>
           <span class="lang-zh" lang="zh-CN">Recipe 决定如何选择父代、如何分析轨迹、哪些内容可以被编辑、以及哪些评估可以准入新的一代。框架则负责让这些决策可检查：干净的候选快照、受保护的打分、变异面约束、Git 标签与盖章的归档记录。</span>
         </p>
-        <div class="loop" role="img" aria-label="select, evaluate, analyze, mutate, gate, record">
-          <span class="pill">select</span><b aria-hidden="true">→</b>
-          <span class="pill locked">evaluate</span><b aria-hidden="true">→</b>
-          <span class="pill">analyze</span><b aria-hidden="true">→</b>
-          <span class="pill">mutate</span><b aria-hidden="true">→</b>
-          <span class="pill">gate</span><b aria-hidden="true">→</b>
-          <span class="pill">record</span>
+        <div class="arch" role="img" aria-label="Five built-in strategies (or a custom recipe) compose one loop of Select, Rollout, Analyze, Mutate, Gate, and Record inside a declared mutable surface, while the frozen evaluator, locked runtime, surface check, and stamped evidence stay outside candidate control.">
+          <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">Evolution methods</span><span class="lang-zh" lang="zh-CN">进化方法</span></span><span class="arch-note"><span class="lang-en" lang="en">five built-in strategies, or compose your own</span><span class="lang-zh" lang="zh-CN">五种内置策略，也可自行组合</span></span></div>
+          <div class="arch-pills">
+            <span class="arch-m" style="--d:0ms">Hill Climb</span>
+            <span class="arch-m" style="--d:70ms">A-Evolve</span>
+            <span class="arch-m" style="--d:140ms">AHE</span>
+            <span class="arch-m" style="--d:210ms">GEPA</span>
+            <span class="arch-m" style="--d:280ms">HyperAgents</span>
+            <span class="arch-m custom" style="--d:350ms">your recipe</span>
+          </div>
+          <span class="arch-down" aria-hidden="true"></span>
+          <div class="arch-loop">
+            <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">One composable loop</span><span class="lang-zh" lang="zh-CN">一个可组合的循环</span></span><span class="arch-note"><span class="lang-en" lang="en">recipes choose which stages and targets may evolve</span><span class="lang-zh" lang="zh-CN">recipe 决定哪些阶段与目标可以进化</span></span></div>
+            <div class="arch-surface">
+              <span class="arch-surface-label"><span class="lang-en" lang="en">Declared mutable surface · target + selected operators</span><span class="lang-zh" lang="zh-CN">声明的可变面 · target + 选定的操作符</span></span>
+              <div class="arch-stages">
+                <div class="stage" style="--d:560ms; --p:0"><b>Select</b><small><span class="lang-en" lang="en">choose a parent</span><span class="lang-zh" lang="zh-CN">选择父代</span></small></div>
+                <div class="stage" style="--d:670ms; --p:1"><b>Rollout</b><small><span class="lang-en" lang="en">run tasks + evaluator</span><span class="lang-zh" lang="zh-CN">运行任务与评估器</span></small></div>
+                <div class="stage" style="--d:780ms; --p:2"><b>Analyze</b><small><span class="lang-en" lang="en">inspect the traces</span><span class="lang-zh" lang="zh-CN">分析轨迹</span></small></div>
+                <div class="stage hot" style="--d:890ms; --p:3"><b>Mutate</b><small><span class="lang-en" lang="en">edit the candidate</span><span class="lang-zh" lang="zh-CN">编辑候选</span></small></div>
+                <div class="stage hot" style="--d:1000ms; --p:4"><b>Gate</b><small><span class="lang-en" lang="en">accept verified gains</span><span class="lang-zh" lang="zh-CN">准入经验证的提升</span></small></div>
+                <div class="stage" style="--d:1110ms; --p:5"><b>Record</b><small><span class="lang-en" lang="en">tag + archive</span><span class="lang-zh" lang="zh-CN">打标签并归档</span></small></div>
+              </div>
+              <div class="arch-return"><span><span class="lang-en" lang="en">next generation</span><span class="lang-zh" lang="zh-CN">下一代</span></span></div>
+            </div>
+          </div>
+          <div class="arch-io" aria-hidden="true"><span>↓ <span class="lang-en" lang="en">evidence</span><span class="lang-zh" lang="zh-CN">证据</span></span><span>↑ <span class="lang-en" lang="en">contracts</span><span class="lang-zh" lang="zh-CN">契约</span></span></div>
+          <div class="arch-head"><span class="arch-cap"><span class="lang-en" lang="en">Protected mechanism</span><span class="lang-zh" lang="zh-CN">受保护机制</span></span><span class="arch-note"><span class="lang-en" lang="en">outside candidate control</span><span class="lang-zh" lang="zh-CN">候选无法触碰</span></span></div>
+          <div class="arch-locks">
+            <div class="lock" style="--d:1500ms"><b>Frozen evaluator</b><small><span class="lang-en" lang="en">pinned scoring contract</span><span class="lang-zh" lang="zh-CN">固定的打分契约</span></small></div>
+            <div class="lock" style="--d:1590ms"><b>Locked runtime</b><small><span class="lang-en" lang="en">pinned deps + digest</span><span class="lang-zh" lang="zh-CN">锁定依赖与摘要</span></small></div>
+            <div class="lock" style="--d:1680ms"><b>Surface check</b><small><span class="lang-en" lang="en">declared paths only</span><span class="lang-zh" lang="zh-CN">仅允许声明的路径</span></small></div>
+            <div class="lock" style="--d:1770ms"><b>Stamped evidence</b><small><span class="lang-en" lang="en">archive + git lineage</span><span class="lang-zh" lang="zh-CN">归档与 Git 谱系</span></small></div>
+          </div>
         </div>
-        <figure class="shot">
-          <img
-            src="./assets/architecture.svg"
-            loading="lazy"
-            alt="RSIHub architecture: five built-in strategies and custom recipes compose a loop of select, rollout and evaluation, analyze, mutate, gate, and record. The target and selected operators occupy a declared mutable surface. The evaluator, runtime, surface check, and stamped evidence remain protected from candidate changes."
-          />
-        </figure>
         <p class="after">
           <span class="lang-en" lang="en">Five built-in recipes compose the loop for different goals:</span>
           <span class="lang-zh" lang="zh-CN">五个内置 recipe 面向不同目标组合这个循环：</span>
