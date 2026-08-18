@@ -8,7 +8,7 @@
     <title>On the Eve of AI4AI | Simple Agent Lab</title>
     <meta
       name="description"
-      content="AI for AI introduces no new capability class: it is long-horizon execution with a different goal. A taxonomy of closure across plan, execute, feedback, and repair, applied to 35 representative self-improving systems."
+      content="AI can increasingly plan, code, experiment, optimize, and repair, while humans still determine the goals and evaluation criteria. This survey maps the reliable limits of AI4AI and the composition gap."
     />
     <meta
       name="keywords"
@@ -20,7 +20,7 @@
     <meta property="og:title" content="On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement" />
     <meta
       property="og:description"
-      content="Execute is closed by the system in all 35 audited systems. Feedback is closed in none. That gap is what 'the eve of AI4AI' means."
+      content="A survey of how far AI systems can reliably carry an improvement process from idea to verified result—and what still limits recursive self-improvement."
     />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://simpleagentlab.com/ai4ai/" />
@@ -33,7 +33,7 @@
     <meta name="twitter:title" content="On the Eve of AI4AI | Simple Agent Lab" />
     <meta
       name="twitter:description"
-      content="A structural definition of long-horizon execution, a five-dimension taxonomy of AI4AI, and a closure audit of 35 systems."
+      content="AI increasingly performs the work of improvement, but humans still define its goals and evidence. A survey of AI4AI's reliable limits and composition gap."
     />
     <meta name="twitter:image" content="https://simpleagentlab.com/assets/og.png" />
 
@@ -58,10 +58,12 @@
           { "@type": "Person", "name": "Shengzhi Wang" },
           { "@type": "Person", "name": "Zihan Wang" },
           { "@type": "Person", "name": "Yiwen Ye" },
+          { "@type": "Person", "name": "Hao Wang" },
           { "@type": "Person", "name": "Zimu Wang" },
           { "@type": "Person", "name": "Wenzhe Liu" },
           { "@type": "Person", "name": "Ruobing Wang" },
           { "@type": "Person", "name": "Kai Cai" },
+          { "@type": "Person", "name": "Yifan Zhang" },
           { "@type": "Person", "name": "Lei Yang" },
           { "@type": "Person", "name": "Xiaobin Hu" },
           { "@type": "Person", "name": "Qingwen Liu" }
@@ -203,17 +205,20 @@
           <span class="lang-zh" lang="zh-CN">定义、可靠 horizon 与开放问题。</span>
         </p>
         <p class="authors">
-          Kai Wu<sup>1</sup>, Hao Lyu<sup>1</sup>, Zhen Luo<sup>1</sup>, Chaofan Wang<sup>2</sup>,
-          Siyu Ye<sup>6</sup>, Jinghao Lin<sup>6</sup>, Xiaozhong Ji<sup>3</sup>, Boyuan Jiang<sup>4</sup>,
-          Shengzhi Wang<sup>1</sup>, Zihan Wang<sup>6</sup>, Yiwen Ye<sup>6</sup>, Zimu Wang<sup>5</sup>,
-          Wenzhe Liu<sup>6</sup>, Ruobing Wang<sup>6</sup>, Kai Cai<sup>6</sup>, Lei Yang<sup>8</sup>,
-          Xiaobin Hu<sup>7</sup>, Qingwen Liu<sup>1</sup>
+          Kai Wu<sup>1,*</sup>, Hao Lyu<sup>1,*</sup>, Zhen Luo<sup>1,*</sup>, Chaofan Wang<sup>2</sup>,
+          Siyu Ye<sup>7</sup>, Jinghao Lin<sup>7</sup>, Xiaozhong Ji<sup>7</sup>, Boyuan Jiang<sup>7</sup>,
+          Shengzhi Wang<sup>1</sup>, Zihan Wang<sup>7</sup>, Yiwen Ye<sup>7</sup>, Hao Wang<sup>7</sup>,
+          Zimu Wang<sup>3</sup>, Wenzhe Liu<sup>7</sup>, Ruobing Wang<sup>7</sup>, Kai Cai<sup>7</sup>,
+          Yifan Zhang<sup>4</sup>, Lei Yang<sup>6</sup>, Xiaobin Hu<sup>5</sup>,
+          Qingwen Liu<sup>1,†</sup>
         </p>
         <p class="affiliations">
           <sup>1</sup>Tongji University · <sup>2</sup>Shanghai Jiao Tong University ·
-          <sup>3</sup>Nanjing University · <sup>4</sup>Zhejiang University ·
-          <sup>5</sup>UC Berkeley · <sup>6</sup>Simple Agent Lab ·
-          <sup>7</sup>National University of Singapore · <sup>8</sup>Nanyang Technological University
+          <sup>3</sup>UC Berkeley · <sup>4</sup>University of Chinese Academy of Sciences ·
+          <sup>5</sup>National University of Singapore · <sup>6</sup>Nanyang Technological University ·
+          <sup>7</sup>Simple Agent Lab
+          <br />
+          <sup>*</sup>Equal contribution · <sup>†</sup>Corresponding author
         </p>
         <div class="page-actions">
           <!-- TODO(作者): 论文上线后把这里换成 arXiv 链接。 -->
@@ -230,8 +235,8 @@
 
         <div class="abstract" id="abstract">
           <p>
-            <span class="lang-en" lang="en"><strong>Abstract:</strong> The release notes of <a href="https://www.anthropic.com/claude/fable" target="_blank" rel="noreferrer">Claude Fable 5</a>, <a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noreferrer">GPT-5.6</a>, <a href="https://www.kimi.com/ja-jp/blog/kimi-k3" target="_blank" rel="noreferrer">Kimi K3</a>, and <a href="https://z.ai/blog/glm-5.2" target="_blank" rel="noreferrer">GLM-5.2</a> point at one thing: keep a model working on agentic tasks, and let it evolve from its own execution. Whether AI can improve AI still draws conflicting answers, largely because the relevant literatures do not define autonomy and improvement the same way. This survey covers more than 200 papers and technical reports, and defines long-horizon execution as a repeated plan–execute–feedback–repair loop. AI for AI introduces no new capability class: replace the target of one such execution, so that “finish this task” becomes “improve this system,” keep plan, execute, feedback, and repair as they are, and what comes out is AI4AI. We release a 67-entry benchmark inventory and a close analysis of 35 representative AI4AI systems. Agents are increasingly capable at reproducing, implementing, and optimizing executable artifacts, while research judgment, experimental sufficiency, and sustained post-peak improvement remain open.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>摘要：</strong><a href="https://www.anthropic.com/claude/fable" target="_blank" rel="noreferrer">Claude Fable 5</a>、<a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noreferrer">GPT-5.6</a>、<a href="https://www.kimi.com/ja-jp/blog/kimi-k3" target="_blank" rel="noreferrer">Kimi K3</a>、<a href="https://z.ai/blog/glm-5.2" target="_blank" rel="noreferrer">GLM-5.2</a> 的发布材料指向同一方向：让模型持续执行 agentic 任务，并从自身的执行过程中进化。围绕“AI 能否改进 AI”的结论仍存在分歧，这在很大程度上源于各文献对“自主”与“改进”的定义并不一致。本文综述 200 余篇论文与技术报告，将 long-horizon execution 定义为反复执行的 plan–execute–feedback–repair 闭环。AI for AI 并未引入新的能力类别：将一次 long-horizon execution 的 target 从“完成这个任务”替换为“改进这个系统”，plan、execute、feedback、repair 四个阶段原样保留，所得即为 AI4AI。我们发布一份 67 条目的 benchmark inventory，以及对 35 个代表性 AI4AI 系统的细致分析：agent 在复现、实现与优化可执行产物上日益胜任，研究判断、实验充分性与越过峰值之后的持续改进仍是开放问题。</span>
+            <span class="lang-en" lang="en"><strong>Abstract:</strong> Frontier releases including <a href="https://www.anthropic.com/claude/fable" target="_blank" rel="noreferrer">Claude Fable 5</a>, <a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noreferrer">GPT-5.6</a>, <a href="https://www.kimi.com/ja-jp/blog/kimi-k3" target="_blank" rel="noreferrer">Kimi K3</a>, and <a href="https://z.ai/blog/glm-5.3" target="_blank" rel="noreferrer">GLM-5.3</a> are converging on sustained agentic work. AI agents can now run experiments, modify code and training pipelines, and iteratively improve AI artifacts, yet the relevant information is scattered across distinct concepts such as long-horizon agents, AI4AI, self-improvement, and recursive self-improvement. This survey asks how far an AI system can reliably carry an improvement process from idea to a validated result. Across model design, agent harnesses, benchmarks, automated research, and self-modifying systems, a consistent pattern emerges: AI is becoming increasingly capable at planning, coding, experimentation, optimization, and repair. Yet humans still largely determine the goals, evaluation criteria, and what counts as progress. Strong component performance also rarely translates into reliable end-to-end improvement; we call this the <strong>composition gap</strong>. Current systems can produce impressive improvements under bounded conditions, but evidence for reliable research judgment, causal experimentation, persistent gains, and compounding improvement remains limited.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>摘要：</strong><a href="https://www.anthropic.com/claude/fable" target="_blank" rel="noreferrer">Claude Fable 5</a>、<a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noreferrer">GPT-5.6</a>、<a href="https://www.kimi.com/ja-jp/blog/kimi-k3" target="_blank" rel="noreferrer">Kimi K3</a>、<a href="https://z.ai/blog/glm-5.3" target="_blank" rel="noreferrer">GLM-5.3</a> 等前沿模型正在共同指向持续的 agentic 工作。AI agent 已经能够运行实验、修改代码与训练流程，并迭代改进 AI artifact，但相关信息分散在 long-horizon agent、AI4AI、self-improvement 与 recursive self-improvement 等不同概念中。这篇综述围绕一个问题展开：AI 系统能否可靠地把改进从想法推进到验证后的结果？梳理 model design、agent harness、benchmark、automated research 和 self-modifying system 等方向后，我们看到一个稳定的模式：AI 已越来越擅长规划、编码、实验、优化和修复；但目标、评测标准以及“什么算进步”仍主要由人决定；单项能力的高分也很少能转化为可靠的端到端改进，我们将这一落差称为 <strong>composition gap</strong>。现有系统已能在边界清晰的条件下取得改进，但对可靠研究判断、因果实验、持续增益和复合式自我改进的证据仍然有限。</span>
           </p>
         </div>
 
