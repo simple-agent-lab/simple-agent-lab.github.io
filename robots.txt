@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://simpleagentlab.com/sitemap.xml
+Sitemap: https://simpleagentlab.com/RSIHub/sitemap.xml
