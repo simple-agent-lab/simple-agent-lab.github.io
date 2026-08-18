@@ -115,6 +115,11 @@ class RSIHubCompatibilityTests(unittest.TestCase):
         self.assertIn("<loc>https://simpleagentlab.com/rsihub/</loc>", text)
         self.assertNotIn("<loc>https://simpleagentlab.com/evolvex/</loc>", text)
 
+    def test_robots_exposes_site_and_documentation_sitemaps(self):
+        text = (ROOT / "robots.txt").read_text(encoding="utf-8")
+        self.assertIn("Sitemap: https://simpleagentlab.com/sitemap.xml", text)
+        self.assertIn("Sitemap: https://simpleagentlab.com/RSIHub/sitemap.xml", text)
+
     def test_old_identity_is_absent_from_published_files(self):
         allowed = {
             Path("tests/test_rsihub_migration.py"),
