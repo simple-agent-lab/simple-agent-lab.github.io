@@ -256,15 +256,15 @@ footer a:hover { color: var(--fg); }
 .project-page .authors {
   margin-bottom: .45rem;
   color: var(--soft);
-  font: 450 13.5px/1.75 var(--sans);
+  font: 450 12.5px/1.65 var(--sans);
 }
 .project-page .affiliations {
   margin-bottom: 1.6rem;
   color: var(--faint);
-  font: 450 12px/1.7 var(--sans);
+  font: 450 11.5px/1.6 var(--sans);
 }
 .project-page .authors sup, .project-page .affiliations sup {
-  font-size: 9px;
+  font-size: 8.5px;
   color: var(--faint);
 }
 .project-page h3 { margin: 2rem 0 .4rem; font: 700 1.02rem/1.35 var(--serif); }
@@ -280,9 +280,10 @@ footer a:hover { color: var(--fg); }
   gap: 4px;
   color: var(--soft);
   font: 600 13px/1 var(--sans);
-  text-decoration: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
-.page-actions a:hover { color: var(--fg); text-decoration: underline; }
+.page-actions a:hover { color: var(--fg); }
 .page-actions .soon {
   display: inline-flex;
   align-items: center;
