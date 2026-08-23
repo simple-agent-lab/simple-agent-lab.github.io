@@ -319,6 +319,21 @@ footer a:hover { color: var(--fg); }
   background: var(--rule);
   font: 500 .82em ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
+.project-page .cite-block {
+  margin: 0 0 1.6rem;
+  overflow-x: auto;
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+}
+.project-page .cite-block pre { margin: 0; }
+.project-page .cite-block code {
+  padding: 0;
+  background: none;
+  color: var(--soft);
+  white-space: pre;
+  font: 500 12.5px/1.7 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
 .project-page .doc { min-width: 0; }
 .toc-rail { display: none; }
 .project-page .abstract {

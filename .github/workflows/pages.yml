@@ -35,3 +35,24 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      # Tell IndexNow (Bing, Yandex, Seznam, Naver) that the site changed, so the
+      # new pages get crawled in minutes instead of waiting for a discovery pass.
+      # The key is public by design and must stay served at the keyLocation below.
+      - name: Ping IndexNow
+        continue-on-error: true
+        env:
+          INDEXNOW_KEY: 7c0adc110ed926fce21c24f8501c1239ca908db70bfd0d6ea30fd88cbf8e440b
+        run: |
+          curl -sS --fail-with-body -X POST https://api.indexnow.org/IndexNow \
+            -H 'Content-Type: application/json; charset=utf-8' \
+            -d "{
+              \"host\": \"simpleagentlab.com\",
+              \"key\": \"${INDEXNOW_KEY}\",
+              \"keyLocation\": \"https://simpleagentlab.com/${INDEXNOW_KEY}.txt\",
+              \"urlList\": [
+                \"https://simpleagentlab.com/\",
+                \"https://simpleagentlab.com/ai4ai/\",
+                \"https://simpleagentlab.com/rsihub/\"
+              ]
+            }"
