@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
 
-    <title>On the Eve of AI4AI | Simple Agent Lab</title>
+    <title>On the Eve of AI4AI: A Survey of Long-Horizon Agents and RSI</title>
     <meta
       name="description"
-      content="AI can increasingly plan, code, experiment, optimize, and repair, while humans still determine the goals and evaluation criteria. This survey maps the reliable limits of AI4AI and the composition gap."
+      content="An AI4AI survey: how far can AI reliably carry an improvement loop from idea to verified result? A taxonomy, a closure audit of 35 systems, and the composition gap."
     />
     <meta
       name="keywords"
-      content="AI4AI, long-horizon agents, recursive self-improvement, RSI, self-improving systems, self-evolving agents, closure audit, agent evaluation, harness, survey"
+      content="AI4AI survey, survey of AI4AI, AI4AI, AI for AI, long-horizon agents survey, recursive self-improvement survey, RSI, self-improving systems, self-evolving agents, closure audit, composition gap, agent evaluation, harness, LLM agent survey"
     />
     <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="Simple Agent Lab" />
     <link rel="canonical" href="https://simpleagentlab.com/ai4ai/" />
 
-    <meta property="og:title" content="On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement" />
+    <meta property="og:title" content="On the Eve of AI4AI: A Survey of Long-Horizon Agents and Recursive Self-Improvement" />
     <meta
       property="og:description"
       content="A survey of how far AI systems can reliably carry an improvement process from idea to verified result—and what still limits recursive self-improvement."
@@ -25,12 +26,20 @@
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://simpleagentlab.com/ai4ai/" />
     <meta property="og:site_name" content="Simple Agent Lab" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="zh_CN" />
+    <meta property="article:published_time" content="2026-08-12" />
+    <meta property="article:modified_time" content="2026-08-23" />
+    <meta property="article:section" content="Survey" />
+    <meta property="article:tag" content="AI4AI" />
+    <meta property="article:tag" content="Recursive self-improvement" />
+    <meta property="article:tag" content="Long-horizon agents" />
     <meta property="og:image" content="https://simpleagentlab.com/assets/og.png" />
     <meta property="og:image:alt" content="Simple Agent Lab — Simple yet effective methods for AI4AI" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="On the Eve of AI4AI | Simple Agent Lab" />
+    <meta name="twitter:title" content="On the Eve of AI4AI: A Survey of Long-Horizon Agents and RSI" />
     <meta
       name="twitter:description"
       content="AI increasingly performs the work of improvement, but humans still define its goals and evidence. A survey of AI4AI's reliable limits and composition gap."
@@ -41,11 +50,35 @@
       {
         "@context": "https://schema.org",
         "@type": "ScholarlyArticle",
+        "@id": "https://simpleagentlab.com/ai4ai/#article",
+        "name": "On the Eve of AI4AI: A Survey of Long-Horizon Agents and Recursive Self-Improvement",
         "headline": "On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement",
         "alternativeHeadline": "Definitions, Reliable Horizons, and Open Problems",
+        "description": "A survey of AI4AI (AI for AI): how far an AI system can reliably carry an improvement process from idea to a validated result, a taxonomy for locating where the loop closes, a closure audit of 35 systems, and the composition gap that bounds recursive self-improvement.",
+        "abstract": "Frontier releases are converging on sustained agentic work. AI agents can now run experiments, modify code and training pipelines, and iteratively improve AI artifacts, yet the relevant information is scattered across distinct concepts such as long-horizon agents, AI4AI, self-improvement, and recursive self-improvement. This survey asks how far an AI system can reliably carry an improvement process from idea to a validated result. Across model design, agent harnesses, benchmarks, automated research, and self-modifying systems, a consistent pattern emerges: AI is becoming increasingly capable at planning, coding, experimentation, optimization, and repair, yet humans still largely determine the goals, evaluation criteria, and what counts as progress. Strong component performance also rarely translates into reliable end-to-end improvement; we call this the composition gap.",
+        "genre": "survey",
+        "learningResourceType": "survey",
         "url": "https://simpleagentlab.com/ai4ai/",
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "https://simpleagentlab.com/ai4ai/" },
+        "image": "https://simpleagentlab.com/ai4ai/assets/cover.jpg",
         "datePublished": "2026-08-12",
+        "dateModified": "2026-08-23",
         "inLanguage": ["en", "zh-CN"],
+        "isAccessibleForFree": true,
+        "keywords": [
+          "AI4AI survey",
+          "AI4AI",
+          "AI for AI",
+          "Long-horizon agents",
+          "Recursive self-improvement",
+          "RSI",
+          "Self-improving systems",
+          "Self-evolving agents",
+          "Closure audit",
+          "Composition gap",
+          "Agent evaluation",
+          "Harness"
+        ],
         "author": [
           { "@type": "Person", "name": "Kai Wu" },
           { "@type": "Person", "name": "Hao Lyu" },
@@ -71,8 +104,49 @@
           { "@type": "Person", "name": "Xiaobin Hu" },
           { "@type": "Person", "name": "Qingwen Liu" }
         ],
-        "publisher": { "@id": "https://simpleagentlab.com/#organization" },
-        "about": ["AI4AI", "Long-horizon agents", "Recursive self-improvement", "Agent evaluation"]
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://simpleagentlab.com/#organization",
+          "name": "Simple Agent Lab",
+          "url": "https://simpleagentlab.com/",
+          "logo": "https://simpleagentlab.com/assets/logo.png"
+        },
+        "about": [
+          "AI4AI",
+          "Long-horizon agents",
+          "Recursive self-improvement",
+          "Self-improving systems",
+          "Agent evaluation"
+        ],
+        "mentions": [
+          {
+            "@type": "SoftwareSourceCode",
+            "name": "RSIHub",
+            "url": "https://simpleagentlab.com/rsihub/",
+            "codeRepository": "https://github.com/simple-agent-lab/RSIHub"
+          }
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Simple Agent Lab",
+            "item": "https://simpleagentlab.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "AI4AI Survey",
+            "item": "https://simpleagentlab.com/ai4ai/"
+          }
+        ]
       }
     </script>
 
@@ -180,6 +254,12 @@
                   <span class="lang-zh" lang="zh-CN">结论</span>
                 </a>
               </li>
+              <li>
+                <a href="#cite">
+                  <span class="lang-en" lang="en">How to cite</span>
+                  <span class="lang-zh" lang="zh-CN">如何引用</span>
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
@@ -195,13 +275,13 @@
         </figure>
 
         <p class="eyebrow">
-          <span class="lang-en" lang="en">Paper · August 2026</span>
-          <span class="lang-zh" lang="zh-CN">论文 · 2026 年 8 月</span>
+          <span class="lang-en" lang="en">Survey · August 2026</span>
+          <span class="lang-zh" lang="zh-CN">综述 · 2026 年 8 月</span>
         </p>
         <h1>On the Eve of AI4AI</h1>
         <p class="tagline">
-          <span class="lang-en" lang="en">From long-horizon agents to recursive self-improvement.</span>
-          <span class="lang-zh" lang="zh-CN">从 long-horizon agent 到 recursive self-improvement。</span>
+          <span class="lang-en" lang="en">A survey of AI4AI: from long-horizon agents to recursive self-improvement.</span>
+          <span class="lang-zh" lang="zh-CN">AI4AI 综述：从 long-horizon agent 到 recursive self-improvement。</span>
         </p>
         <p class="subtitle">
           <span class="lang-en" lang="en">Definitions, reliable horizons, and open problems.</span>
@@ -445,6 +525,24 @@
           <span class="lang-en" lang="en">If reading leaves you wanting to build: <a href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">RSIHub</a> is our open-source framework for self-evolving agents, and a place to start your own AI4AI research. Issues and pull requests are welcome.</span>
           <span class="lang-zh" lang="zh-CN">如果读完想动手：<a href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">RSIHub</a> 是我们开源的 self-evolving agent 框架，你的 AI4AI 研究可以从那里开始，欢迎 issue 和 PR。</span>
         </p>
+
+        <h2 id="cite">
+          <span class="lang-en" lang="en">How to cite this AI4AI survey</span>
+          <span class="lang-zh" lang="zh-CN">如何引用这篇 AI4AI 综述</span>
+        </h2>
+        <p>
+          <span class="lang-en" lang="en">If this survey helps your work, please cite it as:</span>
+          <span class="lang-zh" lang="zh-CN">如果这篇综述对你的工作有帮助，请按如下方式引用：</span>
+        </p>
+        <div class="cite-block">
+          <pre><code>@misc{simpleagentlab2026ai4ai,
+  title  = {On the Eve of AI4AI: A Survey of Long-Horizon Agents and
+            Recursive Self-Improvement},
+  author = {Wu, Kai and Lyu, Hao and Luo, Zhen and Simple Agent Lab},
+  year   = {2026},
+  url    = {https://simpleagentlab.com/ai4ai/}
+}</code></pre>
+        </div>
 
         <a class="back-link" href="../">
           <span class="lang-en" lang="en">← Back to Simple Agent Lab</span>
