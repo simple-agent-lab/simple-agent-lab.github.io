@@ -161,6 +161,36 @@ class HomepageLinkTests(unittest.TestCase):
         self.assertIn("A survey of AI4AI", text)
 
 
+class CrossPageConsistencyTests(unittest.TestCase):
+    """The homepage and /ai4ai/ both emit a ScholarlyArticle under one @id.
+    Consumers merge nodes by @id, so any field both pages define must agree —
+    this is exactly how the stale-title conflict slipped in once already."""
+
+    ARTICLE_ID = "https://simpleagentlab.com/ai4ai/#article"
+
+    def article_node(self, page):
+        return next(
+            node
+            for node in json_ld_nodes(parse_head(page))
+            if node.get("@id") == self.ARTICLE_ID
+        )
+
+    def test_shared_fields_agree_and_authors_stay_canonical(self):
+        canonical = self.article_node("ai4ai/index.html")
+        homepage = self.article_node("index.html")
+        for key in set(canonical) & set(homepage):
+            ours, theirs = homepage[key], canonical[key]
+            # A bare {"@id": ...} reference is compatible with the full node it
+            # points at; only differing values are a conflict.
+            if isinstance(ours, dict) and isinstance(theirs, dict):
+                if ours.get("@id") and ours.get("@id") == theirs.get("@id"):
+                    continue
+            self.assertEqual(ours, theirs, f"@id-merged field {key!r} conflicts")
+        # The paper's byline is 23 people on the canonical page; the homepage
+        # must not overwrite it with the lab as author.
+        self.assertNotIn("author", homepage)
+
+
 class SitemapTests(unittest.TestCase):
     def test_every_indexable_page_is_listed_once(self):
         tree = ElementTree.parse(ROOT / "sitemap.xml")
