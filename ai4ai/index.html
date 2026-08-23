@@ -18,6 +18,45 @@
     <meta name="author" content="Simple Agent Lab" />
     <link rel="canonical" href="https://simpleagentlab.com/ai4ai/" />
 
+    <!-- Google Scholar indexes self-hosted papers through these tags, which is how
+         this survey gets a scholarly record without arXiv. Two rules govern them:
+         citation_title / citation_author / citation_publication_date are all
+         required (drop one and Scholar ignores the rest), and they must match the
+         PDF's own title page exactly. Keep them in sync with the PDF, not with the
+         page's marketing copy. Once the PDF ships, add:
+           <meta name="citation_pdf_url" content="https://simpleagentlab.com/ai4ai/on-the-eve-of-ai4ai.pdf" />
+         Without that tag Scholar processes the PDF as if it carried no metadata. -->
+    <meta name="citation_title" content="On the Eve of AI4AI: A Survey of Long-Horizon Agents and Recursive Self-Improvement" />
+    <meta name="citation_author" content="Wu, Kai" />
+    <meta name="citation_author" content="Lyu, Hao" />
+    <meta name="citation_author" content="Luo, Zhen" />
+    <meta name="citation_author" content="Wang, Chaofan" />
+    <meta name="citation_author" content="Ye, Siyu" />
+    <meta name="citation_author" content="Lin, Jinghao" />
+    <meta name="citation_author" content="Ji, Xiaozhong" />
+    <meta name="citation_author" content="Jiang, Boyuan" />
+    <meta name="citation_author" content="Wang, Shengzhi" />
+    <meta name="citation_author" content="Wang, Zihan" />
+    <meta name="citation_author" content="Ye, Yiwen" />
+    <meta name="citation_author" content="Wang, Hao" />
+    <meta name="citation_author" content="Wang, Zimu" />
+    <meta name="citation_author" content="Liu, Wenzhe" />
+    <meta name="citation_author" content="Wang, Ruobing" />
+    <meta name="citation_author" content="Cai, Kai" />
+    <meta name="citation_author" content="Xiong, Mingliang" />
+    <meta name="citation_author" content="Fang, Wen" />
+    <meta name="citation_author" content="Liu, Mingqing" />
+    <meta name="citation_author" content="Zhang, Yifan" />
+    <meta name="citation_author" content="Yang, Lei" />
+    <meta name="citation_author" content="Hu, Xiaobin" />
+    <meta name="citation_author" content="Liu, Qingwen" />
+    <meta name="citation_publication_date" content="2026/08/12" />
+    <meta name="citation_online_date" content="2026/08/12" />
+    <meta name="citation_technical_report_institution" content="Simple Agent Lab" />
+    <meta name="citation_abstract_html_url" content="https://simpleagentlab.com/ai4ai/" />
+    <meta name="citation_language" content="en" />
+    <meta name="citation_keywords" content="AI4AI; long-horizon agents; recursive self-improvement; self-improving systems; agent evaluation; composition gap" />
+
     <meta property="og:title" content="On the Eve of AI4AI: A Survey of Long-Horizon Agents and Recursive Self-Improvement" />
     <meta
       property="og:description"
@@ -52,7 +91,7 @@
         "@type": "ScholarlyArticle",
         "@id": "https://simpleagentlab.com/ai4ai/#article",
         "name": "On the Eve of AI4AI: A Survey of Long-Horizon Agents and Recursive Self-Improvement",
-        "headline": "On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement",
+        "headline": "On the Eve of AI4AI: A Survey of Long-Horizon Agents and Recursive Self-Improvement",
         "alternativeHeadline": "Definitions, Reliable Horizons, and Open Problems",
         "description": "A survey of AI4AI (AI for AI): how far an AI system can reliably carry an improvement process from idea to a validated result, a taxonomy for locating where the loop closes, a closure audit of 35 systems, and the composition gap that bounds recursive self-improvement.",
         "abstract": "Frontier releases are converging on sustained agentic work. AI agents can now run experiments, modify code and training pipelines, and iteratively improve AI artifacts, yet the relevant information is scattered across distinct concepts such as long-horizon agents, AI4AI, self-improvement, and recursive self-improvement. This survey asks how far an AI system can reliably carry an improvement process from idea to a validated result. Across model design, agent harnesses, benchmarks, automated research, and self-modifying systems, a consistent pattern emerges: AI is becoming increasingly capable at planning, coding, experimentation, optimization, and repair, yet humans still largely determine the goals, evaluation criteria, and what counts as progress. Strong component performance also rarely translates into reliable end-to-end improvement; we call this the composition gap.",

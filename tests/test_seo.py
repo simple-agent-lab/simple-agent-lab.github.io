@@ -104,6 +104,56 @@ class SurveyPageTests(unittest.TestCase):
         self.assertTrue(article["abstract"])
 
 
+class GoogleScholarTests(unittest.TestCase):
+    """Scholar is this survey's route to a scholarly record now that arXiv's CS
+    category refuses review articles without prior peer review, so the citation
+    tags are load-bearing rather than decorative."""
+
+    def setUp(self):
+        self.parser = parse_head("ai4ai/index.html")
+
+    def test_the_three_required_citation_fields_are_present(self):
+        # Scholar discards every tag on the page if any one of these is missing.
+        metas = self.parser.metas
+        self.assertTrue(metas.get("citation_title", [""])[0])
+        self.assertTrue(metas.get("citation_publication_date", [""])[0])
+        self.assertGreaterEqual(len(metas.get("citation_author", [])), 1)
+
+    def test_citation_authors_match_the_structured_data_byline(self):
+        article = next(
+            node
+            for node in json_ld_nodes(self.parser)
+            if node.get("@type") == "ScholarlyArticle"
+        )
+        expected = [
+            "{}, {}".format(name.split()[-1], " ".join(name.split()[:-1]))
+            for name in (author["name"] for author in article["author"])
+        ]
+        self.assertEqual(self.parser.metas["citation_author"], expected)
+
+    def test_citation_title_matches_the_structured_data_title(self):
+        article = next(
+            node
+            for node in json_ld_nodes(self.parser)
+            if node.get("@type") == "ScholarlyArticle"
+        )
+        title = self.parser.metas["citation_title"][0]
+        self.assertEqual(title, article["name"])
+        self.assertEqual(title, article["headline"])
+
+    def test_a_declared_pdf_is_actually_served(self):
+        # A citation_pdf_url that 404s makes Scholar drop the record entirely,
+        # so the tag may only appear once the file is committed.
+        declared = self.parser.metas.get("citation_pdf_url")
+        if not declared:
+            self.skipTest("no PDF published yet")
+        for url in declared:
+            relative = url.removeprefix("https://simpleagentlab.com/")
+            self.assertTrue(
+                (ROOT / relative).is_file(), f"{url} is declared but not in the repo"
+            )
+
+
 class HomepageLinkTests(unittest.TestCase):
     def test_homepage_links_to_the_survey_with_descriptive_anchor_text(self):
         text = (ROOT / "index.html").read_text(encoding="utf-8")
