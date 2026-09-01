@@ -50,9 +50,10 @@ we learn.
 
 ## Selected work
 
-- [**On the Eve of AI4AI**](https://simpleagentlab.com/ai4ai/) — our survey of
+- [**AI4AI Survey**](https://simpleagentlab.com/ai4ai/) — our survey of
   AI4AI, from long-horizon agents to recursive self-improvement: definitions,
   reliable horizons, and a closure audit of 35 systems.
+  [[Paper](https://doi.org/10.20944/preprints202608.2108.v1)]
 - [**AutoTrainess**](https://github.com/simple-agent-lab/AutoTrainess) — teaching language models to improve language
   models autonomously through a training-specialized Agent–Computer Interface.
   [[Paper](https://arxiv.org/abs/2606.31551)]

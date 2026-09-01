@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
 
-    <title>On the Eve of AI4AI: A Survey of Long-Horizon Agents and RSI</title>
+    <title>AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement</title>
     <meta
       name="description"
-      content="An AI4AI survey: how far can AI reliably carry an improvement loop from idea to verified result? A taxonomy, a closure audit of 35 systems, and the composition gap."
+      content="The AI4AI survey, published on Preprints.org: how far can AI reliably carry an improvement loop from idea to verified result? A taxonomy, a closure audit of 35 systems, and the composition gap."
     />
     <meta
       name="keywords"
@@ -18,15 +18,15 @@
     <meta name="author" content="Simple Agent Lab" />
     <link rel="canonical" href="https://simpleagentlab.com/ai4ai/" />
 
-    <!-- Google Scholar indexes self-hosted papers through these tags, which is how
-         this survey gets a scholarly record without arXiv. Two rules govern them:
+    <!-- The paper's scholarly record now lives on Preprints.org
+         (doi:10.20944/preprints202608.2108.v1); Scholar merges this page with
+         that record by title + authors, so these tags must match the published
+         preprint's title page exactly — not the page's marketing copy.
          citation_title / citation_author / citation_publication_date are all
-         required (drop one and Scholar ignores the rest), and they must match the
-         PDF's own title page exactly. Keep them in sync with the PDF, not with the
-         page's marketing copy. Once the PDF ships, add:
-           <meta name="citation_pdf_url" content="https://simpleagentlab.com/ai4ai/on-the-eve-of-ai4ai.pdf" />
-         Without that tag Scholar processes the PDF as if it carried no metadata. -->
-    <meta name="citation_title" content="On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement" />
+         required (drop one and Scholar ignores the rest). Only add a
+         citation_pdf_url once a self-hosted copy of the PDF is committed to
+         this repo; a citation_pdf_url that 404s drops the whole record. -->
+    <meta name="citation_title" content="AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement—Definitions, Reliable Horizons, and Open Problems" />
     <meta name="citation_author" content="Wu, Kai" />
     <meta name="citation_author" content="Lyu, Hao" />
     <meta name="citation_author" content="Luo, Zhen" />
@@ -50,25 +50,26 @@
     <meta name="citation_author" content="Yang, Lei" />
     <meta name="citation_author" content="Hu, Xiaobin" />
     <meta name="citation_author" content="Liu, Qingwen" />
-    <meta name="citation_publication_date" content="2026/08/12" />
-    <meta name="citation_online_date" content="2026/08/12" />
+    <meta name="citation_publication_date" content="2026/08/28" />
+    <meta name="citation_online_date" content="2026/08/28" />
+    <meta name="citation_doi" content="10.20944/preprints202608.2108.v1" />
     <meta name="citation_technical_report_institution" content="Simple Agent Lab" />
     <meta name="citation_abstract_html_url" content="https://simpleagentlab.com/ai4ai/" />
     <meta name="citation_language" content="en" />
     <meta name="citation_keywords" content="AI4AI; AI for AI; large language models; LLM agents; AI agents; long-horizon agents; reliable region; reliable-horizon surface; benchmark survey; self-improving agents; self-evolving agents; recursive self-improvement; autonomous AI research; automated AI research; AI scientists; machine learning engineering; functional coupling; stage ownership; composition gap; agent harness; agent scaffolds; agent evaluation" />
 
-    <meta property="og:title" content="On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement" />
+    <meta property="og:title" content="AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement" />
     <meta
       property="og:description"
-      content="A survey of how far AI systems can reliably carry an improvement process from idea to verified result—and what still limits recursive self-improvement."
+      content="Published on Preprints.org: a survey of how far AI systems can reliably carry an improvement process from idea to verified result—and what still limits recursive self-improvement."
     />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://simpleagentlab.com/ai4ai/" />
     <meta property="og:site_name" content="Simple Agent Lab" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="zh_CN" />
-    <meta property="article:published_time" content="2026-08-12" />
-    <meta property="article:modified_time" content="2026-08-23" />
+    <meta property="article:published_time" content="2026-08-28" />
+    <meta property="article:modified_time" content="2026-09-01" />
     <meta property="article:section" content="Survey" />
     <meta property="article:tag" content="AI4AI" />
     <meta property="article:tag" content="Recursive self-improvement" />
@@ -78,7 +79,7 @@
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="On the Eve of AI4AI: A Survey of Long-Horizon Agents and RSI" />
+    <meta name="twitter:title" content="AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement" />
     <meta
       name="twitter:description"
       content="AI increasingly performs the work of improvement, but humans still define its goals and evidence. A survey of AI4AI's reliable limits and composition gap."
@@ -90,18 +91,26 @@
         "@context": "https://schema.org",
         "@type": "ScholarlyArticle",
         "@id": "https://simpleagentlab.com/ai4ai/#article",
-        "name": "On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement",
-        "headline": "On the Eve of AI4AI: From Long-Horizon Agents to Recursive Self-Improvement",
-        "alternativeHeadline": "Definitions, Reliable Horizons, and Open Problems",
+        "name": "AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement—Definitions, Reliable Horizons, and Open Problems",
+        "headline": "AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement—Definitions, Reliable Horizons, and Open Problems",
         "description": "A survey of AI4AI (AI for AI): how far an AI system can reliably carry an improvement process from idea to a validated result, a taxonomy for locating where the loop closes, a closure audit of 35 systems, and the composition gap that bounds recursive self-improvement.",
-        "abstract": "Can AI improve AI? AI agents can now run experiments, modify code and training pipelines, and iteratively improve AI artifacts—bringing a long-standing idea closer to an empirical research question. Yet the rapidly expanding literature remains fragmented across long-horizon agents, AI for AI (AI4AI), self-improvement, and recursive self-improvement, making it difficult to tell how much progress has actually been made. This survey synthesizes evidence from hundreds of studies to answer this question. We organize the emerging AI4AI landscape around a simple question: how far can an AI system reliably carry an improvement process from idea to verified result? Across model design, agent harnesses, benchmarks, automated research, and self-modifying systems, we examine what current systems can do, how progress should be evaluated, and where claims of self-improvement remain unsupported. AI systems increasingly excel at the work of improvement—planning, coding, experimentation, optimization, and repair—but humans still largely determine the goals, evaluation criteria, and what ultimately counts as progress. Moreover, strong performance on individual components rarely translates into reliable end-to-end AI improvement. We call this composition gap. Today's systems can already produce impressive improvements under bounded conditions, but evidence for reliable research judgment, causal experimentation, persistent gains, and compounding improvement remains limited. By separating demonstrated capability from extrapolated autonomy, this survey maps what AI4AI can do today—and what must change before AI can reliably improve AI itself.",
+        "abstract": "Can AI improve AI? AI agents can now run experiments, modify code and training pipelines, and iteratively improve AI artifacts—bringing a long-standing idea closer to an empirical research question. Yet the rapidly expanding literature remains fragmented across long-horizon agents, AI for AI (AI4AI), self-improvement, and recursive self-improvement, making it difficult to tell how much progress has actually been made. This survey synthesizes evidence from hundreds of studies to answer this question. We organize the emerging AI4AI landscape around a simple question: how far can an AI system reliably carry an improvement process from idea to verified result? Across model design, agent harnesses, benchmarks, automated research, and self-modifying systems, we examine what current systems can do, how progress should be evaluated, and where claims of self-improvement remain unsupported. A striking pattern emerges in the information flow within the taxonomy–benchmark–model–harness structure of this survey. AI systems increasingly excel at the work of improvement—planning, coding, experimentation, optimization, and repair—but humans still largely determine the goals, evaluation criteria, and what ultimately counts as progress. Moreover, strong performance on individual components rarely translates into reliable end-to-end AI improvement. We call this composition gap. Today's systems can already produce impressive improvements under bounded conditions, but evidence for reliable research judgment, causal experimentation, persistent gains, and compounding improvement remains limited. By separating demonstrated capability from extrapolated autonomy, this survey maps what AI4AI can do today—and what must change before AI can reliably improve AI itself. The eve ends the moment a system, for the first time, reliably strengthens its successors without humans specifying the goals or evaluation criteria. We hope this taxonomy and survey will help that moment arrive a little sooner.",
         "genre": "survey",
         "learningResourceType": "survey",
         "url": "https://simpleagentlab.com/ai4ai/",
         "mainEntityOfPage": { "@type": "WebPage", "@id": "https://simpleagentlab.com/ai4ai/" },
         "image": "https://simpleagentlab.com/ai4ai/assets/cover.jpg",
-        "datePublished": "2026-08-12",
-        "dateModified": "2026-08-23",
+        "identifier": {
+          "@type": "PropertyValue",
+          "propertyID": "DOI",
+          "value": "10.20944/preprints202608.2108.v1"
+        },
+        "sameAs": [
+          "https://doi.org/10.20944/preprints202608.2108.v1",
+          "https://www.preprints.org/manuscript/202608.2108/v1"
+        ],
+        "datePublished": "2026-08-28",
+        "dateModified": "2026-09-01",
         "inLanguage": ["en", "zh-CN"],
         "isAccessibleForFree": true,
         "keywords": [
@@ -314,13 +323,13 @@
         </figure>
 
         <p class="eyebrow">
-          <span class="lang-en" lang="en">Survey · August 2026</span>
-          <span class="lang-zh" lang="zh-CN">综述 · 2026 年 8 月</span>
+          <span class="lang-en" lang="en">Survey · Preprints.org · August 2026</span>
+          <span class="lang-zh" lang="zh-CN">综述 · Preprints.org · 2026 年 8 月</span>
         </p>
-        <h1>On the Eve of AI4AI</h1>
+        <h1>AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement</h1>
         <p class="tagline">
-          <span class="lang-en" lang="en">A survey of AI4AI: from long-horizon agents to recursive self-improvement.</span>
-          <span class="lang-zh" lang="zh-CN">AI4AI 综述：从 long-horizon agent 到 recursive self-improvement。</span>
+          <span class="lang-en" lang="en">A survey of AI4AI, now published on Preprints.org — <a href="https://doi.org/10.20944/preprints202608.2108.v1" target="_blank" rel="noreferrer">doi:10.20944/preprints202608.2108.v1</a>.</span>
+          <span class="lang-zh" lang="zh-CN">AI4AI 综述，已在 Preprints.org 正式发布 — <a href="https://doi.org/10.20944/preprints202608.2108.v1" target="_blank" rel="noreferrer">doi:10.20944/preprints202608.2108.v1</a>。</span>
         </p>
         <p class="subtitle">
           <span class="lang-en" lang="en">Definitions, reliable horizons, and open problems.</span>
@@ -344,11 +353,11 @@
           <sup>*</sup>Equal contribution · <sup>†</sup>Corresponding author
         </p>
         <div class="page-actions">
-          <!-- TODO(作者): 论文上线后把这里换成 arXiv 链接。 -->
-          <span class="soon" aria-disabled="true">
-            <span class="lang-en" lang="en">Paper (coming soon)</span>
-            <span class="lang-zh" lang="zh-CN">论文（即将上线）</span>
-          </span>
+          <a href="https://www.preprints.org/manuscript/202608.2108" target="_blank" rel="noreferrer">
+            <span class="lang-en" lang="en">Paper on Preprints.org</span>
+            <span class="lang-zh" lang="zh-CN">论文（Preprints.org）</span>
+            <b aria-hidden="true">↗</b>
+          </a>
           <a href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">
             <span class="lang-en" lang="en">AI4AI harness: start your research here</span>
             <span class="lang-zh" lang="zh-CN">AI4AI 实验框架：从这里开始你的研究</span>
@@ -570,16 +579,19 @@
           <span class="lang-zh" lang="zh-CN">如何引用这篇 AI4AI 综述</span>
         </h2>
         <p>
-          <span class="lang-en" lang="en">If this survey helps your work, please cite it as:</span>
-          <span class="lang-zh" lang="zh-CN">如果这篇综述对你的工作有帮助，请按如下方式引用：</span>
+          <span class="lang-en" lang="en">The survey is published on Preprints.org as <a href="https://doi.org/10.20944/preprints202608.2108.v1" target="_blank" rel="noreferrer">doi:10.20944/preprints202608.2108.v1</a>. If it helps your work, please cite it as:</span>
+          <span class="lang-zh" lang="zh-CN">综述已在 Preprints.org 正式发布（<a href="https://doi.org/10.20944/preprints202608.2108.v1" target="_blank" rel="noreferrer">doi:10.20944/preprints202608.2108.v1</a>）。如果这篇综述对你的工作有帮助，请按如下方式引用：</span>
         </p>
         <div class="cite-block">
-          <pre><code>@misc{wu2026eveofai4ai,
-  title  = {On the Eve of AI4AI: From Long-Horizon Agents to
-            Recursive Self-Improvement},
-  author = {Wu, Kai and Lyu, Hao and Luo, Zhen and others},
-  year   = {2026},
-  url    = {https://simpleagentlab.com/ai4ai/}
+          <pre><code>@article{wu2026ai4aisurvey,
+  title   = {AI4AI Survey: From Long-Horizon Agents to Recursive
+             Self-Improvement---Definitions, Reliable Horizons,
+             and Open Problems},
+  author  = {Wu, Kai and Lyu, Hao and Luo, Zhen and others},
+  year    = {2026},
+  journal = {Preprints},
+  doi     = {10.20944/preprints202608.2108.v1},
+  url     = {https://doi.org/10.20944/preprints202608.2108.v1}
 }</code></pre>
         </div>
 
