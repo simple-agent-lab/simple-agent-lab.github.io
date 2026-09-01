@@ -74,4 +74,58 @@
 
   setLanguage(root.dataset.lang === "zh" ? "zh" : "en", false);
   setTheme(root.dataset.theme === "dark" ? "dark" : "light", false);
+
+  var zoomableImages = document.querySelectorAll(
+    ".project-page figure img, .showcase-grid figure img"
+  );
+  var lightbox = null;
+  var lightboxTrigger = null;
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.remove();
+    lightbox = null;
+    document.body.style.overflow = "";
+    if (lightboxTrigger) lightboxTrigger.focus();
+    lightboxTrigger = null;
+  }
+
+  function openLightbox(image) {
+    closeLightbox();
+    lightboxTrigger = image;
+    lightbox = document.createElement("div");
+    lightbox.className = "lightbox";
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.setAttribute("aria-label", image.alt || "Enlarged image");
+    lightbox.tabIndex = -1;
+
+    var enlarged = document.createElement("img");
+    enlarged.src = image.currentSrc || image.src;
+    enlarged.alt = image.alt || "";
+    lightbox.appendChild(enlarged);
+
+    lightbox.addEventListener("click", closeLightbox);
+    document.body.appendChild(lightbox);
+    document.body.style.overflow = "hidden";
+    lightbox.focus();
+  }
+
+  Array.prototype.forEach.call(zoomableImages, function (image) {
+    image.tabIndex = 0;
+    image.setAttribute("role", "button");
+    image.addEventListener("click", function () {
+      openLightbox(image);
+    });
+    image.addEventListener("keydown", function (event) {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openLightbox(image);
+      }
+    });
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") closeLightbox();
+  });
 })();
