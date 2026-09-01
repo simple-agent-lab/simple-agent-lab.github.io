@@ -387,7 +387,7 @@
 
         <p>
           <span class="lang-en" lang="en">Long-horizon is often equated with long context, many turns, or many tool calls; these proxies are insufficient. We define it structurally: given a goal, a system plans a route, executes against an environment, ingests feedback, and repairs its plan, state, or environment before continuing. A task is long-horizon when success requires this loop to be closed and repeated, so that information and consequences produced by earlier passes must be preserved and validated by later ones. Task pressure arrives along six coupled dimensions: time, steps, context, grounding, verification, and dependency.</span>
-          <span class="lang-zh" lang="zh-CN">long-horizon 常被等同于长 context、多轮交互或大量 tool call，这些代理指标并不充分。我们按结构定义：给定一个 goal，系统 plan 一条路径，对 environment execute，摄入 feedback，并在继续之前 repair 其计划、状态或环境；当成功要求该闭环被闭合并重复，使早先产生的信息与后果必须被后续 pass 保留和验证时，任务才是 long-horizon 的。task pressure 来自六个相互耦合的维度：时间、步数、context、grounding、verification 与依赖。</span>
+          <span class="lang-zh" lang="zh-CN">long-horizon 常被等同于长 context、多轮交互或大量 tool call，但这些都只是代理指标。我们按闭环的结构来定义：给定一个 goal，系统 plan 出一条路径，在 environment 里 execute，接收 feedback，先 repair 计划、状态或环境，再继续。任务什么时候算 long-horizon？当成功依赖这个闭环反复闭合，后面的 pass 必须保留并验证前面 pass 留下的信息和后果。task pressure 来自六个相互耦合的维度：时间、步数、context、grounding、verification 与依赖。</span>
         </p>
         <figure class="framed plate">
           <img
