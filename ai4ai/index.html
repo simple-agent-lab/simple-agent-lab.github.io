@@ -386,8 +386,8 @@
         </h2>
 
         <p>
-          <span class="lang-en" lang="en">Long-horizon is often equated with long context, many turns, or many tool calls; these proxies are insufficient. We define it structurally: given a goal, a system plans a route, executes against an environment, ingests feedback, and repairs its plan, state, or environment before continuing. A task is long-horizon when success requires this loop to be closed and repeated, so that information and consequences produced by earlier passes must be preserved and validated by later ones. Task pressure arrives along six coupled dimensions: time, steps, context, grounding, verification, and dependency.</span>
-          <span class="lang-zh" lang="zh-CN">long-horizon 常被等同于长 context、多轮交互或大量 tool call，这些代理指标并不充分。我们按结构定义：给定一个 goal，系统 plan 一条路径，对 environment execute，摄入 feedback，并在继续之前 repair 其计划、状态或环境；当成功要求该闭环被闭合并重复，使早先产生的信息与后果必须被后续 pass 保留和验证时，任务才是 long-horizon 的。task pressure 来自六个相互耦合的维度：时间、步数、context、grounding、verification 与依赖。</span>
+          <span class="lang-en" lang="en">The atomic capabilities AI4AI needs are largely in place: today's models can plan, write code, run experiments, analyze results, and repair failures, and each one alone is already close to good enough. Whether these capabilities still run reliably once chained into one long task is the long-horizon challenge. Long-horizon is often equated with long context, many turns, or many tool calls, but these are only proxies. The survey develops the fuller definition and metrics around four questions: what is improved, why long-horizon matters, how to measure, and when does it recurse (RSI).</span>
+          <span class="lang-zh" lang="zh-CN">AI4AI 需要的原子能力其实已经基本齐了：今天的模型会规划、会写代码、会跑实验、会分析结果、会修复问题，单拿出来每一项都已基本够用。但这些能力串成一条长任务之后还能不能稳定运转，正是 long-horizon 任务的挑战。long-horizon 常被等同于长 context、多轮交互或大量 tool call，但这些只是表象，长并不等于长程。更完整的定义和度量，我们在综述里围绕四个问题展开：改进的是什么、为什么 long-horizon 重要、如何度量、以及何时开始递归修改（RSI）。</span>
         </p>
         <figure class="framed plate">
           <img
@@ -395,8 +395,8 @@
             alt="Four organizing questions: what the loop may change, why a single pass is already long-horizon, how to measure task pressure, closure and evidence, and when self-reference turns the loop inward."
           />
           <figcaption>
-            <span class="lang-en" lang="en">Four organizing questions: what may change, why one pass is long-horizon, how to measure, and when the loop recurses inward.</span>
-            <span class="lang-zh" lang="zh-CN">四个组织问题：改什么、为何 long-horizon、如何测量、何时向内递归。</span>
+            <span class="lang-en" lang="en">Our taxonomy of the long-horizon loop.</span>
+            <span class="lang-zh" lang="zh-CN">我们的 long-horizon 闭环 taxonomy。</span>
           </figcaption>
         </figure>
 
