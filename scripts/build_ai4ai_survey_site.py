@@ -9,6 +9,12 @@ every asset it needs under assets/, links back to the lab site made
 absolute, and the canonical, Open Graph, citation and JSON-LD URLs pointed
 at the new domain. The sync workflow pushes the output to that repository.
 
+The two pages are deliberately not identical. The lab site keeps the
+long-form article; the new domain is framed as the paper's project page
+(title, description, opening lines, resource links), and each page links
+to the other, so search engines see two pages with different jobs rather
+than one page mirrored.
+
 Usage: build_ai4ai_survey_site.py OUTPUT_DIR
 """
 
@@ -23,16 +29,75 @@ PAGE_URL = LAB_URL + "ai4ai/"
 SITE_URL = "https://ai4ai-survey.github.io/"
 SHARED_ASSETS = ["styles.css", "site.js", "logo.svg", "logo.png", "favicon.svg"]
 
+LAB_TITLE = "AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement"
+SITE_TITLE = "AI4AI Survey Project Page: Paper, Code, Citation, and Key Findings"
+SITE_DESCRIPTION = (
+    "Project page of the AI4AI survey (Preprints.org, 2026): the paper, the "
+    "RSIHub code, BibTeX, and the survey's main findings on long-horizon "
+    "agents, closure, the model and harness routes, and the composition gap."
+)
+SITE_SOCIAL_DESCRIPTION = (
+    "Paper, code, citation, and key findings of the AI4AI survey: how far AI "
+    "can reliably carry an improvement loop, and what still bounds recursive "
+    "self-improvement."
+)
+
 # Each rewrite must match at least once so a page restructure fails the
 # build instead of silently shipping a page with broken links.
 REWRITES = [
+    # Paths and URLs: make the page self-contained on the new domain.
     ('href="../assets/', 'href="./assets/'),
     ('src="../assets/', 'src="./assets/'),
     ('href="../"', 'href="%s"' % LAB_URL),
     ('href="../disclaimer.html"', 'href="%sdisclaimer.html"' % LAB_URL),
     (PAGE_URL + "assets/", SITE_URL + "assets/"),
     (PAGE_URL, SITE_URL),
+    # Framing: this domain is the paper's project page, not a mirror.
+    ("<title>%s</title>" % LAB_TITLE, "<title>%s</title>" % SITE_TITLE),
+    ('property="og:title" content="%s"' % LAB_TITLE,
+     'property="og:title" content="%s"' % SITE_TITLE),
+    ('name="twitter:title" content="%s"' % LAB_TITLE,
+     'name="twitter:title" content="%s"' % SITE_TITLE),
+    ('content="The AI4AI survey, published on Preprints.org: how far can AI reliably '
+     'carry an improvement loop from idea to verified result? A taxonomy, a closure '
+     'audit of 35 systems, and the composition gap."',
+     'content="%s"' % SITE_DESCRIPTION),
+    ('content="Published on Preprints.org: a survey of how far AI systems can reliably '
+     'carry an improvement process from idea to verified result\u2014and what still '
+     'limits recursive self-improvement."',
+     'content="%s"' % SITE_SOCIAL_DESCRIPTION),
+    ('content="AI increasingly performs the work of improvement, but humans still '
+     'define its goals and evidence. A survey of AI4AI\'s reliable limits and '
+     'composition gap."',
+     'content="%s"' % SITE_SOCIAL_DESCRIPTION),
+    ('<span class="lang-en" lang="en">Survey · Preprints.org · August 2026</span>',
+     '<span class="lang-en" lang="en">Project page · Survey · Preprints.org · August 2026</span>'),
+    ('<span class="lang-zh" lang="zh-CN">综述 · Preprints.org · 2026 年 8 月</span>',
+     '<span class="lang-zh" lang="zh-CN">项目主页 · 综述 · Preprints.org · 2026 年 8 月</span>'),
+    ('<span class="lang-en" lang="en">A survey of AI4AI: definitions, reliable horizons, and open problems.</span>',
+     '<span class="lang-en" lang="en">Project page for the AI4AI survey: paper, code, citation, and the main findings.</span>'),
+    ('<span class="lang-zh" lang="zh-CN">AI4AI 综述：定义、可靠 horizon 与开放问题。</span>',
+     '<span class="lang-zh" lang="zh-CN">AI4AI 综述项目主页：论文、代码、引用与主要结论。</span>'),
+    # The lab page links here; here the same slot links back to the article.
+    ('<a class="project-page-link" href="%s" target="_blank" rel="noreferrer">\n'
+     '            <span class="lang-en" lang="en">Project page</span>\n'
+     '            <span class="lang-zh" lang="zh-CN">项目主页</span>' % SITE_URL,
+     '<a class="project-page-link" href="%s">\n'
+     '            <span class="lang-en" lang="en">Full article on simpleagentlab.com</span>\n'
+     '            <span class="lang-zh" lang="zh-CN">完整文章（simpleagentlab.com）</span>' % PAGE_URL),
+    # Structured data: name the lab article as another page about the paper.
+    ('"sameAs": [\n', '"sameAs": [\n          "%s",\n' % PAGE_URL),
 ]
+
+# Inserted between the action links and the abstract, so the first thing
+# a reader (or a crawler) sees after the byline is what this page is for.
+INTRO = """        <p class="opening-note">
+          <span class="lang-en" lang="en">This is the project page for the survey: paper, code, citation, and the write-up in one place. The same write-up also runs on the lab site at <a href="%s">simpleagentlab.com/ai4ai</a>, next to the lab's other projects.</span>
+          <span class="lang-zh" lang="zh-CN">这里是综述的项目主页，论文、代码、引用方式和正文都在这一页。同一篇正文也发布在实验室网站 <a href="%s">simpleagentlab.com/ai4ai</a>，和实验室的其他工作放在一起。</span>
+        </p>
+
+""" % (PAGE_URL, PAGE_URL)
+INTRO_ANCHOR = '        <div class="abstract" id="abstract">\n'
 
 ROBOTS = """User-agent: *
 Allow: /
@@ -72,8 +137,12 @@ def build_page(source):
     leftovers = re.findall(r'(?:href|src)="\.\./[^"]*"', page)
     if leftovers:
         raise SystemExit("parent-relative paths left in page: %s" % leftovers)
-    if PAGE_URL in page:
-        raise SystemExit("page still names %s" % PAGE_URL)
+    if page.count(INTRO_ANCHOR) != 1:
+        raise SystemExit("abstract block not found in ai4ai/index.html")
+    page = page.replace(INTRO_ANCHOR, INTRO + INTRO_ANCHOR)
+    for tag in ('rel="canonical" href="%s"', 'property="og:url" content="%s"'):
+        if tag % PAGE_URL in page:
+            raise SystemExit("page still claims %s as its own URL" % PAGE_URL)
     return page
 
 
