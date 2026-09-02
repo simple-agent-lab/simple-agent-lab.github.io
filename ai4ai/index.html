@@ -380,25 +380,29 @@
 
         <div class="glance" aria-labelledby="glance-title">
           <p class="glance-title" id="glance-title">
-            <span class="lang-en" lang="en">At a glance</span>
-            <span class="lang-zh" lang="zh-CN">一眼看懂</span>
+            <span class="lang-en" lang="en">Outline</span>
+            <span class="lang-zh" lang="zh-CN">内容大纲</span>
           </p>
           <ol>
             <li>
-              <span class="lang-en" lang="en"><a href="#loop">AI4AI is a loop</a>: goal, plan, execute, feedback, repair. Each skill is already strong. Keeping the loop running for a long stretch is the bottleneck.</span>
-              <span class="lang-zh" lang="zh-CN"><a href="#loop">AI4AI 是一个闭环</a>：goal、plan、execute、feedback、repair。每项能力单独都已经很强，卡点是让闭环长时间稳定地跑。</span>
+              <span class="lang-en" lang="en"><a href="#loop">AI4AI is a long-horizon loop</a> of goal, plan, execute, feedback, and repair. Models handle each stage well enough on its own. The hard part is keeping the loop running for a long time without breaking.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#loop">AI4AI 是一个指向 AI 系统的 long-horizon 闭环</a>，由 goal、plan、execute、feedback、repair 五个环节组成。模型单项都够用了，难的是让闭环长时间跑下去不出错。</span>
             </li>
             <li>
-              <span class="lang-en" lang="en"><a href="#closure">Closure</a> is the question that separates paradigms: which stages does the system own? In all 35 audited systems, execute is system-owned and goal never is.</span>
-              <span class="lang-zh" lang="zh-CN"><a href="#closure">Closure</a> 是区分范式的关键：哪些环节由系统自己完成？盘点的 35 个系统里，execute 全部自主，goal 没有一个自主。</span>
+              <span class="lang-en" lang="en"><a href="#closure">Where closure sits</a>. Which stages a system runs on its own. Of the 35 systems we audited, every one runs execute itself and none sets its own goal.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#closure">自主到哪一步</a>。用 closure 这个维度看系统自己完成了哪几个环节。盘点的 35 个系统里，execute 都是系统自己做的，goal 全部由人定。</span>
             </li>
             <li>
-              <span class="lang-en" lang="en"><a href="#horizon">Two routes</a> extend the reliable horizon: the model lowers per-step error, the harness contains and recovers from errors. The harness matters more than most people assume.</span>
-              <span class="lang-zh" lang="zh-CN"><a href="#horizon">两条路线</a>延长可靠 horizon：model 降低单步错误，harness 隔离并恢复错误。harness 的作用比多数人想的大。</span>
+              <span class="lang-en" lang="en"><a href="#horizon">Two routes to a longer horizon</a>. The model lowers per-step error, the harness contains and recovers from errors. Among comparable models, changing the harness can matter more than changing the model.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#horizon">model 与 harness 两条路线</a>。model 降低单步错误，harness 隔离并恢复错误。能力相当的模型之间，换 harness 的影响可以超过换模型。</span>
             </li>
             <li>
-              <span class="lang-en" lang="en"><a href="#composition">Composition gap</a>: strong parts, unreliable whole. Gains can be bought with budget, so a success rate only means something next to its cost.</span>
-              <span class="lang-zh" lang="zh-CN"><a href="#composition">Composition gap</a>：组件很强，整体不可靠。增益可以用预算买来，成功率只有和成本放在一起看才有意义。</span>
+              <span class="lang-en" lang="en"><a href="#composition">Why composition is less reliable than its parts</a>. Strong pieces, unreliable whole. The paper calls this the composition gap. Gains can be bought with budget, so a success rate means little without its cost.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#composition">组件组合之后为何不可靠</a>。单项很强，拼起来不可靠，论文把这叫 composition gap。增益能用预算买来，所以成功率要和成本一起报。</span>
+            </li>
+            <li>
+              <span class="lang-en" lang="en"><a href="#conclusion">Conclusion</a>. What AI4AI lacks is not capability. It is the authority to decide.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#conclusion">结论</a>。AI4AI 缺的不是能力，是决策权。</span>
             </li>
           </ol>
         </div>
