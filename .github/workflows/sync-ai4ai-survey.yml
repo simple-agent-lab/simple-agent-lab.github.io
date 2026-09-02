@@ -1,0 +1,65 @@
+name: Sync the survey page to ai4ai-survey.github.io
+
+# The AI4AI survey is maintained here under ai4ai/ and also published at
+# https://ai4ai-survey.github.io/ from the ai4ai-survey/ai4ai-survey.github.io
+# repository. This workflow rebuilds that standalone copy and pushes it
+# whenever the page or the shared assets change, so one push here deploys
+# both sites. AI4AI_SURVEY_DEPLOY is a write-enabled deploy key of the
+# target repository.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ai4ai/**"
+      - "assets/**"
+      - "scripts/build_ai4ai_survey_site.py"
+      - ".github/workflows/sync-ai4ai-survey.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-ai4ai-survey
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      TARGET_REPO: git@github.com:ai4ai-survey/ai4ai-survey.github.io.git
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build the standalone site
+        run: python3 scripts/build_ai4ai_survey_site.py _ai4ai_survey_site
+
+      - name: Install the deploy key
+        env:
+          DEPLOY_KEY: ${{ secrets.AI4AI_SURVEY_DEPLOY }}
+        run: |
+          if [ -z "$DEPLOY_KEY" ]; then
+            echo "::error::secret AI4AI_SURVEY_DEPLOY is not set"; exit 1
+          fi
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/ai4ai_survey_deploy
+          chmod 600 ~/.ssh/ai4ai_survey_deploy
+          ssh-keyscan -t ed25519,rsa github.com >> ~/.ssh/known_hosts 2>/dev/null
+          echo "GIT_SSH_COMMAND=ssh -i ~/.ssh/ai4ai_survey_deploy -o IdentitiesOnly=yes" >> "$GITHUB_ENV"
+
+      - name: Push to the target repository
+        run: |
+          git clone --depth 1 --branch main "$TARGET_REPO" _target
+          rsync -a --delete --exclude .git _ai4ai_survey_site/ _target/
+          cd _target
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Target already up to date."; exit 0
+          fi
+          git -c user.name="simple-agent-lab sync" \
+              -c user.email="noreply@simpleagentlab.com" \
+              commit -q -m "Sync from simple-agent-lab.github.io@${GITHUB_SHA::7}" \
+              -m "Source: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}"
+          git push origin main

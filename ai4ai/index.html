@@ -280,8 +280,8 @@
               </li>
               <li>
                 <a href="#closure">
-                  <span class="lang-en" lang="en">Where closure sits</span>
-                  <span class="lang-zh" lang="zh-CN">自主到哪一步</span>
+                  <span class="lang-en" lang="en">AutoML, AI4AI, RSI: where the line falls</span>
+                  <span class="lang-zh" lang="zh-CN">AutoML、AI4AI、RSI 的分界</span>
                 </a>
               </li>
               <li>
@@ -380,25 +380,29 @@
 
         <div class="glance" aria-labelledby="glance-title">
           <p class="glance-title" id="glance-title">
-            <span class="lang-en" lang="en">At a glance</span>
-            <span class="lang-zh" lang="zh-CN">一眼看懂</span>
+            <span class="lang-en" lang="en">Outline</span>
+            <span class="lang-zh" lang="zh-CN">内容大纲</span>
           </p>
           <ol>
             <li>
-              <span class="lang-en" lang="en"><a href="#loop">AI4AI is a loop</a>: goal, plan, execute, feedback, repair. Each skill is already strong. Keeping the loop running for a long stretch is the bottleneck.</span>
-              <span class="lang-zh" lang="zh-CN"><a href="#loop">AI4AI 是一个闭环</a>：goal、plan、execute、feedback、repair。每项能力单独都已经很强，卡点是让闭环长时间稳定地跑。</span>
+              <span class="lang-en" lang="en"><a href="#loop">AI4AI is a long-horizon loop</a> of goal, plan, execute, feedback, and repair. Frontier models already handle each stage well enough on its own, so the pieces RSI needs are mostly in place and we are on the eve of AI4AI. The hard part is keeping the loop running for a long time without breaking.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#loop">AI4AI 是一个指向 AI 系统的 long-horizon 闭环</a>，由 goal、plan、execute、feedback、repair 五个环节组成。前沿模型单项都够用了，RSI 的拼图基本凑齐，我们正处在 AI4AI 的前夜。难的是让闭环长时间跑下去不出错。</span>
             </li>
             <li>
-              <span class="lang-en" lang="en"><a href="#closure">Closure</a> is the question that separates paradigms: which stages does the system own? In all 35 audited systems, execute is system-owned and goal never is.</span>
-              <span class="lang-zh" lang="zh-CN"><a href="#closure">Closure</a> 是区分范式的关键：哪些环节由系统自己完成？盘点的 35 个系统里，execute 全部自主，goal 没有一个自主。</span>
+              <span class="lang-en" lang="en"><a href="#closure">Where the line falls between AutoML, AI4AI, and RSI</a>. Which stages a system runs on its own. Of the 35 systems we audited, every one runs execute itself and none sets its own goal.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#closure">AutoML、AI4AI、RSI 的分界</a>。用 closure 这个维度看系统自己完成了哪几个环节。盘点的 35 个系统里，execute 都是系统自己做的，goal 全部由人定。</span>
             </li>
             <li>
-              <span class="lang-en" lang="en"><a href="#horizon">Two routes</a> extend the reliable horizon: the model lowers per-step error, the harness contains and recovers from errors. The harness matters more than most people assume.</span>
-              <span class="lang-zh" lang="zh-CN"><a href="#horizon">两条路线</a>延长可靠 horizon：model 降低单步错误，harness 隔离并恢复错误。harness 的作用比多数人想的大。</span>
+              <span class="lang-en" lang="en"><a href="#horizon">Two routes to a longer horizon</a>. The model lowers per-step error, the harness contains and recovers from errors. Among comparable models, changing the harness can matter more than changing the model.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#horizon">model 与 harness 两条路线</a>。model 降低单步错误，harness 隔离并恢复错误。能力相当的模型之间，换 harness 的影响可以超过换模型。</span>
             </li>
             <li>
-              <span class="lang-en" lang="en"><a href="#composition">Composition gap</a>: strong parts, unreliable whole. Gains can be bought with budget, so a success rate only means something next to its cost.</span>
-              <span class="lang-zh" lang="zh-CN"><a href="#composition">Composition gap</a>：组件很强，整体不可靠。增益可以用预算买来，成功率只有和成本放在一起看才有意义。</span>
+              <span class="lang-en" lang="en"><a href="#composition">Why composition is less reliable than its parts</a>. Strong pieces, unreliable whole. The paper calls this the composition gap. Gains can be bought with budget, so a success rate means little without its cost.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#composition">组件组合之后为何不可靠</a>。单项很强，拼起来不可靠，论文把这叫 composition gap。增益能用预算买来，所以成功率要和成本一起报。</span>
+            </li>
+            <li>
+              <span class="lang-en" lang="en"><a href="#conclusion">Conclusion</a>. What AI4AI lacks is not capability. It is the authority to decide.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#conclusion">结论</a>。AI4AI 缺的不是能力，是决策权。</span>
             </li>
           </ol>
         </div>
@@ -414,8 +418,8 @@
           <span class="lang-zh" lang="zh-CN">每项原子能力单独都已经很强，卡点是让迭代循环长时间稳定地运行。</span>
         </p>
         <p>
-          <span class="lang-en" lang="en">Today's models can plan, write code, run experiments, analyze results, and repair failures. Each one alone is close to good enough. AI4AI has to chain them and keep the chain running over a long stretch, and that stable long-horizon execution is the main bottleneck at this stage.</span>
-          <span class="lang-zh" lang="zh-CN">今天的模型会规划、会写代码、会跑实验、会分析结果、会修复问题，单拿出来每一项都基本够用。AI4AI 要把这些动作串起来、长时间稳定地运转，稳定的长程执行就是当前阶段最主要的卡点。</span>
+          <span class="lang-en" lang="en">Our reading is that frontier models already handle today's long-horizon tasks well. Treat those abilities as atomic capabilities and, in terms of coverage, the pieces RSI needs are mostly on the table: planning, writing code, running experiments, analyzing results, repairing failures. Each alone is good enough. That is why we say we are on the eve of AI4AI. The bottleneck at this stage is chaining these actions and keeping the chain running over a long stretch. Whether a system can set its own goal is a later question, and the conclusion comes back to it.</span>
+          <span class="lang-zh" lang="zh-CN">我们的判断是，现有的长程任务，前沿模型已经能处理得很好。把这些能力看作原子能力，从覆盖度上讲，RSI 需要的拼图基本已经凑齐：规划、写代码、跑实验、分析结果、修复问题，单拿出来每一项都够用。所以我们认为，大家正处在 AI4AI 的前夜。当前阶段的卡点，是把这些动作串起来、长时间稳定地运转。至于系统能否自己选目标，是再往后的问题，结论里会讲。</span>
         </p>
         <p>
           <span class="lang-en" lang="en">Long-horizon is often equated with long context, many turns, or many tool calls. Those are only proxies. The survey builds its definition and metrics around four questions: what is improved, why long-horizon matters, how to measure it, and when the loop starts to recurse (RSI).</span>
@@ -433,8 +437,8 @@
         </figure>
 
         <h2 id="closure">
-          <span class="lang-en" lang="en">Where closure sits</span>
-          <span class="lang-zh" lang="zh-CN">自主到哪一步</span>
+          <span class="lang-en" lang="en">What separates AutoML, AI4AI, and RSI: which stages the system runs itself</span>
+          <span class="lang-zh" lang="zh-CN">AutoML、AI4AI、RSI 的分界：哪几个环节由系统自己完成</span>
         </h2>
         <p class="takeaway">
           <span class="lang-en" lang="en">Ask which of the five stages the system runs on its own. Today, no system picks its goal.</span>
