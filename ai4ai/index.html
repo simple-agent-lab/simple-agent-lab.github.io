@@ -441,8 +441,8 @@
           <span class="lang-zh" lang="zh-CN">看五个环节里哪几个是系统自己完成的。今天没有一个系统自己选目标。</span>
         </p>
         <p>
-          <span class="lang-en" lang="en">The taxonomy places a system on five dimensions: target, self-reference, closure, grounding, and compounding. Closure does most of the discriminating work. It asks which stages of <code>(goal, plan, execute, feedback, repair)</code> the system owns.</span>
-          <span class="lang-zh" lang="zh-CN">taxonomy 用五个维度定位一个系统：target、self-reference、closure、grounding、compounding。其中承担主要区分工作的是 closure：<code>(goal, plan, execute, feedback, repair)</code> 五个环节里，哪些由系统自主完成。</span>
+          <span class="lang-en" lang="en">Of the taxonomy's five dimensions, closure does most of the discriminating work. It asks which stages of <code>(goal, plan, execute, feedback, repair)</code> the system owns.</span>
+          <span class="lang-zh" lang="zh-CN">taxonomy 的五个维度里，承担主要区分工作的是 closure：<code>(goal, plan, execute, feedback, repair)</code> 五个环节里，哪些由系统自主完成。</span>
         </p>
 
         <div class="table-scroll">
@@ -535,15 +535,10 @@
             <span class="lang-zh" lang="zh-CN"><strong>agent 改自己的代码</strong>（Darwin Gödel Machine、Self-Harness）：评判它的 evaluator 还是固定的。</span>
           </li>
           <li>
-            <span class="lang-en" lang="en"><strong>Truly recursive</strong>: the feedback from one improvement enters the process that proposes the next one.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>真正递归</strong>：一次改进的反馈进入"提出下一个改进"的流程本身。</span>
+            <span class="lang-en" lang="en"><strong>Truly recursive</strong>: the feedback from one improvement enters the process that proposes the next one. The levels matter: on Terminal-Bench 2.1, with budget matched, automated harness evolution does not reliably beat simple test-time scaling.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>真正递归</strong>：一次改进的反馈进入"提出下一个改进"的流程本身。分级有实际意义：在 Terminal-Bench 2.1 上拉平预算后，自动 harness 演化并没有稳定赢过简单的 test-time scaling。</span>
           </li>
         </ul>
-        <p>
-          <span class="lang-en" lang="en">The distinction matters in practice. On Terminal-Bench 2.1, once feedback and inference budget are matched, automated harness evolution does not reliably beat a simple test-time scaling baseline.</span>
-          <span class="lang-zh" lang="zh-CN">这个区分有实际意义：在 Terminal-Bench 2.1 上，把 feedback 和推理预算拉平之后，自动 harness 演化并没有稳定赢过简单的 test-time scaling 基线。</span>
-        </p>
-
         <h2 id="horizon">
           <span class="lang-en" lang="en">Two routes to a longer reliable horizon: model and harness</span>
           <span class="lang-zh" lang="zh-CN">如何延长可靠的长程任务执行能力：model 与 harness</span>
@@ -566,12 +561,12 @@
 
         <ul>
           <li>
-            <span class="lang-en" lang="en"><strong>Model route: lower the per-step error.</strong> Plan turns reasoning and interaction traces into executable plans. Execute grounds those plans in interfaces and state. Feedback replaces one coarse trajectory-level reward with step-level credit. Repair lets the evaluated policy rewrite the data, architecture, and training recipe of its successor. The limit: end-to-end reliability still decays as tasks lengthen.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>model 路线：降低单步错误。</strong>plan 把推理与交互轨迹转成可执行的计划；execute 把计划落地到接口与状态；feedback 用 step-level 的信用分配替代粗粒度的轨迹级 reward；repair 让被评估过的策略改写下一代的数据、架构与训练配方。边界在于：任务变长时，端到端可靠性仍会不断衰减。</span>
+            <span class="lang-en" lang="en"><strong>Model route: lower the per-step error.</strong> Each of the four stages gets its own intervention (see the figure above). The limit: end-to-end reliability still decays as tasks lengthen.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>model 路线：降低单步错误。</strong>四个阶段各有对应的干预（见上图）。边界在于：任务变长时，端到端可靠性仍会不断衰减。</span>
           </li>
           <li>
-            <span class="lang-en" lang="en"><strong>Harness route: contain errors and recover from them.</strong> The harness is the runtime outside the weights, and its leverage is larger than usually assumed. Among frontier models of comparable capability, changing the harness can matter more than changing the model and can reverse rankings; swapping the scaffold alone moves a single model's accuracy by 28 points. On highly decomposable work, decomposition with per-step correction has run more than a million steps without a final error. The limit: tightly coupled tasks admit no such decomposition.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>harness 路线：隔离错误并恢复。</strong>harness 是权重之外的运行时，杠杆比通常认为的大。在能力相当的前沿模型之间，换 harness 的差异可以超过换模型，甚至反转排名；仅更换 scaffold 就能让同一个模型的准确率移动 28 个百分点。在高度可分解的任务上，配合逐步校验的分解已经支撑超过一百万步而无最终错误。边界在于：耦合过强的任务没有这样的分解可用。</span>
+            <span class="lang-en" lang="en"><strong>Harness route: contain errors and recover from them.</strong> The harness is the runtime outside the weights, and its leverage is larger than usually assumed: among comparable frontier models, changing the harness can reverse rankings, and on decomposable work, decomposition with per-step correction has run more than a million steps without a final error. The limit: tightly coupled tasks cannot be decomposed this way.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>harness 路线：隔离错误并恢复。</strong>harness 是权重之外的运行时，杠杆比通常认为的大：在能力相当的前沿模型之间，换 harness 可以反转排名；在可分解的任务上，配合逐步校验的分解已经跑过一百万步而无最终错误。边界在于：耦合过强的任务没法这样分解。</span>
           </li>
         </ul>
 
@@ -584,19 +579,9 @@
           <span class="lang-zh" lang="zh-CN">组件很强，整体不可靠。差距来自两条机制，失败出现在三个地方。</span>
         </p>
         <p>
-          <span class="lang-en" lang="en">The paper calls this the <em>composition gap</em>: components are strong in isolation, yet once they share one goal, state, budget, and evaluator, end-to-end reliability remains unestablished.</span>
-          <span class="lang-zh" lang="zh-CN">论文把这称为 <em>composition gap</em>：组件单独很强，组合成共享同一个 goal、状态、预算与 evaluator 的系统之后，端到端可靠性却无从建立。</span>
+          <span class="lang-en" lang="en">The paper calls this the <em>composition gap</em>. Two mechanisms open it. Every component is load-bearing: one failure ends the pass, and one local error silently drifts everything after it. And handoffs lose information: a summary can drop a constraint that only a later step needs.</span>
+          <span class="lang-zh" lang="zh-CN">论文把这称为 <em>composition gap</em>。差距来自两条机制。每个组件都是承重的：任何一环失败都会终止整个迭代，一个局部错误也会悄悄带偏后面的所有状态。交接会丢信息：摘要可能删掉某个只有后续步骤才用得上的约束。</span>
         </p>
-        <ol>
-          <li>
-            <span class="lang-en" lang="en"><strong>Every component is load-bearing.</strong> One failure ends the whole pass, so the least reliable component sets the ceiling. Short of failure, one local error changes all later state, and the pass drifts off-goal while its observations still look consistent.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>每个组件都是承重的。</strong>任何一个组件失败都会终止整个迭代，最不可靠的一环决定上限。即便没有当场失败，一个局部错误也会改变后续状态，之后的观察看似自洽，实际已偏离 goal。</span>
-          </li>
-          <li>
-            <span class="lang-en" lang="en"><strong>Handoffs lose information.</strong> Compression and summarization can drop a constraint that only a later experiment needs. Judging only the final artifact cannot show where the loss happened.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>交接会丢信息。</strong>压缩与摘要可能删掉某个只有后续实验才用得上的约束，而只评最终产物，看不出信息是在哪里丢的。</span>
-          </li>
-        </ol>
         <p>
           <span class="lang-en" lang="en">Where the failures show up:</span>
           <span class="lang-zh" lang="zh-CN">失败出现在三个地方：</span>
@@ -625,8 +610,8 @@
           <span class="lang-zh" lang="zh-CN">AI4AI 缺的不是能力，是决策权。</span>
         </p>
         <p>
-          <span class="lang-en" lang="en">Frontier release notes are pushing agents toward the same thing: sustained execution, and evolving from that execution. Plan, execute, feedback, and repair are each already strong, and across the 35 audited systems execute is fully system-owned. <strong>No system picks its own goal, and none can judge what counts as “better” without a human.</strong></span>
-          <span class="lang-zh" lang="zh-CN">前沿模型的发布材料都在把 agent 推向同一件事：持续执行，并从执行中进化。plan、execute、feedback、repair 每一项已经很强，盘点的 35 个系统里 execute 更是全部自主。<strong>但没有一个系统自己选目标，没有一个能不靠人判定“什么算更好”。</strong></span>
+          <span class="lang-en" lang="en">Plan, execute, feedback, and repair are each already strong, and across the 35 audited systems execute is fully system-owned. <strong>No system picks its own goal, and none can judge what counts as “better” without a human.</strong></span>
+          <span class="lang-zh" lang="zh-CN">plan、execute、feedback、repair 每一项已经很强，盘点的 35 个系统里 execute 更是全部自主。<strong>但没有一个系统自己选目标，没有一个能不靠人判定“什么算更好”。</strong></span>
         </p>
         <p>
           <span class="lang-en" lang="en">The eve ends the first time a system, with no human-specified goal or evaluation, has successors that reliably strengthen it. We hope this taxonomy and this audit help that moment arrive a little sooner.</span>
