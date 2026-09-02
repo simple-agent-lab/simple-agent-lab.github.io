@@ -371,6 +371,10 @@ footer a:hover { color: var(--fg); }
 .project-page .glance ol { margin: 0 0 0 1.25rem; }
 .project-page .glance li { margin-bottom: .55rem; color: var(--soft); font-size: 15px; line-height: 1.55; }
 .project-page .glance li a { color: var(--fg); font-weight: 600; }
+/* "Read this section in full" links on the short version of the survey. */
+.project-page .full-link { margin: -.6rem 0 1.8rem; font: 500 14px/1.4 var(--sans); }
+.project-page .full-link a { color: var(--soft); }
+.project-page .full-link a:hover { color: var(--fg); }
 
 /* Wide viewports get a sticky contents rail in the left gutter while the article
    column stays centered. Below 1200px there is no room, so the rail is dropped. */
