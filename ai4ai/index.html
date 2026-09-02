@@ -410,8 +410,8 @@
           <span class="lang-zh" lang="zh-CN">AI4AI 是一个指向 AI 系统的 long-horizon 闭环</span>
         </h2>
         <p class="takeaway">
-          <span class="lang-en" lang="en">The pieces exist. What is missing is running them together, reliably, for a long time.</span>
-          <span class="lang-zh" lang="zh-CN">单项能力都有了，缺的是把它们串起来、长时间稳定地跑。</span>
+          <span class="lang-en" lang="en">Each atomic skill is already strong on its own. The bottleneck is keeping the improvement loop running stably for a long time.</span>
+          <span class="lang-zh" lang="zh-CN">每项原子能力单独都已经很强，卡点是让迭代循环长时间稳定地运行。</span>
         </p>
         <p>
           <span class="lang-en" lang="en">Today's models can plan, write code, run experiments, analyze results, and repair failures. Each one alone is close to good enough. AI4AI has to chain them and keep the chain running over a long stretch, and that stable long-horizon execution is the main bottleneck at this stage.</span>
@@ -462,8 +462,8 @@
                   <span class="lang-zh" lang="zh-CN">self-reference</span>
                 </th>
                 <th>
-                  <span class="lang-en" lang="en">System owns</span>
-                  <span class="lang-zh" lang="zh-CN">系统自主的环节</span>
+                  <span class="lang-en" lang="en">Typical closure</span>
+                  <span class="lang-zh" lang="zh-CN">自主范围</span>
                 </th>
               </tr>
             </thead>
@@ -479,8 +479,8 @@
                   <span class="lang-zh" lang="zh-CN">否</span>
                 </td>
                 <td>
-                  <span class="lang-en" lang="en">execute only; humans fix the goal and the search space</span>
-                  <span class="lang-zh" lang="zh-CN">只有 execute；目标和搜索空间由人定</span>
+                  <span class="lang-en" lang="en">humans fix the goal and the search space; the system closes execute only</span>
+                  <span class="lang-zh" lang="zh-CN">只有 execute 是系统自主的，目标和搜索空间由人定</span>
                 </td>
               </tr>
               <tr>
@@ -494,8 +494,8 @@
                   <span class="lang-zh" lang="zh-CN">不要求</span>
                 </td>
                 <td>
-                  <span class="lang-en" lang="en">plan and execute; feedback is shared with a human-written evaluator</span>
-                  <span class="lang-zh" lang="zh-CN">plan 与 execute；feedback 依赖人写的 evaluator</span>
+                  <span class="lang-en" lang="en">the system closes plan and execute; feedback is mix under a human-written evaluator</span>
+                  <span class="lang-zh" lang="zh-CN">plan 与 execute 是系统自主的，feedback 在人写的 evaluator 下记为 mix</span>
                 </td>
               </tr>
               <tr>
@@ -509,8 +509,8 @@
                   <span class="lang-zh" lang="zh-CN">要求</span>
                 </td>
                 <td>
-                  <span class="lang-en" lang="en">plan, execute, feedback, and repair; the goal is still given by humans</span>
-                  <span class="lang-zh" lang="zh-CN">plan、execute、feedback、repair 四个执行阶段；goal 仍由人定</span>
+                  <span class="lang-en" lang="en">all four execution stages close; the goal is still given by humans</span>
+                  <span class="lang-zh" lang="zh-CN">四个执行阶段都是系统自主的，goal 仍由人定</span>
                 </td>
               </tr>
             </tbody>
@@ -518,8 +518,8 @@
         </div>
 
         <p>
-          <span class="lang-en" lang="en">Not every self-modifying loop is recursive. From least to most recursive:</span>
-          <span class="lang-zh" lang="zh-CN">不是每个会改自己的闭环都算递归。按递归程度从低到高：</span>
+          <span class="lang-en" lang="en">From least to most recursive:</span>
+          <span class="lang-zh" lang="zh-CN">我们按递归程度从低到高：</span>
         </p>
         <ul>
           <li>
@@ -535,8 +535,8 @@
             <span class="lang-zh" lang="zh-CN"><strong>agent 改自己的代码</strong>（Darwin Gödel Machine、Self-Harness）：评判它的 evaluator 还是固定的。</span>
           </li>
           <li>
-            <span class="lang-en" lang="en"><strong>Truly recursive</strong>: the feedback from one improvement enters the process that proposes the next one. The levels matter: on Terminal-Bench 2.1, with budget matched, automated harness evolution does not reliably beat simple test-time scaling.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>真正递归</strong>：一次改进的反馈进入"提出下一个改进"的流程本身。分级有实际意义：在 Terminal-Bench 2.1 上拉平预算后，自动 harness 演化并没有稳定赢过简单的 test-time scaling。</span>
+            <span class="lang-en" lang="en">Only when a pass feeds into the process that proposes the next improvement goal does the loop become <strong>truly recursive</strong>.</span>
+            <span class="lang-zh" lang="zh-CN">一次迭代进入"提出下一个改进目标"的流程本身，<strong>才算真正的递归</strong>。</span>
           </li>
         </ul>
         <h2 id="horizon">
