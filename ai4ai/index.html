@@ -579,8 +579,8 @@
           <span class="lang-zh" lang="zh-CN">组件很强，整体不可靠。差距来自两条机制，失败出现在三个地方。</span>
         </p>
         <p>
-          <span class="lang-en" lang="en">The paper calls this the <em>composition gap</em>. Two mechanisms open it. Every component is load-bearing: one failure ends the pass, and one local error silently drifts everything after it. And handoffs lose information: a summary can drop a constraint that only a later step needs.</span>
-          <span class="lang-zh" lang="zh-CN">论文把这称为 <em>composition gap</em>。差距来自两条机制。每个组件都是承重的：任何一环失败都会终止整个迭代，一个局部错误也会悄悄带偏后面的所有状态。交接会丢信息：摘要可能删掉某个只有后续步骤才用得上的约束。</span>
+          <span class="lang-en" lang="en">The paper calls this the <em>composition gap</em>. Two mechanisms produce it. First, a pass depends on every component: one failure terminates the whole pass, and even a local error changes all later state while the observations still look consistent. Second, handoffs between components lose information: summarization can drop a constraint that only a later experiment needs.</span>
+          <span class="lang-zh" lang="zh-CN">论文把这称为 <em>composition gap</em>。产生这个差值的机制有两条。其一，一个迭代依赖每一个组件：任何一个组件失败都会终止整个迭代，即便没有当场失败，一个局部错误也会改变后续状态，之后的观察看似自洽，实际已偏离 goal。其二，组件间的交接会丢信息：摘要可能删掉某个只有后续实验才用得上的约束。</span>
         </p>
         <p>
           <span class="lang-en" lang="en">Where the failures show up:</span>
