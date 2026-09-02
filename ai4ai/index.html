@@ -69,7 +69,7 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="zh_CN" />
     <meta property="article:published_time" content="2026-08-28" />
-    <meta property="article:modified_time" content="2026-09-01" />
+    <meta property="article:modified_time" content="2026-09-02" />
     <meta property="article:section" content="Survey" />
     <meta property="article:tag" content="AI4AI" />
     <meta property="article:tag" content="Recursive self-improvement" />
@@ -110,7 +110,7 @@
           "https://www.preprints.org/manuscript/202608.2108/v1"
         ],
         "datePublished": "2026-08-28",
-        "dateModified": "2026-09-01",
+        "dateModified": "2026-09-02",
         "inLanguage": ["en", "zh-CN"],
         "isAccessibleForFree": true,
         "keywords": [
@@ -378,16 +378,48 @@
           <span class="lang-zh" lang="zh-CN">综述之外，我们也准备了一套开源的 AI4AI 实验框架 <a href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">RSIHub</a>：让 agent 持续改进，并保留证据。你可以把它作为开始自己研究的起点。</span>
         </p>
 
+        <div class="glance" aria-labelledby="glance-title">
+          <p class="glance-title" id="glance-title">
+            <span class="lang-en" lang="en">At a glance</span>
+            <span class="lang-zh" lang="zh-CN">一眼看懂</span>
+          </p>
+          <ol>
+            <li>
+              <span class="lang-en" lang="en"><a href="#loop">AI4AI is a loop</a>: goal, plan, execute, feedback, repair. Each skill is already strong. Keeping the loop running for a long stretch is the bottleneck.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#loop">AI4AI 是一个闭环</a>：goal、plan、execute、feedback、repair。每项能力单独都已经很强，卡点是让闭环长时间稳定地跑。</span>
+            </li>
+            <li>
+              <span class="lang-en" lang="en"><a href="#closure">Closure</a> is the question that separates paradigms: which stages does the system own? In all 35 audited systems, execute is system-owned and goal never is.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#closure">Closure</a> 是区分范式的关键：哪些环节由系统自己完成？盘点的 35 个系统里，execute 全部自主，goal 没有一个自主。</span>
+            </li>
+            <li>
+              <span class="lang-en" lang="en"><a href="#horizon">Two routes</a> extend the reliable horizon: the model lowers per-step error, the harness contains and recovers from errors. The harness matters more than most people assume.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#horizon">两条路线</a>延长可靠 horizon：model 降低单步错误，harness 隔离并恢复错误。harness 的作用比多数人想的大。</span>
+            </li>
+            <li>
+              <span class="lang-en" lang="en"><a href="#composition">Composition gap</a>: strong parts, unreliable whole. Gains can be bought with budget, so a success rate only means something next to its cost.</span>
+              <span class="lang-zh" lang="zh-CN"><a href="#composition">Composition gap</a>：组件很强，整体不可靠。增益可以用预算买来，成功率只有和成本放在一起看才有意义。</span>
+            </li>
+          </ol>
+        </div>
+
         <!-- TODO(作者)：这里可以加一段做这项工作的起因，150 字左右。 -->
 
         <h2 id="loop">
           <span class="lang-en" lang="en">AI4AI is a long-horizon loop pointed at an AI system</span>
           <span class="lang-zh" lang="zh-CN">AI4AI 是一个指向 AI 系统的 long-horizon 闭环</span>
         </h2>
-
+        <p class="takeaway">
+          <span class="lang-en" lang="en">The pieces exist. What is missing is running them together, reliably, for a long time.</span>
+          <span class="lang-zh" lang="zh-CN">单项能力都有了，缺的是把它们串起来、长时间稳定地跑。</span>
+        </p>
         <p>
-          <span class="lang-en" lang="en">The atomic capabilities AI4AI needs are largely in place: today's models can plan, write code, run experiments, analyze results, and repair failures, and each one alone is already close to good enough. AI4AI, though, has to chain these actions together and keep them running stably over a long stretch, so stable long-horizon execution is what matters most, and it is the main bottleneck at this stage. Long-horizon is often equated with long context, many turns, or many tool calls, but these are only proxies. The survey develops the fuller definition and metrics around four questions: what is improved, why long-horizon matters, how to measure, and when does it recurse (RSI).</span>
-          <span class="lang-zh" lang="zh-CN">AI4AI 需要的原子能力其实已经基本齐了：今天的模型会规划、会写代码、会跑实验、会分析结果、会修复问题，单拿出来每一项都已基本够用。而 AI4AI 要把这些动作串起来、稳定地长时间运转，所以稳定的长程执行至关重要，也是当前阶段最主要的卡点。long-horizon 常被等同于长 context、多轮交互或大量 tool call，但这些只是表象，长并不等于长程。更完整的定义和度量，我们在综述里围绕四个问题展开：改进的是什么、为什么 long-horizon 重要、如何度量、以及何时开始递归修改（RSI）。</span>
+          <span class="lang-en" lang="en">Today's models can plan, write code, run experiments, analyze results, and repair failures. Each one alone is close to good enough. AI4AI has to chain them and keep the chain running over a long stretch, and that stable long-horizon execution is the main bottleneck at this stage.</span>
+          <span class="lang-zh" lang="zh-CN">今天的模型会规划、会写代码、会跑实验、会分析结果、会修复问题，单拿出来每一项都基本够用。AI4AI 要把这些动作串起来、长时间稳定地运转，稳定的长程执行就是当前阶段最主要的卡点。</span>
+        </p>
+        <p>
+          <span class="lang-en" lang="en">Long-horizon is often equated with long context, many turns, or many tool calls. Those are only proxies. The survey builds its definition and metrics around four questions: what is improved, why long-horizon matters, how to measure it, and when the loop starts to recurse (RSI).</span>
+          <span class="lang-zh" lang="zh-CN">long-horizon 常被等同于长 context、多轮交互或大量 tool call，这些只是表象，长并不等于长程。综述围绕四个问题给出定义和度量：改进的是什么、为什么 long-horizon 重要、如何度量、以及何时开始递归修改（RSI）。</span>
         </p>
         <figure class="framed plate">
           <img
@@ -404,9 +436,13 @@
           <span class="lang-en" lang="en">Where closure sits</span>
           <span class="lang-zh" lang="zh-CN">自主到哪一步</span>
         </h2>
+        <p class="takeaway">
+          <span class="lang-en" lang="en">Ask which of the five stages the system runs on its own. Today, no system picks its goal.</span>
+          <span class="lang-zh" lang="zh-CN">看五个环节里哪几个是系统自己完成的。今天没有一个系统自己选目标。</span>
+        </p>
         <p>
-          <span class="lang-en" lang="en">Our taxonomy locates a system along five dimensions—what the loop may change (target), whether the improved system is the one doing the improving (self-reference), which stages the system supplies (closure), how much room the improvement signal leaves (grounding), and whether gains accumulate or transfer (compounding)—of which closure does most of the discriminating work. This is formalized as the five-tuple <code>(goal, plan, execute, feedback, repair)</code>.</span>
-          <span class="lang-zh" lang="zh-CN">我们的 taxonomy 用五个维度定位一个系统：闭环可以改动什么（target）、被改进的系统是否即执行改进的系统（self-reference）、五个环节里哪些是系统自主完成的（closure）、improvement signal 空间有多大（grounding），以及增益是否累积或可迁移（compounding），其中承担主要区分工作的是 closure。形式化为：<code>(goal, plan, execute, feedback, repair)</code> 五元组。</span>
+          <span class="lang-en" lang="en">The taxonomy places a system on five dimensions: target, self-reference, closure, grounding, and compounding. Closure does most of the discriminating work. It asks which stages of <code>(goal, plan, execute, feedback, repair)</code> the system owns.</span>
+          <span class="lang-zh" lang="zh-CN">taxonomy 用五个维度定位一个系统：target、self-reference、closure、grounding、compounding。其中承担主要区分工作的是 closure：<code>(goal, plan, execute, feedback, repair)</code> 五个环节里，哪些由系统自主完成。</span>
         </p>
 
         <div class="table-scroll">
@@ -426,8 +462,8 @@
                   <span class="lang-zh" lang="zh-CN">self-reference</span>
                 </th>
                 <th>
-                  <span class="lang-en" lang="en">Typical closure</span>
-                  <span class="lang-zh" lang="zh-CN">自主范围</span>
+                  <span class="lang-en" lang="en">System owns</span>
+                  <span class="lang-zh" lang="zh-CN">系统自主的环节</span>
                 </th>
               </tr>
             </thead>
@@ -443,8 +479,8 @@
                   <span class="lang-zh" lang="zh-CN">否</span>
                 </td>
                 <td>
-                  <span class="lang-en" lang="en">humans fix the goal and the search space; the system closes execute only</span>
-                  <span class="lang-zh" lang="zh-CN">只有 execute 是系统自主的，目标和搜索空间由人定</span>
+                  <span class="lang-en" lang="en">execute only; humans fix the goal and the search space</span>
+                  <span class="lang-zh" lang="zh-CN">只有 execute；目标和搜索空间由人定</span>
                 </td>
               </tr>
               <tr>
@@ -458,8 +494,8 @@
                   <span class="lang-zh" lang="zh-CN">不要求</span>
                 </td>
                 <td>
-                  <span class="lang-en" lang="en">the system closes plan and execute; feedback is mix under a human-written evaluator</span>
-                  <span class="lang-zh" lang="zh-CN">plan 与 execute 是系统自主的，feedback 在人写的 evaluator 下记为 mix</span>
+                  <span class="lang-en" lang="en">plan and execute; feedback is shared with a human-written evaluator</span>
+                  <span class="lang-zh" lang="zh-CN">plan 与 execute；feedback 依赖人写的 evaluator</span>
                 </td>
               </tr>
               <tr>
@@ -473,22 +509,49 @@
                   <span class="lang-zh" lang="zh-CN">要求</span>
                 </td>
                 <td>
-                  <span class="lang-en" lang="en">all four execution stages close; the goal is still given by humans</span>
-                  <span class="lang-zh" lang="zh-CN">四个执行阶段都是系统自主的，goal 仍由人定</span>
+                  <span class="lang-en" lang="en">plan, execute, feedback, and repair; the goal is still given by humans</span>
+                  <span class="lang-zh" lang="zh-CN">plan、execute、feedback、repair 四个执行阶段；goal 仍由人定</span>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
+
         <p>
-          <span class="lang-en" lang="en">A fixed harness (ReAct, Reflexion, MemGPT) extends the reliable horizon, but the agent mechanism itself is not improved. Letting an outer agent search over scaffold code (ADAS, Meta-Harness) keeps the improver and the improved as two roles. An agent editing its own code (Darwin Gödel Machine, Self-Harness) still answers to a fixed evaluator. The loop only becomes truly recursive once the feedback from an improvement enters the very process that proposes the next one. Distinguishing these levels keeps every prompt search from being called recursive self-improvement: on Terminal-Bench 2.1, once feedback and inference budget are matched, automated harness evolution does not reliably beat a simple test-time scaling baseline.</span>
-          <span class="lang-zh" lang="zh-CN">固定的 harness（ReAct、Reflexion、MemGPT）能延长可靠 horizon，但"Agent 机制"本身没有改进；让外部 agent 搜索 scaffold 代码（ADAS、Meta-Harness），改进者和被改进者仍是两个角色；agent 改自己的代码（Darwin Gödel Machine、Self-Harness），评判它的 evaluator 还是固定的。只有改进的反馈进入"提出下一个改进"的流程本身，闭环才算真正递归。分清这几级，才不至于把每次 prompt 搜索都叫成 recursive self-improvement，在 Terminal-Bench 2.1 上，把 feedback 和推理预算拉平之后，自动 harness 演化并没有稳定赢过简单的 test-time scaling 基线。</span>
+          <span class="lang-en" lang="en">Not every self-modifying loop is recursive. From least to most recursive:</span>
+          <span class="lang-zh" lang="zh-CN">不是每个会改自己的闭环都算递归。按递归程度从低到高：</span>
+        </p>
+        <ul>
+          <li>
+            <span class="lang-en" lang="en"><strong>Fixed harness</strong> (ReAct, Reflexion, MemGPT): a longer reliable horizon, but the agent mechanism itself is unchanged.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>固定 harness</strong>（ReAct、Reflexion、MemGPT）：可靠 horizon 变长了，但 agent 机制本身没有改进。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Outer agent searches scaffold code</strong> (ADAS, Meta-Harness): the improver and the improved are still two roles.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>外部 agent 搜索 scaffold 代码</strong>（ADAS、Meta-Harness）：改进者和被改进者仍是两个角色。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Agent edits its own code</strong> (Darwin Gödel Machine, Self-Harness): still judged by a fixed evaluator.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>agent 改自己的代码</strong>（Darwin Gödel Machine、Self-Harness）：评判它的 evaluator 还是固定的。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Truly recursive</strong>: the feedback from one improvement enters the process that proposes the next one.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>真正递归</strong>：一次改进的反馈进入"提出下一个改进"的流程本身。</span>
+          </li>
+        </ul>
+        <p>
+          <span class="lang-en" lang="en">The distinction matters in practice. On Terminal-Bench 2.1, once feedback and inference budget are matched, automated harness evolution does not reliably beat a simple test-time scaling baseline.</span>
+          <span class="lang-zh" lang="zh-CN">这个区分有实际意义：在 Terminal-Bench 2.1 上，把 feedback 和推理预算拉平之后，自动 harness 演化并没有稳定赢过简单的 test-time scaling 基线。</span>
         </p>
 
         <h2 id="horizon">
           <span class="lang-en" lang="en">Two routes to a longer reliable horizon: model and harness</span>
           <span class="lang-zh" lang="zh-CN">如何延长可靠的长程任务执行能力：model 与 harness</span>
         </h2>
+        <p class="takeaway">
+          <span class="lang-en" lang="en">Ask two questions of any method: which stage does it improve, and does the gain survive longer, more coupled tasks?</span>
+          <span class="lang-zh" lang="zh-CN">评价任何方法先问两件事：改的是哪一环，增益在更长、耦合更紧的任务上还在不在。</span>
+        </p>
 
         <figure class="framed plate">
           <img
@@ -501,44 +564,55 @@
           </figcaption>
         </figure>
 
-        <p>
-          <span class="lang-en" lang="en">Of any method that claims a longer horizon, ask two questions first: which stage of the loop it improves, and whether that improvement survives longer, more tightly coupled trajectories. The model route works stage by stage: plan turns reasoning and interaction traces into executable plans, execute grounds those plans in interfaces and state, feedback replaces one coarse trajectory-level reward with step-level credit assignment, and repair lets the evaluated policy rewrite the data, architecture, and training recipe that produce its successor. All of this lowers per-step error, yet end-to-end reliability still decays as tasks lengthen.</span>
-          <span class="lang-zh" lang="zh-CN">评价任何一个声称延长 horizon 的方法，先问两件事：它改进的是闭环里的哪一环，这个改进能否在更长、耦合更紧的轨迹上存活。model 这条路线沿四个阶段展开：plan 把推理与交互轨迹转成可执行的计划，执行层把计划落地到接口与状态，feedback 用 step-level 的信用分配机制替代粒度过粗的轨迹级 reward，修复阶段则让被评估过的策略改写产出下一个策略的数据、架构与训练配方。这些工作都在降低单步错误率，但任务变长时端到端可靠性仍会不断衰减。</span>
-        </p>
-        <p>
-          <span class="lang-en" lang="en">Reliable long-horizon execution also shows up in the harness, the runtime outside the weights: whether errors are contained locally, and whether the system recovers once they occur. Its leverage is larger than usually assumed: among frontier models of comparable capability, changing the harness can matter more than changing the model and can reverse rankings, and swapping the scaffold alone moves a single model's accuracy by 28 points. Evidence from the other direction makes the same point: on highly decomposable work, decomposition with per-step correction has sustained more than a million steps without a final error. This shows how far a harness can carry a fixed model, and also where that stops: tightly coupled tasks admit no such decomposition.</span>
-          <span class="lang-zh" lang="zh-CN">可靠的长程执行也会在 harness 上体现，也就是权重之外的运行时：错误能否被限制在局部，发生之后能否恢复。它的杠杆比通常认为的大：在能力相当的前沿模型之间，换 harness 的差异可以超过换模型，甚至反转模型排名，仅更换 scaffold 就能让同一个模型的准确率移动 28 个百分点。另一个方向的证据说明同一件事：在高度可分解的任务上，配合逐步校验的分解已经支撑超过一百万步而无最终错误。这既演示了 harness 能把一个固定的模型带多远，也展示了它的适用边界，耦合过强的任务没有这样的分解可用。</span>
-        </p>
+        <ul>
+          <li>
+            <span class="lang-en" lang="en"><strong>Model route: lower the per-step error.</strong> Plan turns reasoning and interaction traces into executable plans. Execute grounds those plans in interfaces and state. Feedback replaces one coarse trajectory-level reward with step-level credit. Repair lets the evaluated policy rewrite the data, architecture, and training recipe of its successor. The limit: end-to-end reliability still decays as tasks lengthen.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>model 路线：降低单步错误。</strong>plan 把推理与交互轨迹转成可执行的计划；execute 把计划落地到接口与状态；feedback 用 step-level 的信用分配替代粗粒度的轨迹级 reward；repair 让被评估过的策略改写下一代的数据、架构与训练配方。边界在于：任务变长时，端到端可靠性仍会不断衰减。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Harness route: contain errors and recover from them.</strong> The harness is the runtime outside the weights, and its leverage is larger than usually assumed. Among frontier models of comparable capability, changing the harness can matter more than changing the model and can reverse rankings; swapping the scaffold alone moves a single model's accuracy by 28 points. On highly decomposable work, decomposition with per-step correction has run more than a million steps without a final error. The limit: tightly coupled tasks admit no such decomposition.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>harness 路线：隔离错误并恢复。</strong>harness 是权重之外的运行时，杠杆比通常认为的大。在能力相当的前沿模型之间，换 harness 的差异可以超过换模型，甚至反转排名；仅更换 scaffold 就能让同一个模型的准确率移动 28 个百分点。在高度可分解的任务上，配合逐步校验的分解已经支撑超过一百万步而无最终错误。边界在于：耦合过强的任务没有这样的分解可用。</span>
+          </li>
+        </ul>
 
         <h2 id="composition">
           <span class="lang-en" lang="en">Why composition is less reliable than its parts</span>
           <span class="lang-zh" lang="zh-CN">组件组合之后为何不可靠</span>
         </h2>
-
-        <p>
-          <span class="lang-en" lang="en">The paper introduces the <em>composition gap</em>: components are strong in isolation, yet once they share one goal, state, budget, and evaluator, end-to-end reliability remains unestablished. Two mechanisms produce the gap.</span>
-          <span class="lang-zh" lang="zh-CN">论文提出一个 <em>composition gap</em> 也即组合差值：组件层面很强，组合成共享同一个 goal、状态、预算与 evaluator 的系统之后，端到端可靠性却无从建立。产生这个差值的机制有两条。</span>
+        <p class="takeaway">
+          <span class="lang-en" lang="en">Strong parts, unreliable whole. Two mechanisms open the gap, and the failures show up in three places.</span>
+          <span class="lang-zh" lang="zh-CN">组件很强，整体不可靠。差距来自两条机制，失败出现在三个地方。</span>
         </p>
         <p>
-          <span class="lang-en" lang="en">First, an AI4AI pass depends on every component: any single failure terminates the whole pass, so the least reliable component becomes the bottleneck; even short of outright failure, one local error changes all subsequent state, and later observations look consistent while the pass has already drifted off-goal.</span>
-          <span class="lang-zh" lang="zh-CN">其一，一个 AI4AI 迭代依赖每一个组件：任何一个组件失败都会终止整个迭代，最不可靠的一环成为瓶颈；即便没有当场失败，一个局部错误也会改变后续状态，之后的观察看似自洽，实际已偏离 goal。</span>
+          <span class="lang-en" lang="en">The paper calls this the <em>composition gap</em>: components are strong in isolation, yet once they share one goal, state, budget, and evaluator, end-to-end reliability remains unestablished.</span>
+          <span class="lang-zh" lang="zh-CN">论文把这称为 <em>composition gap</em>：组件单独很强，组合成共享同一个 goal、状态、预算与 evaluator 的系统之后，端到端可靠性却无从建立。</span>
         </p>
+        <ol>
+          <li>
+            <span class="lang-en" lang="en"><strong>Every component is load-bearing.</strong> One failure ends the whole pass, so the least reliable component sets the ceiling. Short of failure, one local error changes all later state, and the pass drifts off-goal while its observations still look consistent.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>每个组件都是承重的。</strong>任何一个组件失败都会终止整个迭代，最不可靠的一环决定上限。即便没有当场失败，一个局部错误也会改变后续状态，之后的观察看似自洽，实际已偏离 goal。</span>
+          </li>
+          <li>
+            <span class="lang-en" lang="en"><strong>Handoffs lose information.</strong> Compression and summarization can drop a constraint that only a later experiment needs. Judging only the final artifact cannot show where the loss happened.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>交接会丢信息。</strong>压缩与摘要可能删掉某个只有后续实验才用得上的约束，而只评最终产物，看不出信息是在哪里丢的。</span>
+          </li>
+        </ol>
         <p>
-          <span class="lang-en" lang="en">Second, handoffs between components lose information: compression and summarization can drop a constraint that only a later experiment needs, and evaluating only the final artifact cannot show where the loss occurred. The paper follows the resulting failures along the following lines.</span>
-          <span class="lang-zh" lang="zh-CN">其二，组件间的交接会丢信息：压缩与摘要可能删掉某个只有后续实验才用得上的约束，而只评最终产物，看不出信息是在哪里丢的。论文把由此产生的失败沿以下几个方面展开。</span>
+          <span class="lang-en" lang="en">Where the failures show up:</span>
+          <span class="lang-zh" lang="zh-CN">失败出现在三个地方：</span>
         </p>
         <ul>
           <li>
-            <span class="lang-en" lang="en"><strong>Across passes.</strong> Memory is at bottom state management, not a larger context window. Retrieving stale state or summarizing away a task-critical constraint shifts the goal actually being pursued, and because intermediate artifacts become part of the environment, later observations reinforce the drift rather than expose it. Recovery should therefore be judged as state repair—was the fault detected and localized, which state was rolled back or distrusted, did the trajectory return to a valid state—not as another attempt.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>跨迭代。</strong>记忆的本质是状态管理，不是更大的上下文窗口。检索到过期状态、有损摘要压掉任务关键的约束，都会让实际追求的目标发生漂移；由于中间产物已经成为环境的一部分，之后的观察不但不会暴露漂移，反而会强化它。恢复因此要按状态修复来评：故障是否被发现和定位，哪些状态被回滚或标记为不可信，修复后轨迹是否回到有效状态，而不是简单地再试一次。</span>
+            <span class="lang-en" lang="en"><strong>Across passes.</strong> Memory is state management, not a larger context window. Stale state or a summarized-away constraint shifts the goal actually pursued, and later observations reinforce the drift instead of exposing it. Judge recovery as state repair: was the fault localized, what was rolled back, did the trajectory return to a valid state.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>跨迭代。</strong>记忆的本质是状态管理，不是更大的上下文窗口。过期状态或被摘要压掉的约束会让实际追求的目标漂移，之后的观察不但不会暴露漂移，反而会强化它。恢复要按状态修复来评：故障是否被定位，哪些状态被回滚，轨迹是否回到有效状态。</span>
           </li>
           <li>
-            <span class="lang-en" lang="en"><strong>Across generations.</strong> When one system both proposes an improvement and judges it, their agreement is not evidence. Recursive training on generated data can erode retained capabilities, and a weakening improvement signal invites reward hacking: PostTrainBench records agents training on evaluation data and substituting existing checkpoints to improve the visible objective. RSIBench-Data quantifies the non-monotonicity: of searches that continue past their best checkpoint, more than three quarters terminate below that peak. More feedback and more generations are not evidence that the boundary of reliable execution is moving outward.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>跨代际。</strong>同一个系统既提出改进又评判改进时，两者一致不构成证据。在生成数据上递归训练会侵蚀原有能力，改进信号变弱则引来 reward hacking：PostTrainBench 记录到 agent 直接在评测数据上训练、替换现成 checkpoint 来改善可见指标。RSIBench-Data 把这种非单调性量化了：越过最佳 checkpoint 还继续搜索的运行，超过四分之三最终停在峰值之下。更多的反馈和更多的代际，并不能证明可靠执行的边界在外移。</span>
+            <span class="lang-en" lang="en"><strong>Across generations.</strong> When one system both proposes and judges an improvement, their agreement is not evidence. Recursive training on generated data erodes retained capability, and a weak signal invites reward hacking: PostTrainBench records agents training on evaluation data and swapping in existing checkpoints. RSIBench-Data quantifies the non-monotonicity: of searches that continue past their best checkpoint, more than three quarters end below that peak.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>跨代际。</strong>同一个系统既提出改进又评判改进时，两者一致不构成证据。在生成数据上递归训练会侵蚀原有能力，改进信号变弱则引来 reward hacking：PostTrainBench 记录到 agent 直接在评测数据上训练、替换现成 checkpoint。RSIBench-Data 量化了这种非单调性：越过最佳 checkpoint 还继续搜索的运行，超过四分之三最终停在峰值之下。</span>
           </li>
           <li>
-            <span class="lang-en" lang="en"><strong>Evidence and control.</strong> Gains can be purchased with budget: longer prompts, more candidates, deeper search, and extra verifier calls all raise success rates. A success rate is therefore meaningful only alongside tokens, wall-clock time, verifier cost, and human intervention; a credible improvement claim additionally needs model–harness attribution (freeze the harness while changing the model, and the reverse), together with data-contamination controls and disclosure of human oversight.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>证据与控制。</strong>增益可以用预算买来：更长的 prompt、更多的候选、更深的搜索、更多的 verifier 调用都能推高成功率。所以成功率只有和 token、时间、verifier 成本、人工介入放在一起看才有意义；一个可信的改进声明还需要 model–harness 归因（固定 harness 换模型、固定模型换 harness 的对照），以及数据污染控制与人工监督方式的披露。</span>
+            <span class="lang-en" lang="en"><strong>Evidence and control.</strong> Gains can be bought with budget: longer prompts, more candidates, deeper search, extra verifier calls. A success rate is meaningful only next to tokens, wall-clock time, verifier cost, and human intervention. A credible claim also needs model–harness attribution (freeze one, change the other), contamination controls, and disclosure of human oversight.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>证据与控制。</strong>增益可以用预算买来：更长的 prompt、更多的候选、更深的搜索、更多的 verifier 调用。成功率只有和 token、时间、verifier 成本、人工介入放在一起看才有意义。可信的改进声明还需要 model–harness 归因（固定一个、换另一个）、数据污染控制，以及人工监督方式的披露。</span>
           </li>
         </ul>
 
@@ -546,18 +620,23 @@
           <span class="lang-en" lang="en">Conclusion</span>
           <span class="lang-zh" lang="zh-CN">结论</span>
         </h2>
+        <p class="takeaway">
+          <span class="lang-en" lang="en">What AI4AI lacks is not capability. It is the authority to decide.</span>
+          <span class="lang-zh" lang="zh-CN">AI4AI 缺的不是能力，是决策权。</span>
+        </p>
         <p>
-          <span class="lang-en" lang="en">Back to where we started: the release notes of frontier models are pushing agents toward the same thing—sustained execution, and evolving from that execution. The judgment of this survey is that what AI4AI lacks has never been capability: plan, execute, feedback, and repair are each already strong on their own, and across the 35 systems execute is fully system-owned. <strong>What is missing is the authority to decide—no system picks its own goal, and none can judge what counts as “better” without a human.</strong></span>
-          <span class="lang-zh" lang="zh-CN">回到开头：前沿模型的发布材料都在把 agent 推向同一件事，持续执行，并从执行中进化。这份综述给出的判断是，AI4AI 缺的从来不是能力：plan、execute、feedback、repair 每一个单独能力已经很强，35 个系统里 execute 更是全部自主。<strong>缺的是决策权，没有一个系统自己选目标，没有一个能不靠人判定“什么算更好”。</strong></span>
+          <span class="lang-en" lang="en">Frontier release notes are pushing agents toward the same thing: sustained execution, and evolving from that execution. Plan, execute, feedback, and repair are each already strong, and across the 35 audited systems execute is fully system-owned. <strong>No system picks its own goal, and none can judge what counts as “better” without a human.</strong></span>
+          <span class="lang-zh" lang="zh-CN">前沿模型的发布材料都在把 agent 推向同一件事：持续执行，并从执行中进化。plan、execute、feedback、repair 每一项已经很强，盘点的 35 个系统里 execute 更是全部自主。<strong>但没有一个系统自己选目标，没有一个能不靠人判定“什么算更好”。</strong></span>
         </p>
         <p>
           <span class="lang-en" lang="en">The eve ends the first time a system, with no human-specified goal or evaluation, has successors that reliably strengthen it. We hope this taxonomy and this audit help that moment arrive a little sooner.</span>
-          <span class="lang-zh" lang="zh-CN">当某个系统第一次在不由人指定目标与评测的前提下，后继者稳定强化自己，前夜就结束了。我们希望这套 taxonomy 和盘点，能让那一刻到来的更早一些。</span>
+          <span class="lang-zh" lang="zh-CN">当某个系统第一次在不由人指定目标与评测的前提下，后继者稳定强化自己，前夜就结束了。我们希望这套 taxonomy 和盘点，能让那一刻来得早一些。</span>
         </p>
         <p>
           <span class="lang-en" lang="en">If reading leaves you wanting to build: <a href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">RSIHub</a> is our open-source framework for self-evolving agents, and a place to start your own AI4AI research. Issues and pull requests are welcome.</span>
           <span class="lang-zh" lang="zh-CN">如果读完想动手：<a href="https://github.com/simple-agent-lab/RSIHub" target="_blank" rel="noreferrer">RSIHub</a> 是我们开源的 self-evolving agent 框架，你的 AI4AI 研究可以从那里开始，欢迎 issue 和 PR。</span>
         </p>
+
 
         <h2 id="cite">
           <span class="lang-en" lang="en">How to cite this AI4AI survey</span>

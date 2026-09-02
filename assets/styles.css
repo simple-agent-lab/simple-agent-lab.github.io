@@ -344,6 +344,33 @@ footer a:hover { color: var(--fg); }
 .project-page .abstract p { margin: 0; color: var(--soft); font-size: 16px; }
 .project-page .abstract strong { color: var(--fg); }
 .project-page h2[id] { scroll-margin-top: 86px; }
+/* One-line conclusion under each section heading, so a reader who only
+   scans the bold lines still gets the argument. */
+.project-page .takeaway {
+  margin: 0 0 1.1rem;
+  padding: 10px 14px;
+  border-left: 2px solid var(--fg);
+  color: var(--fg);
+  font: 600 15.5px/1.55 var(--sans);
+  letter-spacing: -.01em;
+}
+/* "At a glance" box after the abstract: one line per section. */
+.project-page .glance {
+  margin: 0 0 2.4rem;
+  padding: 16px 20px 6px;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+}
+.project-page .glance-title {
+  margin-bottom: 8px;
+  color: var(--faint);
+  font: 650 12px/1 var(--sans);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.project-page .glance ol { margin: 0 0 0 1.25rem; }
+.project-page .glance li { margin-bottom: .55rem; color: var(--soft); font-size: 15px; line-height: 1.55; }
+.project-page .glance li a { color: var(--fg); font-weight: 600; }
 
 /* Wide viewports get a sticky contents rail in the left gutter while the article
    column stays centered. Below 1200px there is no room, so the rail is dropped. */
