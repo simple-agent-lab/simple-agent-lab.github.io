@@ -31,6 +31,10 @@ SHARED_ASSETS = ["styles.css", "site.js", "logo.svg", "logo.png", "favicon.svg"]
 
 LAB_TITLE = "AI4AI Survey: From Long-Horizon Agents to Recursive Self-Improvement"
 SITE_TITLE = "AI4AI Survey Project Page: Paper, Code, Citation, and Key Findings"
+# The paper's full title is "AI4AI Survey: From Long-Horizon Agents to Recursive
+# Self-Improvement: Definitions, Reliable Horizons, and Open Problems". The lab
+# article heads with the first half; the project page heads with the second.
+SITE_HEADING = "AI4AI Survey: Definitions, Reliable Horizons, and Open Problems"
 SITE_DESCRIPTION = (
     "Project page of the AI4AI survey (Preprints.org, 2026): the paper, the "
     "RSIHub code, BibTeX, and the survey's main findings on long-horizon "
@@ -54,6 +58,7 @@ REWRITES = [
     (PAGE_URL, SITE_URL),
     # Framing: this domain is the paper's project page, not a mirror.
     ("<title>%s</title>" % LAB_TITLE, "<title>%s</title>" % SITE_TITLE),
+    ("<h1>%s</h1>" % LAB_TITLE, "<h1>%s</h1>" % SITE_HEADING),
     ('property="og:title" content="%s"' % LAB_TITLE,
      'property="og:title" content="%s"' % SITE_TITLE),
     ('name="twitter:title" content="%s"' % LAB_TITLE,
