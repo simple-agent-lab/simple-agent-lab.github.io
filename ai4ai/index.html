@@ -603,16 +603,16 @@
         </p>
         <ul>
           <li>
-            <span class="lang-en" lang="en"><strong>Across passes.</strong> Memory is state management, not a larger context window. Stale state or a summarized-away constraint shifts the goal actually pursued, and later observations reinforce the drift instead of exposing it. Judge recovery as state repair: was the fault localized, what was rolled back, did the trajectory return to a valid state.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>跨迭代。</strong>记忆的本质是状态管理，不是更大的上下文窗口。过期状态或被摘要压掉的约束会让实际追求的目标漂移，之后的观察不但不会暴露漂移，反而会强化它。恢复要按状态修复来评：故障是否被定位，哪些状态被回滚，轨迹是否回到有效状态。</span>
+            <span class="lang-en" lang="en"><strong>Across passes.</strong> Memory is state management, not a bigger context window. Stale state or a summarized-away constraint drifts the goal, and later observations hide the drift. Judge recovery as state repair, not as another attempt.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>跨迭代。</strong>记忆的本质是状态管理，不是更大的上下文窗口。过期状态或被摘要压掉的约束会让目标漂移，之后的观察还会掩盖它。恢复要按状态修复来评，而不是再试一次。</span>
           </li>
           <li>
-            <span class="lang-en" lang="en"><strong>Across generations.</strong> When one system both proposes and judges an improvement, their agreement is not evidence. Recursive training on generated data erodes retained capability, and a weak signal invites reward hacking: PostTrainBench records agents training on evaluation data and swapping in existing checkpoints. RSIBench-Data quantifies the non-monotonicity: of searches that continue past their best checkpoint, more than three quarters end below that peak.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>跨代际。</strong>同一个系统既提出改进又评判改进时，两者一致不构成证据。在生成数据上递归训练会侵蚀原有能力，改进信号变弱则引来 reward hacking：PostTrainBench 记录到 agent 直接在评测数据上训练、替换现成 checkpoint。RSIBench-Data 量化了这种非单调性：越过最佳 checkpoint 还继续搜索的运行，超过四分之三最终停在峰值之下。</span>
+            <span class="lang-en" lang="en"><strong>Across generations.</strong> A system that both proposes and judges an improvement produces no evidence. Weak signals invite reward hacking, and searches rarely stop at their peak: in RSIBench-Data, more than three quarters that continue past the best checkpoint end below it.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>跨代际。</strong>同一个系统既提出改进又评判改进，不构成证据。信号变弱会引来 reward hacking，搜索也很少停在峰值：RSIBench-Data 里越过最佳 checkpoint 还继续的运行，超过四分之三最终停在峰值之下。</span>
           </li>
           <li>
-            <span class="lang-en" lang="en"><strong>Evidence and control.</strong> Gains can be bought with budget: longer prompts, more candidates, deeper search, extra verifier calls. A success rate is meaningful only next to tokens, wall-clock time, verifier cost, and human intervention. A credible claim also needs model–harness attribution (freeze one, change the other), contamination controls, and disclosure of human oversight.</span>
-            <span class="lang-zh" lang="zh-CN"><strong>证据与控制。</strong>增益可以用预算买来：更长的 prompt、更多的候选、更深的搜索、更多的 verifier 调用。成功率只有和 token、时间、verifier 成本、人工介入放在一起看才有意义。可信的改进声明还需要 model–harness 归因（固定一个、换另一个）、数据污染控制，以及人工监督方式的披露。</span>
+            <span class="lang-en" lang="en"><strong>Evidence and control.</strong> Gains can be bought with budget, so report a success rate together with its cost. A credible claim also needs model–harness attribution, contamination controls, and disclosed human oversight.</span>
+            <span class="lang-zh" lang="zh-CN"><strong>证据与控制。</strong>增益可以用预算买来，所以成功率要和成本一起报。可信的改进声明还需要 model–harness 归因、数据污染控制和人工监督的披露。</span>
           </li>
         </ul>
 
